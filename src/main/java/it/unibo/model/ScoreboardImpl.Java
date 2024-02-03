@@ -11,7 +11,7 @@ public ScoreboardImpl implements Scoreboard{
     private JSONArray open(){
 
         // read JSON file content
-        String jsonContent = new String(Files.readAllBytes(Paths.get("/Scoreboard.json")));
+        String jsonContent = new String(Files.readAllBytes(Paths.get("appdata/Scoreboard.json")));
 
         // convert JSON string into JSON object array
         return new JSONArray(jsonContent);
@@ -49,6 +49,48 @@ public ScoreboardImpl implements Scoreboard{
 
 
     void add(String name,int points){
+
+        //if put is true the new score needs to be added, if it's false it means it was already added
+        Boolean put = true;
+        
+        //input JSONArray
+        JSONArray inputArray = open();
+
+        // Create a new JSONArray for the results
+        JSONArray outputArray = new JSONArray();
+
+        // Create a new JSONArray of output with all the elements in order
+        for(int i = 0; i<inputArray.length();i++){
+            JSONObject jsonObject = inputArray.getJSONObject(i);
+            
+            if(put && points>jsonObject.getInt("points")){
+                JSONObject outputNewObject = new JSONObject();
+                outputNewObject.put("name", name);
+                outputNewObject.put("points", points);
+                outputArray.put(outputNewObject);
+                put = false;
+            }
+
+            JSONObject outputObject = new JSONObject();
+            outputObject.put("name", jsonObject.getString("name"));
+            outputObject.put("points", jsonObject.getInt("points"));
+            outputArray.put(outputObject);
+
+        };
+
+        if(put){
+            JSONObject outputNewObject = new JSONObject();
+            outputNewObject.put("name", name);
+            outputNewObject.put("points", points);
+            outputArray.put(outputNewObject);
+        }
+
+        // Save the output JSONArray to a JSON file
+        try (FileWriter fileWriter = new FileWriter("appdata/Scoreboard.json")) {
+            fileWriter.write(outputArray.toString());
+        } catch (IOException e) {
+            System.err.println("Error while saving JSON file: " + e.getMessage());
+        }
 
     }
 
