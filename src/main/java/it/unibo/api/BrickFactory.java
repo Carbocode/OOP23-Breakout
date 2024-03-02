@@ -1,6 +1,8 @@
 package it.unibo.api;
 
-import java.awt.*;;
+import java.awt.*;
+
+import it.unibo.controller.Brick;;
 
 /**
  * Factory pattern that creates all kinds of brick the game has
@@ -9,33 +11,27 @@ public interface BrickFactory {
     /**
      * Creates a standard Brick
      * 
-     * @param position position on the GUI
-     * @param size     brick size
-     * @param color
-     * @return Brick
+     * @param graphics graphics characteristics of the brick
      */
-    Brick createStandardBrick(Point position, Dimension size, Color color);
+    Brick createStandardBrick(Graphics2D graphics);
 
     /**
      * Creates a Brick that can't get destroyed
      * 
-     * @param position position on the GUI
-     * @param size     brick size
+     * @param graphics graphics characteristics of the brick
      * 
      * @return Brick
      */
-    Brick createIndestructibleBrick(Point position, Dimension size);
+    Brick createIndestructibleBrick(Graphics2D graphics);
 
     /**
      * Creates a brick that should bit hitten multiple times to get destroyed
      * 
-     * @param position position on the GUI
-     * @param size     brick size
-     * @param color
+     * @param graphics graphics characteristics of the brick
      * @param health   the number of time you should hit the brick to destroy it
      * 
      * @return Brick
      */
-    Brick createMultiHitBrick(Point position, Dimension size, Color color, int health);
+    Brick createMultiHitBrick(Graphics2D graphics, int health);
 
 }
