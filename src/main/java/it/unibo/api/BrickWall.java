@@ -24,4 +24,9 @@ public interface BrickWall {
      * Resets the level
      */
     void shiftLayout();
+
+    /**
+     * Resets the level
+     */
+    void removeDeathBricks();
 }
