@@ -1,14 +1,16 @@
 import java.util.List;
 
-import main.java.it.unibo.model.Ball;
+import it.unibo.model.Ball;
 
 public class CollisionManager {
     private List<GameEntity> bricks;
     private List<Ball> balls;
     private GameEntity paddle;
-    public CollisionManager(){
-        //TODO
+
+    public CollisionManager() {
+        // TODO
     }
+
     public boolean checkAll() {
         // for every ball
         for (int i = 0; i < balls.size(); i++) {
