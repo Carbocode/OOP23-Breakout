@@ -13,12 +13,12 @@ public class BrickFactoryImpl implements BrickFactory {
 
     @Override
     public Brick createIndestructibleBrick(Graphics2D graphics) {
-        return new Brick(graphics, Brick.IMMORTAL_ENTITY_HEALTH);
+        return new Brick(graphics);
     }
 
     @Override
     public Brick createMultiHitBrick(Graphics2D graphics, int health) {
-        return new Brick(graphics, 0);
+        return new Brick(graphics, health);
     }
 
 }

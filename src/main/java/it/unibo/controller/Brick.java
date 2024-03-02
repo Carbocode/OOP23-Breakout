@@ -8,6 +8,10 @@ public class Brick extends GameEntityImpl {
         super(graphics, health);
     }
 
+    public Brick(Graphics2D graphics) {
+        super(graphics);
+    }
+
     @Override
     public void onCollision() {
         int health = super.getHealth();
