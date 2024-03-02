@@ -3,7 +3,7 @@ package it.unibo.api;
 import java.awt.*;
 
 /**
- * Components to destory to win the match that increment your points
+ * Components to destory to increment your points
  */
 public interface Brick {
     /**

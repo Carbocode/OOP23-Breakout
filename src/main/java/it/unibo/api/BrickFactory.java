@@ -32,10 +32,10 @@ public interface BrickFactory {
      * @param position position on the GUI
      * @param size     brick size
      * @param color
-     * @param hitCount the number of time you should hit the brick to destroy it
+     * @param health   the number of time you should hit the brick to destroy it
      * 
      * @return Brick
      */
-    Brick createMultiHitBrick(Point position, Dimension size, Color color, int hitCount);
+    Brick createMultiHitBrick(Point position, Dimension size, Color color, int health);
 
 }
