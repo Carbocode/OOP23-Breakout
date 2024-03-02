@@ -11,10 +11,12 @@ public class SoundManagerImpl implements SoundManager {
     private Clip collisionClip;
 
     @Override
-    public void playBackgroundSound(String filePath) {
+    public void playBackgroundSound() {
         try {
-            File soundFile = new File(filePath);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            String folderPathBg = "../appdata/sounds";
+            String fileNameBg = "main_theme(passionfruit).mp3";
+            File backgroundFileAudio = new File(folderPathBg,fileNameBg);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(backgroundFileAudio);
             backgroundClip = AudioSystem.getClip();
             backgroundClip.open(audioInputStream);
 
@@ -33,10 +35,12 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playCollisionSound(String filePath) {
+    public void playCollisionSound() {
         try {
-            File soundFile = new File(filePath);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            String folderPathColl = "../appdata/sounds";
+            String fileNameColl = "hit1.wav";
+            File collisionFileAudio = new File(folderPathColl,fileNameColl);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(collisionFileAudio);
             collisionClip = AudioSystem.getClip();
             collisionClip.open(audioInputStream);
 
