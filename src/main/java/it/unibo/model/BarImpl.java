@@ -1,17 +1,26 @@
 package main.java.it.unibo.model;
 import java.awt.*;
 
-public class BarImpl implements GameEntity,Bar{
-    
+public class BarImpl extends GameEntityImpl implements Bar{
 
-    
-    final int length = 10; //lentgh of the rectangle
+    public BarImpl(){
+        /* to do 
+         * set initial position
+         * set initial size
+        */
+    }
 
-    void move(boolean direction,int distance){
+    void move(int distance){
+        int newPosition = this.getGraphics().Pos2D.getX() + distance;
         
-        if(direction){
-            //direction left
+        if(newPosition>0 && newPosition < 10/*left limit of game area to do */){
+            /*TO DO set the new position */
         }
+    }
+
+    void setWidth(int width){
+        /* TO DO set width */
+        
     }
 
     

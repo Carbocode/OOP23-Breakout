@@ -6,14 +6,20 @@ package main.java.it.unibo.api;
  * to deflect the ball against the bricks in the top of the game area
  */
 
- public interface Bar {
+ public interface Bar{
 
 
     /**
      * @return void 
      * move the bar to the left or right
-     * @param direction used to select the direction, true = go left , false = go right
-     * @param distance used to choose the amount of space to move
+     * @param distance used to choose the amount of space to move (if the amount is positive the bar will move right, if it's negative it will move left)
      */
-    void move(boolean direction,int distance);
+    void move(int distance);
+
+    /**
+     * @return void 
+     * set the width of the bar to the given one
+     * @param width new width to set the bar
+     */
+    void setWidth(int width);
 }

@@ -1,4 +1,4 @@
-package it.unibo.api;
+package main.java.it.unibo.api;
 
 import java.awt.Graphics2D;
 
