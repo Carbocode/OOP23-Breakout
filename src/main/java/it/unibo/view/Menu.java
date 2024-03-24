@@ -16,8 +16,18 @@ public class Menu extends JFrame {
     JButton exitButton;
 
     public Menu() {
+        // setter of the dimension based on the screen
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] screens = ge.getScreenDevices();
+        Rectangle bounds = new Rectangle();
+        for (GraphicsDevice screen : screens) {
+            bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
+        }
+        int screenWidth = bounds.width;
+        int screenHeight = bounds.height;
+
         setTitle("Breakout");
-        setSize(800, 500);
+        setSize(bounds.width / 2, bounds.height / 2);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creation of the panel of the menu
@@ -27,7 +37,7 @@ public class Menu extends JFrame {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
         // creating the background image
-        ImageIcon backgroundImage = new ImageIcon("../api/appdata/space.jpg");
+        ImageIcon backgroundImage = new ImageIcon("../api/appdata/images/space.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setLayout(new BorderLayout());
 
