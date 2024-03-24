@@ -1,28 +1,23 @@
-package it.unibo.controller;
+package it.unibo.api;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
-import it.unibo.api.GameEntity;
-
-abstract class GameEntityImpl implements GameEntity {
+public abstract class GameEntityImpl implements GameEntity {
 
     final static int IMMORTAL_ENTITY_HEALTH = -1;
-    private Graphics2D graphics;
     private int health;
 
-    public GameEntityImpl(Graphics2D graphics, int health) {
-        this.graphics = graphics;
+    public GameEntityImpl(Point pos,Dimension size, int health) {
+        
         this.health = health;
     }
 
-    public GameEntityImpl(Graphics2D graphics) {
-        this(graphics, IMMORTAL_ENTITY_HEALTH);
+    public GameEntityImpl(Point pos, Dimension size) {
+        this(pos,size, IMMORTAL_ENTITY_HEALTH);
     }
 
-    @Override
-    public Graphics2D getGraphics() {
-        return graphics;
-    }
 
     @Override
     abstract public void onCollision();
