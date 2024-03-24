@@ -20,6 +20,13 @@ public abstract class GameEntityImpl implements GameEntity {
         this.color = color;
     }
 
+    public GameEntityImpl(Point position, Dimension size, int health) {
+        this.position = position;
+        this.size = size;
+        this.health = health;
+        this.color = new Color(70, 70, 70);
+    }
+
     public GameEntityImpl(Point position, Dimension size, Color color) {
         this.position = position;
         this.size = size;
