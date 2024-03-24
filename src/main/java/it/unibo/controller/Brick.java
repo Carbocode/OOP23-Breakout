@@ -1,15 +1,23 @@
 package it.unibo.controller;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.util.Objects;
+
+import javax.swing.text.Position;
+
+import it.unibo.api.GameEntityImpl;
 
 public class Brick extends GameEntityImpl {
 
-    public Brick(Graphics2D graphics, int health) {
-        super(graphics, health);
+    public Brick(Position position, Dimension dimension, Color color, int health) {
+        super(position, dimension, color, health);
     }
 
-    public Brick(Graphics2D graphics) {
-        super(graphics);
+    public Brick(Position position, Dimension dimension, Color color) {
+        super(position, dimension, color);
     }
 
     @Override
@@ -56,9 +64,17 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public int hashCode() {
-        // return Objects.hash(super.getPosition);
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hashCode'");
+        return Objects.hash(getPosition());
+    }
+
+    @Override
+    public Point getPosition() {
+        super.getPosition();
+    }
+
+    @Override
+    public Dimension getSize() {
+        return super.getSize();
     }
 
 }
