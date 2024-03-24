@@ -39,7 +39,6 @@ public class Ball extends GameEntityImpl{
             die();
         }
         pos = candidate;
-        pos = candidate;
     }
     private void die(){
         this.alive = false;
