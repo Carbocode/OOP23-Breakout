@@ -1,4 +1,5 @@
 package it.unibo.model;
+package it.unibo.model;
 
 import it.unibo.api.Direction;
 import it.unibo.api.GameEntityImpl;
@@ -30,6 +31,7 @@ public class Ball extends GameEntityImpl{
     }
     public void update(){
         Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
+        Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
         //we validate it. if its out of bounds, we reverse direction
         if (candidate.getX()<= 0 || candidate.getX() >= 500){
             dir = new Direction(dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
@@ -38,6 +40,7 @@ public class Ball extends GameEntityImpl{
         if(candidate.getY() > 500){
             die();
         }
+        pos = candidate;
         pos = candidate;
     }
     private void die(){
