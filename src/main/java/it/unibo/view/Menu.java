@@ -15,24 +15,41 @@ public class Menu extends JFrame {
     JButton scoreboardButton;
     JButton exitButton;
 
-    public Menu() {
-        // setter of the dimension based on the screen
+    public int getScreenHeight() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] screens = ge.getScreenDevices();
         Rectangle bounds = new Rectangle();
         for (GraphicsDevice screen : screens) {
             bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
         }
-        int screenWidth = bounds.width;
-        int screenHeight = bounds.height;
+        return bounds.height;
+    }
 
+    public int getScreenWidth() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] screens = ge.getScreenDevices();
+        Rectangle bounds = new Rectangle();
+        for (GraphicsDevice screen : screens) {
+            bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
+        }
+        return bounds.width;
+    }
+
+    public int getGameAreaHeight() {
+        return getScreenHeight() / 2;
+    }
+
+    public int getGameAreaWidth() {
+        return getScreenWidth() / 2;
+    }
+
+    public Menu() {
         setTitle("Breakout");
-        setSize(bounds.width / 2, bounds.height / 2);
+        setSize(getGameAreaWidth(), getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
-        gamePanel = new JPanel();
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
@@ -58,6 +75,9 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TO DO
+                dispose();
+                JFrame gameFrame = new Game();
+                gameFrame.setVisible(true);
             }
         });
 
@@ -87,10 +107,19 @@ public class Menu extends JFrame {
         setFocusable(true);
     }
 
+    /**
+     * Test to try
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Menu menu = new Menu();
+                System.out.println("screen height func:" + menu.getScreenHeight());
+                System.out.println("screen width func:" + menu.getScreenWidth());
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                System.out.println("Dimensioni dello schermo: " + screenSize.getWidth() + "x" + screenSize.getHeight());
                 menu.setVisible(true);
             }
         });
