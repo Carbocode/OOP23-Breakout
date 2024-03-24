@@ -1,14 +1,16 @@
 package it.unibo.api;
 
-import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.Point;
+
+
 
 public interface GameEntity {
 
-    public Graphics2D getGraphics();
-
-    public void onCollision();
-
-    public boolean isAlive();
+    Point getPosition();
+    Dimension getSize();
+    void onCollision();
+    boolean isAlive();
 
     public void setHealth(int health);
 
