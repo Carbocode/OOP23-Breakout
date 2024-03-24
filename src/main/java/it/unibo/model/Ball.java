@@ -1,14 +1,19 @@
-package main.java.it.unibo.model;
+package it.unibo.model;
 
 import it.unibo.api.GameEntity;
-import main.java.it.unibo.api.Direction;
-import main.java.it.unibo.api.Pos2D;
-public class Ball implements GameEntity{
-    private Pos2D pos;
+import it.unibo.api.Direction;
+import it.unibo.api.GameEntityImpl;
+import it.unibo.api.Pos2D;
+
+import java.awt.Point;
+import java.awt.geom.AffineTransform;
+
+public class Ball extends GameEntityImpl{
+    private Point pos;
     private Direction dir;
     private boolean alive;
     public Ball(){
-        this.pos = new Pos2D(50, 50);
+        this.pos = new Point(50, 50);
         this.dir = new Direction(1, 1);
         this.alive = true;
     }
@@ -19,8 +24,9 @@ public class Ball implements GameEntity{
         this.dir = new Direction(-orig.getDirection().getHorizontalVelocity, orig.getDirection().getVerticalVelocity());
         this.alive = true;
     }
+    
     public void update(){
-        Pos2D candidate = Pos2D.transform(pos, dir);
+        Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
         //we validate it. if its out of bounds, we reverse direction
         if (candidate.getX()<= 0 || candidate.getX() >= GAME_WIDTH){
             dir = new Direction(dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
@@ -29,12 +35,17 @@ public class Ball implements GameEntity{
         if(candidate.getY() > GAME_HEIGHT){
             die();
         }
+        pos = candidate;
     }
     private void die(){
         this.alive = false;
     }
     public boolean isAlive(){
         return this.alive;
+    }
+    @Override
+    public void onCollision() {
+        // much code
     }
 
 }
