@@ -39,4 +39,26 @@ public class Brick extends GameEntityImpl {
         return super.getHealth();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'equals'");
+        /*
+         * if (this == o)
+         * return true;
+         * if (o == null || getClass() != o.getClass())
+         * return false;
+         * Brick mattone = (Brick) o;
+         * return this.getGraphics().get == mattone.dimensione && Objects.equals(colore,
+         * mattone.colore);
+         */
+    }
+
+    @Override
+    public int hashCode() {
+        // return Objects.hash(super.getPosition);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hashCode'");
+    }
+
 }

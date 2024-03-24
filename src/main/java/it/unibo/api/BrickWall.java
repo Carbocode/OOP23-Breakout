@@ -10,10 +10,8 @@ import it.unibo.controller.Brick;
 public interface BrickWall {
     /**
      * Create Level Layout
-     * 
-     * @return
      */
-    List<Brick> generateLayout();
+    void generateLayout();
 
     /**
      * Resets the level
