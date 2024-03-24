@@ -8,12 +8,11 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 public class Ball extends GameEntityImpl{
-    private Point pos;
     private Direction dir;
 
     private boolean alive;
     public Ball(){
-        super(new Point(50,50), new Dimension(5,5),1);
+        super(new Point(5,5), new Dimension(5,5),1);
         this.dir = new Direction(1, 1);
         this.alive = true;
     }
@@ -31,11 +30,11 @@ public class Ball extends GameEntityImpl{
     public void update(){
         Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
         //we validate it. if its out of bounds, we reverse direction
-        if (candidate.getX()<= 0 || candidate.getX() >= 500){
-            dir = new Direction(dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
+        if (candidate.getX()<= 0 || candidate.getX() >= 100){
+            dir = new Direction(-dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
         }
         // if the ball fell
-        if(candidate.getY() > 500){
+        if(candidate.getY() > 100){
             die();
         }
         pos = candidate;

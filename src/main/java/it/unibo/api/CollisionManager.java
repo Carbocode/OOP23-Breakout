@@ -2,27 +2,27 @@ package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
+import java.util.Set;
 
 import it.unibo.model.Ball;
 
 public class CollisionManager {
-    private List<GameEntity> bricks;
-    private List<Ball> balls;
+    private Set<GameEntity> bricks;
+    private Set<Ball> balls;
     private GameEntity paddle;
 
-    public CollisionManager() {
+    public CollisionManager(Set<Ball> balls, Set<GameEntity> bricks, GameEntity paddle) {
         // TODO
+        this.balls = balls;
+        this.bricks = bricks;
+        this.paddle = paddle;
     }
 
     public void checkAll() {
-        // for every ball
-        for (int i = 0; i < balls.size(); i++) {
-            Ball ball = balls.get(i);
+        for(Ball ball : balls){
             if (!ball.isAlive())
                 continue;
-            // we check every brick
-            for (int j = 0; j < bricks.size(); j++) {
-                GameEntity brick = bricks.get(j);
+            for(GameEntity brick : bricks){
                 if (!brick.isAlive())
                     continue;
                 if (collides(ball, brick)) {
@@ -36,6 +36,7 @@ public class CollisionManager {
                 // again, awful.
                 ball.onCollision();
             }
+
         }
 
     }
