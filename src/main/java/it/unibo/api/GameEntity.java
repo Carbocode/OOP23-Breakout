@@ -18,12 +18,12 @@ public interface GameEntity {
 
     public boolean isAlive();
 
-    public void setPosition(Point position);
+    public void setPosition(final Point position);
 
-    public void setSize(Dimension size);
+    public void setSize(final Dimension size);
 
     public void setHealth(int health);
 
-    public void setColor(Color color);
+    public void setColor(final Color color);
 
 }
