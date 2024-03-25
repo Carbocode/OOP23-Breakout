@@ -6,13 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameEntity;
-import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
 import it.unibo.model.Ball;
 import java.util.Set;
 import java.util.HashSet;
-import java.awt.Point;
-
 public class GameLoop {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private CollisionManager manager;
