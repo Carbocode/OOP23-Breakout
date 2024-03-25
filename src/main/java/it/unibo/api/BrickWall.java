@@ -1,7 +1,8 @@
 package it.unibo.api;
 
 import java.util.Set;
-import it.unibo.controller.Brick;
+
+import it.unibo.model.Brick;
 
 /**
  * Generates the level procedurally, based on difficulty

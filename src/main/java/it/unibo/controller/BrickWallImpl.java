@@ -1,13 +1,18 @@
 package it.unibo.controller;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import it.unibo.api.BrickWall;
+import it.unibo.model.Brick;
 
 public class BrickWallImpl implements BrickWall {
+
+    final public static Dimension DEFAULT_BRICK_DIM_PERC = new Dimension(10, 5);
 
     private Set<Brick> wall;
     private byte[] seed;
@@ -29,6 +34,27 @@ public class BrickWallImpl implements BrickWall {
     @Override
     public void generateLayout() {
         this.resetLayout();
+
+        int brickPerRow = width / DEFAULT_BRICK_DIM_PERC.width;
+        int brickPerColumn = height / DEFAULT_BRICK_DIM_PERC.height;
+
+        for (int i = 0; i < brickPerColumn; i++) {
+            for (int j = 0; j < brickPerRow; j++) {
+                wall.add(
+                        BrickFactory.createRandomBrick(
+                                new Point(j * DEFAULT_BRICK_DIM_PERC.height, i * DEFAULT_BRICK_DIM_PERC.width),
+                                new Dimension(getBrickWidth(), getBrickHeight())));
+            }
+        }
+
+    }
+
+    private int getBrickWidth() {
+        return width / 100 * DEFAULT_BRICK_DIM_PERC.width;
+    }
+
+    private int getBrickHeight() {
+        return height / 100 * DEFAULT_BRICK_DIM_PERC.height;
     }
 
     private byte[] createSeed() {
@@ -47,7 +73,7 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public void resetLayout() {
-        this.wall = new HashSet<Brick>();
+        this.wall = new LinkedHashSet<Brick>();
     }
 
     @Override
@@ -102,5 +128,10 @@ public class BrickWallImpl implements BrickWall {
     @Override
     public Set<Brick> getWall() {
         return wall;
+    }
+
+    @Override
+    public String toString() {
+        return wall.toString();
     }
 }

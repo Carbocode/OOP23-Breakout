@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.model;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,14 +11,6 @@ public class Brick extends GameEntityImpl {
 
     public Brick(Point position, Dimension size, int health, Color color) {
         super(position, size, health, color);
-    }
-
-    public Brick(Point position, Dimension size, Color color) {
-        super(position, size, color);
-    }
-
-    public Brick(Point position, Dimension size) {
-        super(position, size);
     }
 
     @Override
@@ -71,4 +63,8 @@ public class Brick extends GameEntityImpl {
         return super.getSize();
     }
 
+    @Override
+    public String toString() {
+        return "(" + position.x + ";" + position.y + ")";
+    }
 }

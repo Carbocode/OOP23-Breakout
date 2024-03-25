@@ -7,8 +7,10 @@ import java.util.Objects;
 
 public abstract class GameEntityImpl implements GameEntity {
 
-    final static int IMMORTAL_ENTITY_HEALTH = -1;
-    final static int MIN_HEALTH = 1;
+    final public static int IMMORTAL_ENTITY_HEALTH = -1;
+    final public static int MIN_HEALTH = 1;
+    final public static int MAX_HEALTH = 2;
+    final public static Color DEFAULT_COLOR = new Color(70, 70, 70);
 
     protected Point position;
     protected Dimension size;
@@ -22,13 +24,27 @@ public abstract class GameEntityImpl implements GameEntity {
         this.color = color;
     }
 
+    /**
+     * Game Entity Default Color is rgb(70, 70, 70)
+     * 
+     * @param position
+     * @param size
+     * @param health
+     */
     public GameEntityImpl(final Point position, final Dimension size, int health) {
         this.position = position;
         this.size = size;
         this.health = health;
-        this.color = new Color(70, 70, 70);
+        this.color = new Color(DEFAULT_COLOR.getRGB());
     }
 
+    /**
+     * Game Entity Default Health is IMMORTAL_ENTITY_HEALTH
+     * 
+     * @param position
+     * @param size
+     * @param color
+     */
     public GameEntityImpl(final Point position, final Dimension size, final Color color) {
         this.position = position;
         this.size = size;
@@ -36,6 +52,13 @@ public abstract class GameEntityImpl implements GameEntity {
         this.color = color;
     }
 
+    /**
+     * Game Entity Default Health is IMMORTAL_ENTITY_HEALTH and Default Color is
+     * rgb(70, 70, 70)
+     * 
+     * @param position
+     * @param size
+     */
     public GameEntityImpl(final Point position, final Dimension size) {
         this.position = position;
         this.size = size;
