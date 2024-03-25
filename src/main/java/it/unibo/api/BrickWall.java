@@ -32,13 +32,9 @@ public interface BrickWall {
 
     public void setWidth(int width);
 
-    public void setSeed(String seed);
-
     public int getHeight();
 
     public int getWidth();
-
-    public String getSeed();
 
     public Set<Brick> getWall();
 }
