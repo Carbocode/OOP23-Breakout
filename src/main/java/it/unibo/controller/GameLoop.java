@@ -7,15 +7,20 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameEntity;
 import it.unibo.api.GameInfo;
+import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
+import it.unibo.view.SoundManagerImpl;
+
 import java.util.Set;
 import java.util.HashSet;
 public class GameLoop {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private CollisionManager manager;
+    private SoundManager soundPlayer;
     private Set<Ball> balls;
     private Set<GameEntity> bricks;
     public GameLoop(){
+        soundPlayer = new SoundManagerImpl();
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         //TODO: Generate bricks, paddle
@@ -23,6 +28,7 @@ public class GameLoop {
         manager = new CollisionManager(balls,bricks,paddle);
     }
     public void run() {
+        soundPlayer.playBackgroundSound();
         long lastUpdateTime = System.currentTimeMillis();
         while (true) {
             long currentTime = System.currentTimeMillis();
@@ -59,10 +65,11 @@ public class GameLoop {
         }
     }
     public void multiplyBall(Ball old){
-        
+
     }
     public static void main(String[] args){
         var x = new GameLoop();
+        
         x.run();
     }
 }
