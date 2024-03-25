@@ -53,7 +53,7 @@ public class Menu extends JFrame {
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
-        // creating the background image
+        // creating the background image, it has to be done (TO DO)
         ImageIcon backgroundImage = new ImageIcon("../api/appdata/images/space.jpg");
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setLayout(new BorderLayout());

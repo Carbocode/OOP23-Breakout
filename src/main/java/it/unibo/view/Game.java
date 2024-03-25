@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Game extends JFrame{
     JPanel gamePanel;
     JButton button;
-
+//
     public int getScreenHeight() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] screens = ge.getScreenDevices();
