@@ -8,44 +8,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Menu extends JFrame {
-    JPanel mainPanel;
-    JPanel gamePanel;
-    JLabel titleLabel;
-    JButton playButton;
-    JButton scoreboardButton;
-    JButton exitButton;
-
-    public int getScreenHeight() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] screens = ge.getScreenDevices();
-        Rectangle bounds = new Rectangle();
-        for (GraphicsDevice screen : screens) {
-            bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
-        }
-        return bounds.height;
-    }
-
-    public int getScreenWidth() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] screens = ge.getScreenDevices();
-        Rectangle bounds = new Rectangle();
-        for (GraphicsDevice screen : screens) {
-            bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
-        }
-        return bounds.width;
-    }
-
-    public int getGameAreaHeight() {
-        return getScreenHeight() / 2;
-    }
-
-    public int getGameAreaWidth() {
-        return getScreenWidth() / 2;
-    }
+    private JPanel mainPanel;
+    private JPanel gamePanel;
+    private JLabel titleLabel;
+    private JButton playButton;
+    private JButton scoreboardButton;
+    private JButton exitButton;
+    private Measures measure = new Measures();
 
     public Menu() {
         setTitle("Breakout");
-        setSize(getGameAreaWidth(), getGameAreaHeight());
+        setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creation of the panel of the menu
@@ -116,8 +89,9 @@ public class Menu extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Menu menu = new Menu();
-                System.out.println("screen height func:" + menu.getScreenHeight());
-                System.out.println("screen width func:" + menu.getScreenWidth());
+                Measures measure = new Measures();
+                System.out.println("screen height func:" + measure.getScreenHeight());
+                System.out.println("screen width func:" + measure.getScreenWidth());
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 System.out.println("Dimensioni dello schermo: " + screenSize.getWidth() + "x" + screenSize.getHeight());
                 menu.setVisible(true);
