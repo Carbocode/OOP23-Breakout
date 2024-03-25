@@ -8,6 +8,7 @@ import java.util.Objects;
 public abstract class GameEntityImpl implements GameEntity {
 
     final static int IMMORTAL_ENTITY_HEALTH = -1;
+    final static int MIN_HEALTH = 1;
 
     protected Point position;
     protected Dimension size;
