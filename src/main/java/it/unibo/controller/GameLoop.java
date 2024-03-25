@@ -58,8 +58,8 @@ public class GameLoop {
             System.out.println(" I'm at :("+ b.getPosition().getX()+","+b.getPosition().getY()+")");
         }
     }
-    public void sdoppiamentoPalla(){
-
+    public void multiplyBall(Ball old){
+        
     }
     public static void main(String[] args){
         var x = new GameLoop();
