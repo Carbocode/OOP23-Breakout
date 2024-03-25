@@ -1,7 +1,6 @@
 package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.Ball;

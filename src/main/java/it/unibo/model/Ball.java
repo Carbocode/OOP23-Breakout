@@ -2,7 +2,7 @@ package it.unibo.model;
 
 import it.unibo.api.Direction;
 import it.unibo.api.GameEntityImpl;
-
+import it.unibo.api.GameInfo;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -30,11 +30,11 @@ public class Ball extends GameEntityImpl{
     public void update(){
         Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
         //we validate it. if its out of bounds, we reverse direction
-        if (candidate.getX()<= 0 || candidate.getX() >= 100){
+        if (candidate.getX()<= 0 || candidate.getX() >= GameInfo.GAME_WIDTH){
             dir = new Direction(-dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
         }
         // if the ball fell
-        if(candidate.getY() > 100){
+        if(candidate.getY() > GameInfo.GAME_HEIGHT){
             die();
         }
         pos = candidate;
@@ -48,6 +48,7 @@ public class Ball extends GameEntityImpl{
     @Override
     public void onCollision() {
         // much code
+        System.out.println("ouch!");
     }
     @Override
     public Point getPosition() {

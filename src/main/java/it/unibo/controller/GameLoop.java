@@ -7,14 +7,14 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameEntity;
 import it.unibo.api.GameEntityImpl;
+import it.unibo.api.GameInfo;
 import it.unibo.model.Ball;
 import java.util.Set;
 import java.util.HashSet;
 import java.awt.Point;
 
 public class GameLoop {
-    private static final int MAX_UPDATES_PER_SECOND = 20;
-    private static final long UPDATE_INTERVAL = 1000 / MAX_UPDATES_PER_SECOND;
+    private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private CollisionManager manager;
     private Set<Ball> balls;
     private Set<GameEntity> bricks;
@@ -49,13 +49,20 @@ public class GameLoop {
         }
     }
 
+    /**
+     * Updates the gamestate
+     */
     private void update() {
         // Update the game state here
         System.out.println("Running!!");
+        manager.checkAll();
         for(var b : balls){
             b.update();
             System.out.println(" I'm at :("+ b.getPosition().getX()+","+b.getPosition().getY()+")");
         }
+    }
+    public void sdoppiamentoPalla(){
+
     }
     public static void main(String[] args){
         var x = new GameLoop();
