@@ -2,22 +2,23 @@ package it.unibo.controller;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Objects;
-
-import javax.swing.text.Position;
 
 import it.unibo.api.GameEntityImpl;
 
 public class Brick extends GameEntityImpl {
 
-    public Brick(Position position, Dimension dimension, Color color, int health) {
-        super(position, dimension, color, health);
+    public Brick(Point position, Dimension size, int health, Color color) {
+        super(position, size, health, color);
     }
 
-    public Brick(Position position, Dimension dimension, Color color) {
-        super(position, dimension, color);
+    public Brick(Point position, Dimension size, Color color) {
+        super(position, size, color);
+    }
+
+    public Brick(Point position, Dimension size) {
+        super(position, size);
     }
 
     @Override
@@ -25,11 +26,6 @@ public class Brick extends GameEntityImpl {
         int health = super.getHealth();
         if (health > 0)
             super.setHealth(health--);
-    }
-
-    @Override
-    public Graphics2D getGraphics() {
-        return super.getGraphics();
     }
 
     @Override
@@ -49,17 +45,15 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public boolean equals(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'equals'");
-        /*
-         * if (this == o)
-         * return true;
-         * if (o == null || getClass() != o.getClass())
-         * return false;
-         * Brick mattone = (Brick) o;
-         * return this.getGraphics().get == mattone.dimensione && Objects.equals(colore,
-         * mattone.colore);
-         */
+
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Brick mattone = (Brick) o;
+
+        return Objects.equals(getPosition(), mattone.getPosition());
+
     }
 
     @Override
@@ -69,7 +63,7 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public Point getPosition() {
-        super.getPosition();
+        return super.getPosition();
     }
 
     @Override

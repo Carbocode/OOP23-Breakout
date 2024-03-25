@@ -9,29 +9,36 @@ import it.unibo.controller.Brick;;
  */
 public interface BrickFactory {
     /**
-     * Creates a standard Brick
+     * Creates a brick that should bit hitten multiple times to get destroyed
      * 
-     * @param graphics graphics characteristics of the brick
-     */
-    Brick createStandardBrick(Graphics2D graphics);
-
-    /**
-     * Creates a Brick that can't get destroyed
-     * 
-     * @param graphics graphics characteristics of the brick
+     * @param position position of the brick
+     * @param size     size of the brick
+     * @param color    color of the brick
      * 
      * @return Brick
      */
-    Brick createIndestructibleBrick(Graphics2D graphics);
+    Brick createStandardBrick(Point position, Dimension size, Color color);
 
     /**
      * Creates a brick that should bit hitten multiple times to get destroyed
      * 
-     * @param graphics graphics characteristics of the brick
+     * @param position position of the brick
+     * @param size     size of the brick
+     * 
+     * @return Brick
+     */
+    Brick createIndestructibleBrick(Point position, Dimension size);
+
+    /**
+     * Creates a brick that should be hitten multiple times to get destroyed
+     * 
+     * @param position position of the brick
+     * @param size     size of the brick
+     * @param color    color of the brick
      * @param health   the number of time you should hit the brick to destroy it
      * 
      * @return Brick
      */
-    Brick createMultiHitBrick(Graphics2D graphics, int health);
+    Brick createMultiHitBrick(Point position, Dimension size, Color color, int health);
 
 }

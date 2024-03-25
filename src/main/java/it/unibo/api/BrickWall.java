@@ -1,7 +1,6 @@
 package it.unibo.api;
 
-import java.util.List;
-
+import java.util.Set;
 import it.unibo.controller.Brick;
 
 /**
@@ -11,20 +10,34 @@ public interface BrickWall {
     /**
      * Create Level Layout
      */
-    void generateLayout();
+    public void generateLayout();
 
     /**
      * Resets the level
      */
-    void resetLayout();
+    public void resetLayout();
 
     /**
      * Resets the level
      */
-    void shiftLayout();
+    public void shiftLayout();
 
     /**
      * Resets the level
      */
-    void removeDeathBricks();
+    public void removeDeathBricks();
+
+    public void setHeight(int height);
+
+    public void setWidth(int width);
+
+    public void setSeed(String seed);
+
+    public int getHeight();
+
+    public int getWidth();
+
+    public String getSeed();
+
+    public Set<Brick> getWall();
 }
