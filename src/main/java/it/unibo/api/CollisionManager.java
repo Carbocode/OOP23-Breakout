@@ -1,6 +1,6 @@
 import java.util.List;
 
-import main.java.it.unibo.model.Ball;
+import it.unibo.model.Ball;
 
 public class CollisionManager {
     private List<GameEntity> bricks;

@@ -1,4 +1,4 @@
-package main.java.it.unibo.model;
+package it.unibo.model;
 
 import it.unibo.api.GameEntity;
 import main.java.it.unibo.api.Direction;

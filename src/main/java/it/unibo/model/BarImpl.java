@@ -1,4 +1,4 @@
-package main.java.it.unibo.model;
+package it.unibo.model;
 import java.awt.*;
 
 public class BarImpl implements GameEntity,Bar{

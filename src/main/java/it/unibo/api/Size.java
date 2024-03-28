@@ -1,4 +1,4 @@
-package main.java.it.unibo.api;
+package it.unibo.api;
 public class Size {
     private int w;
     private int h;
