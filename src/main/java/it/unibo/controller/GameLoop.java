@@ -20,7 +20,7 @@ public class GameLoop {
     private Set<Ball> balls;
     public GameLoop(){
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT/5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
