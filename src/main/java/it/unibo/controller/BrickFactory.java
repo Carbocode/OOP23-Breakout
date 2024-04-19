@@ -1,9 +1,10 @@
 package it.unibo.controller;
 
 import java.awt.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-import it.unibo.api.GameEntityImpl;
 import it.unibo.model.Brick;
 import it.unibo.model.BrickColors;
 import it.unibo.model.BrickTypes;
@@ -13,14 +14,25 @@ import it.unibo.model.BrickTypes;
  */
 public class BrickFactory {
 
-    static Random rand = new Random();
+    private final Random rand;
+    private long seed;
+
+    public BrickFactory(long seed) {
+        this.seed = seed;
+        rand = new Random(this.seed);
+    }
+
+    public BrickFactory() {
+        this.seed = System.currentTimeMillis();
+        rand = new Random(this.seed);
+    }
 
     /**
      * Choses a Color for the Brick
      * 
      * @return a Color for the Brick
      */
-    static Color getRandomColor() {
+    public Color getRandomColor() {
         BrickColors[] colors = BrickColors.values();
         return colors[rand.nextInt(colors.length)].getColor();
     }
@@ -30,7 +42,7 @@ public class BrickFactory {
      * 
      * @return a Health for the Brick
      */
-    static int getRandomHealth() {
+    public int getRandomHealth() {
         BrickTypes[] colors = BrickTypes.values();
         return colors[rand.nextInt(colors.length)].getHealth();
     }
@@ -43,7 +55,7 @@ public class BrickFactory {
      * 
      * @return Brick
      */
-    static Brick createRandomBrick(Point position, Dimension size) {
+    public Brick createRandomBrick(Point position, Dimension size) {
         return new Brick(position, size, getRandomHealth(), getRandomColor());
     }
 
