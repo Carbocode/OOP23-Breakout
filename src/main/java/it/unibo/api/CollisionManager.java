@@ -1,8 +1,4 @@
 package it.unibo.api;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Set;

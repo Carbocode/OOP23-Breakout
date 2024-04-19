@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 
-public class BarImpl extends GameEntityImpl implements Bar {
+public class BarImpl  extends GameEntityImpl implements Bar {
 
 
     // (-1) left - (1) right - (0) do not move
@@ -25,8 +25,9 @@ public class BarImpl extends GameEntityImpl implements Bar {
     public void onCollision() {
         // play sound
     }
-
-    void move(){
+    
+    
+    public void move(){
         switch (direction) {
             case LEFT_VALUE:
                 if(position.x - MOVE_VALUE>0)
@@ -42,12 +43,12 @@ public class BarImpl extends GameEntityImpl implements Bar {
         }
     }
 
-    void setWidth(int newwidth){
+    public void setWidth(int newwidth){
         size.width = newwidth;
         return;
     }
 
-    void buttonPressed(KeyEvent e) {
+    public void buttonPressed(KeyEvent e) {
 
         switch(e.getKeyCode()){
 
@@ -67,7 +68,7 @@ public class BarImpl extends GameEntityImpl implements Bar {
         }
     }
 
-    void buttonReleased(KeyEvent e) {
+    public void buttonReleased(KeyEvent e) {
         //button released -> stop moving
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) 
             direction = STOP_VALUE;
