@@ -1,5 +1,5 @@
 package it.unibo.model;
-
+import it.unibo.view.*;
 import it.unibo.api.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -7,6 +7,8 @@ import it.unibo.api.GameEntityImpl;
 
 public class BarImpl  extends GameEntityImpl implements Bar {
 
+
+    private static Measures m;
 
     // (-1) left - (1) right - (0) do not move
     final private static int LEFT_VALUE = -1;
@@ -35,7 +37,7 @@ public class BarImpl  extends GameEntityImpl implements Bar {
                 break;
             
             case RIGHT_VALUE:
-                if(position.x + size.width + MOVE_VALUE < 1/* size of game area */)
+                if(position.x + size.width + MOVE_VALUE < m.getGameAreaWidth())
                     position.x += MOVE_VALUE;
                 break;
             default:
