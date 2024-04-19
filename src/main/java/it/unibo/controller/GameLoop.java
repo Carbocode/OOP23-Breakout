@@ -2,6 +2,7 @@ package it.unibo.controller;
 
 import java.util.concurrent.TimeUnit;
 
+import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameEntity;
 import it.unibo.api.GameInfo;
@@ -15,15 +16,18 @@ public class GameLoop {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private CollisionManager manager;
     private SoundManager soundPlayer;
+    private BrickWall brickWall;
     private Set<Ball> balls;
-    private Set<GameEntity> bricks;
     public GameLoop(){
         soundPlayer = new SoundManagerImpl();
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
+        brickWall.generateLayout();
         //TODO: Generate bricks, paddle
         GameEntity paddle = null;
-        manager = new CollisionManager(balls,bricks,paddle);
+
+        manager = new CollisionManager(balls,brickWall,paddle);
     }
     public void run() {
         //soundPlayer.playBackgroundSound();
@@ -56,7 +60,7 @@ public class GameLoop {
     private void update() {
         // Update the game state here
         System.out.println("Running!!");
-        //manager.checkAll();
+        manager.checkAll();
         for(var b : balls){
             b.update();
             System.out.println(" I'm at :("+ b.getPosition().getX()+","+b.getPosition().getY()+")");

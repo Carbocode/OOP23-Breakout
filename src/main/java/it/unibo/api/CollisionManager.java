@@ -6,14 +6,14 @@ import java.util.Set;
 import it.unibo.model.Ball;
 
 public class CollisionManager {
-    private Set<GameEntity> bricks;
+    private BrickWall bricks;
     private Set<Ball> balls;
     private GameEntity paddle;
 
-    public CollisionManager(Set<Ball> balls, Set<GameEntity> bricks, GameEntity paddle) {
+    public CollisionManager(Set<Ball> balls, BrickWall brickWall, GameEntity paddle) {
         // TODO
         this.balls = balls;
-        this.bricks = bricks;
+        this.bricks = brickWall;
         this.paddle = paddle;
     }
 
@@ -21,20 +21,24 @@ public class CollisionManager {
         for(Ball ball : balls){
             if (!ball.isAlive())
                 continue;
-            for(GameEntity brick : bricks){
+            for(GameEntity brick : bricks.getWall()){
                 if (!brick.isAlive())
                     continue;
                 if (collides(ball, brick)) {
+                    
                     // BAD. it should notify the controller, so it can produce effects.
                     ball.onCollision();
                     brick.onCollision();
                 }
             }
             // then we check with paddle
+        if(paddle != null){
             if (collides(ball, paddle)) {
                 // again, awful.
                 ball.onCollision();
             }
+        }
+            
 
         }
 
