@@ -26,7 +26,7 @@ public class BrickWallImpl implements BrickWall {
         this.resetLayout();
 
         int brickWidth = (width * DEFAULT_BRICK_DIM_PERC.width) / 100;
-        int brickHeight = (width * DEFAULT_BRICK_DIM_PERC.height) / 100;
+        int brickHeight = (height * DEFAULT_BRICK_DIM_PERC.height) / 100;
 
         int brickPerColumn = 100 / DEFAULT_BRICK_DIM_PERC.height;
         int brickPerRow = 100 / DEFAULT_BRICK_DIM_PERC.width;
