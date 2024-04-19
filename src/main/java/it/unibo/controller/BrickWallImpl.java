@@ -25,14 +25,16 @@ public class BrickWallImpl implements BrickWall {
     public void generateLayout() {
         this.resetLayout();
 
-        int brickPerRow = width / 100 * DEFAULT_BRICK_DIM_PERC.width;
-        int brickPerColumn = height / 100 * DEFAULT_BRICK_DIM_PERC.height;
+        int brickWidth = (width * DEFAULT_BRICK_DIM_PERC.width) / 100;
+        int brickHeight = (width * DEFAULT_BRICK_DIM_PERC.height) / 100;
 
+        int brickPerColumn = 100 / DEFAULT_BRICK_DIM_PERC.width;
+        int brickPerRow = 100 / DEFAULT_BRICK_DIM_PERC.height;
         for (int i = 0; i < brickPerColumn; i++) {
             for (int j = 0; j < brickPerRow; j++) {
                 wall.add(
                         BrickFactory.createRandomBrick(
-                                new Point(j * DEFAULT_BRICK_DIM_PERC.height, i * DEFAULT_BRICK_DIM_PERC.width),
+                                new Point(j * brickWidth, i * brickHeight),
                                 new Dimension(getBrickWidth(), getBrickHeight())));
             }
         }
