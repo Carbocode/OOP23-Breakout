@@ -28,8 +28,8 @@ public class BrickWallImpl implements BrickWall {
         int brickWidth = (width * DEFAULT_BRICK_DIM_PERC.width) / 100;
         int brickHeight = (width * DEFAULT_BRICK_DIM_PERC.height) / 100;
 
-        int brickPerColumn = 100 / DEFAULT_BRICK_DIM_PERC.width;
-        int brickPerRow = 100 / DEFAULT_BRICK_DIM_PERC.height;
+        int brickPerColumn = 100 / DEFAULT_BRICK_DIM_PERC.height;
+        int brickPerRow = 100 / DEFAULT_BRICK_DIM_PERC.width;
         for (int i = 0; i < brickPerColumn; i++) {
             for (int j = 0; j < brickPerRow; j++) {
                 wall.add(
