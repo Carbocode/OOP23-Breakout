@@ -1,8 +1,6 @@
 package it.unibo.controller;
 
 import java.awt.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import it.unibo.model.Brick;
