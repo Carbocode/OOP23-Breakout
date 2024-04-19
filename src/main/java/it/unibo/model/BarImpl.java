@@ -1,6 +1,6 @@
 package it.unibo.model;
 
-import it.unibo.api.Bar;
+import it.unibo.api.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
