@@ -1,13 +1,10 @@
-package main.java.it.unibo.api;
+package it.unibo.api;
 
-/**
- * An interface modelling a factory of Bar.
+/* An interface modelling a factory of Bar.
  * The general idea is that the software will use a Bar controlled by the player
- * to deflect the ball against the bricks in the top of the game area
- */
+ * to deflect the ball against the bricks in the top of the game area  */
 
- public interface Bar{
-
+public interface Bar {
 
     /**
      * @return void 

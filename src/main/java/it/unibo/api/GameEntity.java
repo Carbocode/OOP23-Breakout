@@ -1,4 +1,4 @@
-package main.java.it.unibo.api;
+package it.unibo.api;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,9 +1,11 @@
-package main.java.it.unibo.model;
-import java.awt.*;
+package it.unibo.model;
 
+import it.unibo.api.Bar;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 
-public class BarImpl extends GameEntityImpl implements Bar{
+public class BarImpl extends GameEntityImpl implements Bar {
 
 
     // (-1) left - (1) right - (0) do not move
@@ -11,21 +13,30 @@ public class BarImpl extends GameEntityImpl implements Bar{
     final private static int RIGHT_VALUE = 1;
     final private static int STOP_VALUE = 0;
 
+    final private static int MOVE_VALUE = 2;
+
     private int direction;
 
-    public BarImpl(){
-        /* to do 
-         * set initial position
-         * set initial size
-        */
+    public BarImpl(Point position, Dimension size, int health, Color color) {
+        super(position, size, health, color);
+    }
+
+    @Override
+    public void onCollision() {
+        // play sound
     }
 
     void move(){
         switch (direction) {
             case LEFT_VALUE:
-                if(position.x)
+                if(position.x - MOVE_VALUE>0)
+                    position.x -= MOVE_VALUE;
                 break;
-        
+            
+            case RIGHT_VALUE:
+                if(position.x + size.width + MOVE_VALUE < 1/* size of game area */)
+                    position.x += MOVE_VALUE;
+                break;
             default:
                 break;
         }
