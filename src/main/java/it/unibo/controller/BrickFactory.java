@@ -14,25 +14,15 @@ import it.unibo.model.BrickTypes;
  */
 public class BrickFactory {
 
-    private final Random rand;
-    private long seed;
-
-    public BrickFactory(long seed) {
-        this.seed = seed;
-        rand = new Random(this.seed);
-    }
-
-    public BrickFactory() {
-        this.seed = System.currentTimeMillis();
-        rand = new Random(this.seed);
-    }
+    static private long seed = System.currentTimeMillis();
+    static private final Random rand = new Random(BrickFactory.seed);
 
     /**
      * Choses a Color for the Brick
      * 
      * @return a Color for the Brick
      */
-    public Color getRandomColor() {
+    static public Color getRandomColor() {
         BrickColors[] colors = BrickColors.values();
         return colors[rand.nextInt(colors.length)].getColor();
     }
@@ -42,7 +32,7 @@ public class BrickFactory {
      * 
      * @return a Health for the Brick
      */
-    public int getRandomHealth() {
+    static public int getRandomHealth() {
         BrickTypes[] colors = BrickTypes.values();
         return colors[rand.nextInt(colors.length)].getHealth();
     }
@@ -55,8 +45,17 @@ public class BrickFactory {
      * 
      * @return Brick
      */
-    public Brick createRandomBrick(Point position, Dimension size) {
+    static public Brick createRandomBrick(Point position, Dimension size) {
         return new Brick(position, size, getRandomHealth(), getRandomColor());
+    }
+
+    static public void setSeed(long seed) {
+        BrickFactory.seed = seed;
+        BrickFactory.rand.setSeed(seed);
+    }
+
+    static public long getSeed() {
+        return BrickFactory.seed;
     }
 
 }
