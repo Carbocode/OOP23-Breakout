@@ -3,11 +3,11 @@ package it.unibo.view;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
-import java.awt.event.*; //per utilizzare EventListner
+import java.awt.event.*;
 import java.awt.image.*;
 import javax.sound.sampled.*;
 
-import javax.swing.*; //per utilizzare JPanel
+import javax.swing.*;
 import javax.swing.plaf.TreeUI;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -15,12 +15,10 @@ public class GamePanel extends JPanel implements Runnable {
 	// definizione costanti
 	static final int GAME_WIDTH = 461;
 	static final int GAME_HEIGHT = (int) (GAME_WIDTH * (1.25));
-	static final Dimension SCREEN_SIZE1 = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+	// setta dimensione frame gioco/schermo
+	// setta dimensioni paddle
 
-	static final int PADDLE_WIDTH = 55;
-	static final int PADDLE_HEIGHT = 10; // orizzontale
-
-	static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+	// setta dimensioni schermo
 	static final int BALL_DIAMETER = 8; // palla rotonda
 
 	int lives = 3;
@@ -38,13 +36,8 @@ public class GamePanel extends JPanel implements Runnable {
 	static final int rows = 14;
 	static final int columns = 8;
 
-	static final int brickWidth = 32;
-	static final int brickHeight = 10;
+	// bisogna settare le dimensioni dei brick
 
-	// remarks from Mr. Alcorn:
-	// The problem you noticed about the paddle not going all the way to the top
-	// was left in because without it good players could monopolize the game.
-	// Our motto was "if you can't fix it call it a feature."
 	static final int BORDER_OFFSET = 20;
 	// il paddle non tocca i bordi superiore ed inferiore se OFFSET >0
 	static final int DISTANZA = 20; // =0 i paddle sono sul bordo del campo;
