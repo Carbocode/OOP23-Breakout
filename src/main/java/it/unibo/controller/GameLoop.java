@@ -1,7 +1,5 @@
 package it.unibo.controller;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.api.CollisionManager;
@@ -28,7 +26,7 @@ public class GameLoop {
         manager = new CollisionManager(balls,bricks,paddle);
     }
     public void run() {
-        soundPlayer.playBackgroundSound();
+        //soundPlayer.playBackgroundSound();
         long lastUpdateTime = System.currentTimeMillis();
         while (true) {
             long currentTime = System.currentTimeMillis();
@@ -58,7 +56,7 @@ public class GameLoop {
     private void update() {
         // Update the game state here
         System.out.println("Running!!");
-        manager.checkAll();
+        //manager.checkAll();
         for(var b : balls){
             b.update();
             System.out.println(" I'm at :("+ b.getPosition().getX()+","+b.getPosition().getY()+")");

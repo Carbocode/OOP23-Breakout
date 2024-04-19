@@ -11,6 +11,7 @@ public class Ball extends GameEntityImpl{
     private Direction dir;
 
     private boolean alive;
+
     public Ball(){
         super(new Point(5,5), new Dimension(5,5),1);
         this.dir = new Direction(1, 1);
@@ -28,7 +29,7 @@ public class Ball extends GameEntityImpl{
         return dir;
     }
     public void update(){
-        Point candidate = new Point(pos.x + dir.getHorizontalVelocity(), pos.y + dir.GetVerticalVelocity());
+        Point candidate = new Point(position.x + dir.getHorizontalVelocity(), position.y + dir.GetVerticalVelocity());
         //we validate it. if its out of bounds, we reverse direction
         if (candidate.getX()<= 0 || candidate.getX() >= GameInfo.GAME_WIDTH){
             dir = new Direction(-dir.getHorizontalVelocity(), dir.GetVerticalVelocity());
@@ -37,7 +38,7 @@ public class Ball extends GameEntityImpl{
         if(candidate.getY() > GameInfo.GAME_HEIGHT){
             die();
         }
-        pos = candidate;
+        position = candidate;
     }
     private void die(){
         this.alive = false;
@@ -52,7 +53,7 @@ public class Ball extends GameEntityImpl{
     }
     @Override
     public Point getPosition() {
-        return this.pos;
+        return this.position;
     }
     @Override
     public Dimension getSize() {

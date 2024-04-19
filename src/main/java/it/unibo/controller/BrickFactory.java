@@ -3,7 +3,6 @@ package it.unibo.controller;
 import java.awt.*;
 import java.util.Random;
 
-import it.unibo.api.GameEntityImpl;
 import it.unibo.model.Brick;
 import it.unibo.model.BrickColors;
 import it.unibo.model.BrickTypes;
