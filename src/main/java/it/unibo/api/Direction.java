@@ -1,4 +1,4 @@
-package it.unibo.api;
+package main.java.it.unibo.api;
 
 public class Direction {
     private int x;
