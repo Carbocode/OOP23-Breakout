@@ -8,25 +8,29 @@ import it.unibo.api.GameEntity;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
+import it.unibo.model.BarImpl;
 import it.unibo.view.SoundManagerImpl;
 
 import java.util.Set;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.HashSet;
+
 public class GameLoop {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private CollisionManager manager;
     private SoundManager soundPlayer;
     private BrickWall brickWall;
     private Set<Ball> balls;
+    private BarImpl paddle;
     public GameLoop(){
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT/5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        //TODO: Generate bricks, paddle
-        GameEntity paddle = null;
-
+        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(30,5), 0, new Color(0));
         manager = new CollisionManager(balls,brickWall,paddle);
     }
     public void run() {
@@ -58,20 +62,19 @@ public class GameLoop {
      * Updates the gamestate
      */
     private void update() {
-        // Update the game state here
-        System.out.println("Running!!");
+
         manager.checkAll();
         for(var b : balls){
             b.update();
-            System.out.println(" I'm at :("+ b.getPosition().getX()+","+b.getPosition().getY()+")");
+            //System.out.println(b.toString());
         }
     }
     public void multiplyBall(Ball old){
 
     }
     public static void main(String[] args){
+        System.out.println("Running!!");
         var x = new GameLoop();
-        
         x.run();
     }
 }

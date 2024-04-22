@@ -1,6 +1,5 @@
 package it.unibo.view;
 
-import java.awt.*;
 import javax.swing.*;
 
 public class Game extends JFrame {
