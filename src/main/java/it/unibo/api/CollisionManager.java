@@ -1,41 +1,52 @@
 package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.List;
+import java.util.Set;
 
 import it.unibo.model.Ball;
+import it.unibo.model.BarImpl;
 
 public class CollisionManager {
-    private List<GameEntity> bricks;
-    private List<Ball> balls;
-    private GameEntity paddle;
+    private BrickWall bricks;
+    private Set<Ball> balls;
+    private BarImpl paddle;
 
-    public CollisionManager() {
+    public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
         // TODO
+        this.balls = balls;
+        this.bricks = brickWall;
+        this.paddle = paddle;
+        
     }
 
     public void checkAll() {
-        // for every ball
-        for (int i = 0; i < balls.size(); i++) {
-            Ball ball = balls.get(i);
+        for(Ball ball : balls){
+            boolean collision = false;
             if (!ball.isAlive())
                 continue;
-            // we check every brick
-            for (int j = 0; j < bricks.size(); j++) {
-                GameEntity brick = bricks.get(j);
+            for(GameEntity brick : bricks.getWall()){
                 if (!brick.isAlive())
                     continue;
                 if (collides(ball, brick)) {
-                    // BAD. it should notify the controller, so it can produce effects.
-                    ball.onCollision();
+                    
+                    //Sometimes the ball collides with multiple bricks at the same time. this calls its onCollision twice, thus having no effect
+                    if(GameInfo.DEBUG_MODE){
+                        System.out.println("Ball at  (" + ball.getPosition().toString()+ ") collides with (" + brick.getPosition().toString() + ")");
+                    }
+                    collision = true;
                     brick.onCollision();
                 }
             }
             // then we check with paddle
             if (collides(ball, paddle)) {
-                // again, awful.
+                System.out.println("Paddle hit");
+                collision = true;
+            }
+            if(collision){
                 ball.onCollision();
             }
+            
+
         }
 
     }
