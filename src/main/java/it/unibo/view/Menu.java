@@ -1,6 +1,9 @@
 package it.unibo.view;
 
 import javax.swing.*;
+
+import it.unibo.api.SoundManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +17,7 @@ public class Menu extends JFrame {
     private JButton playButton;
     private JButton scoreboardButton;
     private JButton exitButton;
+
     private Measures measure = new Measures();
 
     public Menu() {
