@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
-import it.unibo.api.GameEntity;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;

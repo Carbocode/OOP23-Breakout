@@ -12,7 +12,6 @@ public class CollisionManager {
     private BarImpl paddle;
 
     public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
-        // TODO
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
@@ -45,7 +44,6 @@ public class CollisionManager {
             if(collision){
                 ball.onCollision();
             }
-            
 
         }
 
@@ -57,10 +55,10 @@ public class CollisionManager {
         Point posB = b.getPosition();
         Dimension sizeB = b.getSize();
         // Simple collision detection
-        return posA.getX() < posB.getX() + sizeB.getWidth() &&
-                posA.getX() + sizeA.getWidth() > posB.getX() &&
-                posA.getY() < posB.getY() + sizeB.getHeight() &&
-                posA.getY() + sizeA.getHeight() > posB.getY();
+        return posA.getX() < posB.getX() + sizeB.getWidth()/2 &&
+                posA.getX() + sizeA.getWidth()/2 > posB.getX() &&
+                posA.getY() < posB.getY() + sizeB.getHeight()/2 &&
+                posA.getY() + sizeA.getHeight()/2 > posB.getY();
     }
 
 }
