@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashSet;
+import it.unibo.view.*;
 
 public class GameLoop {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
@@ -24,17 +25,23 @@ public class GameLoop {
     private BrickWall brickWall;
     private Set<Ball> balls;
     private BarImpl paddle;
-    public GameLoop(){
+    private TEST t;
+
+    public GameLoop() {
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT/5);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(30,5), 0, new Color(0));
-        manager = new CollisionManager(balls,brickWall,paddle);
+        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT), new Dimension(30, 5), 0,
+                new Color(0));
+        manager = new CollisionManager(balls, brickWall, paddle);
+        t = new TEST();
+        t.updateGameState(balls, brickWall.getWall(), paddle);
     }
+
     public void run() {
-        //soundPlayer.playBackgroundSound();
+        // soundPlayer.playBackgroundSound();
         long lastUpdateTime = System.currentTimeMillis();
         while (true) {
             long currentTime = System.currentTimeMillis();
@@ -43,6 +50,7 @@ public class GameLoop {
 
             if (elapsedTime >= UPDATE_INTERVAL) {
                 update();
+                t.updateGameState(balls, brickWall.getWall(), paddle);
                 elapsedTime = 0;
             }
 
@@ -64,15 +72,17 @@ public class GameLoop {
     private void update() {
 
         manager.checkAll();
-        for(var b : balls){
+        for (var b : balls) {
             b.update();
-            //System.out.println(b.toString());
+            // System.out.println(b.toString());
         }
     }
-    public void multiplyBall(Ball old){
+
+    public void multiplyBall(Ball old) {
 
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         System.out.println("Running!!");
         var x = new GameLoop();
         x.run();
