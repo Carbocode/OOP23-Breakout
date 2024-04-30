@@ -27,16 +27,16 @@ public class GameLoop {
     private BarImpl paddle;
     private TEST t;
 
-    public GameLoop() {
+    public GameLoop(TEST coso) {
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT), new Dimension(30, 5), 0,
+        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH / 2, 400), new Dimension(400, 5), 0,
                 new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
-        t = new TEST();
+        t = coso;
         t.updateGameState(balls, brickWall.getWall(), paddle);
     }
 
@@ -51,6 +51,7 @@ public class GameLoop {
             if (elapsedTime >= UPDATE_INTERVAL) {
                 update();
                 t.updateGameState(balls, brickWall.getWall(), paddle);
+                t.paint(t.getGraphics());
                 elapsedTime = 0;
             }
 
@@ -84,7 +85,7 @@ public class GameLoop {
 
     public static void main(String[] args) {
         System.out.println("Running!!");
-        var x = new GameLoop();
+        var x = new GameLoop(null);
         x.run();
     }
 }

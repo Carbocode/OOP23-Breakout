@@ -13,7 +13,7 @@ public class Ball extends GameEntityImpl{
     private boolean alive;
 
     public Ball(){
-        super(new Point(GameInfo.GAME_WIDTH/2, GameInfo.GAME_HEIGHT-5), new Dimension(5,5),1);
+        super(new Point(GameInfo.GAME_WIDTH/2, GameInfo.GAME_HEIGHT-50), new Dimension(5,5),1);
         this.dir = new Direction(-1, -1);
         this.alive = true;
     }

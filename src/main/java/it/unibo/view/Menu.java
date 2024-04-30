@@ -2,7 +2,9 @@ package it.unibo.view;
 
 import javax.swing.*;
 
+import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
+import it.unibo.controller.GameLoop;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
 
 
 public class Menu extends JFrame {
-    private JPanel mainPanel;
+    private static JPanel mainPanel;
     private JLabel titleLabel;
     private JButton playButton;
     private JButton scoreboardButton;
@@ -23,6 +25,7 @@ public class Menu extends JFrame {
         setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        /* 
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
@@ -78,8 +81,13 @@ public class Menu extends JFrame {
         backgroundLabel.add(buttonPanel, BorderLayout.CENTER);
 
         mainPanel.add(backgroundLabel, BorderLayout.CENTER);
+        */
+        mainPanel = new TEST();
         add(mainPanel);
+        mainPanel.setVisible(true);
+        mainPanel.setBackground(Color.CYAN);
         setFocusable(true);
+        setVisible(true);
     }
 
     /**
@@ -90,13 +98,14 @@ public class Menu extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                
                 Menu menu = new Menu();
-                Measures measure = new Measures();
-                System.out.println("screen height func:" + measure.getScreenHeight());
-                System.out.println("screen width func:" + measure.getScreenWidth());
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                System.out.println("Dimensioni dello schermo: " + screenSize.getWidth() + "x" + screenSize.getHeight());
+                GameLoop gls = new GameLoop((TEST)mainPanel);
+                gls.run();
+                mainPanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
+                mainPanel.setBackground(Color.BLACK);
                 menu.setVisible(true);
+                
             }
         });
     }
