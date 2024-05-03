@@ -2,7 +2,6 @@ package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 import it.unibo.model.Ball;
@@ -64,5 +63,4 @@ public class CollisionManager {
         return aR.intersects(bR);
 
     }
-
 }

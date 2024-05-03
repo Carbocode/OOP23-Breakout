@@ -39,7 +39,7 @@ public class Ball extends GameEntityImpl{
             dir = new Direction(-dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
         }
         // if we fall, we die
-        if( candidate.getY() > GameInfo.GAME_HEIGHT){
+        if(candidate.getY() > GameInfo.GAME_HEIGHT){
             die();
         }
         position = candidate;
