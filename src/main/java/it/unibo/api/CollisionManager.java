@@ -1,6 +1,7 @@
 package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Set;
 
 import it.unibo.model.Ball;
@@ -12,6 +13,7 @@ public class CollisionManager {
     private BarImpl paddle;
 
     public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
+        // TODO
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
@@ -44,21 +46,21 @@ public class CollisionManager {
             if(collision){
                 ball.onCollision();
             }
+            
 
         }
 
     }
 
     private boolean collides(GameEntity a, GameEntity b) {
+        //TODO fix collision detection
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
         Point posB = b.getPosition();
         Dimension sizeB = b.getSize();
-        // Simple collision detection
-        return posA.getX() < posB.getX() + sizeB.getWidth()/2 &&
-                posA.getX() + sizeA.getWidth()/2 > posB.getX() &&
-                posA.getY() < posB.getY() + sizeB.getHeight()/2 &&
-                posA.getY() + sizeA.getHeight()/2 > posB.getY();
-    }
+        Rectangle aR = new Rectangle(posA, sizeA);
+        Rectangle bR = new Rectangle(posB, sizeB);
+        return aR.intersects(bR);
 
+    }
 }
