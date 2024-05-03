@@ -53,7 +53,6 @@ public class CollisionManager {
     }
 
     private boolean collides(GameEntity a, GameEntity b) {
-        //TODO fix collision detection
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
         Point posB = b.getPosition();
@@ -61,6 +60,5 @@ public class CollisionManager {
         Rectangle aR = new Rectangle(posA, sizeA);
         Rectangle bR = new Rectangle(posB, sizeB);
         return aR.intersects(bR);
-
     }
 }

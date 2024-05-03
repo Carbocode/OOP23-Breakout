@@ -100,7 +100,6 @@ public class Menu extends JFrame {
                 
                 Menu menu = new Menu();
                 GameLoop gls = new GameLoop((TEST)mainPanel);
-                gls.run();
                 mainPanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
                 mainPanel.setBackground(Color.BLACK);
                 menu.setVisible(true);

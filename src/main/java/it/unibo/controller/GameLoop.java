@@ -46,10 +46,10 @@ public class GameLoop implements ActionListener {
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(30,5), 0, new Color(0));
+        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(200,5), 0, new Color(0));
         manager = new CollisionManager(balls,brickWall,paddle);
         t = coso;
-
+        t.updateGameState(balls, brickWall.getWall(), paddle);
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
@@ -78,6 +78,7 @@ public class GameLoop implements ActionListener {
             // System.out.println(b.toString());
         }
         t.repaint();
+        t.updateGameState(balls, brickWall.getWall(), paddle);
     }
 
     public void multiplyBall(Ball old) {
