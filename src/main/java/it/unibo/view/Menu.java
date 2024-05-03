@@ -94,17 +94,5 @@ public class Menu extends JFrame {
      * 
      * @param args
      */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                
-                Menu menu = new Menu();
-                GameLoop gls = new GameLoop((TEST)mainPanel);
-                mainPanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
-                mainPanel.setBackground(Color.BLACK);
-                menu.setVisible(true);
-                
-            }
-        });
-    }
+    
 }
