@@ -10,19 +10,32 @@ import it.unibo.model.Ball;
 import it.unibo.model.BarImpl;
 import it.unibo.view.SoundManagerImpl;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
 import java.util.Set;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashSet;
 
-public class GameLoop {
+public class GameLoop implements ActionListener {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
+
     private CollisionManager manager;
     private SoundManager soundPlayer;
     private BrickWall brickWall;
     private Set<Ball> balls;
     private BarImpl paddle;
+
+
+    private long lastUpdateTime;
+    private int frames;
+    private Timer timer;
+
     public GameLoop(){
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT/5);
@@ -31,29 +44,21 @@ public class GameLoop {
         brickWall.generateLayout();
         paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(30,5), 0, new Color(0));
         manager = new CollisionManager(balls,brickWall,paddle);
+
+
+        lastUpdateTime = System.nanoTime();
+        timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
+        timer.start();
     }
-    public void run() {
-        //soundPlayer.playBackgroundSound();
-        long lastUpdateTime = System.currentTimeMillis();
-        while (true) {
-            long currentTime = System.currentTimeMillis();
-            long elapsedTime = currentTime - lastUpdateTime;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        long currentTime = System.nanoTime();
+        long elapsedTime = currentTime - lastUpdateTime;
+
+        if (elapsedTime >= GameInfo.REFRESH_RATE) {
+            update();
             lastUpdateTime = currentTime;
-
-            if (elapsedTime >= UPDATE_INTERVAL) {
-                update();
-                elapsedTime = 0;
-            }
-
-            // Sleep the remaining time, if any, to ensure a consistent update interval
-            long sleepTime = UPDATE_INTERVAL - elapsedTime;
-            if (sleepTime > 0) {
-                try {
-                    TimeUnit.MILLISECONDS.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            frames++;
         }
     }
 
@@ -74,6 +79,5 @@ public class GameLoop {
     public static void main(String[] args){
         System.out.println("Running!!");
         var x = new GameLoop();
-        x.run();
     }
 }
