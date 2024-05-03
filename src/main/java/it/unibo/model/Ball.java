@@ -53,7 +53,6 @@ public class Ball extends GameEntityImpl{
     @Override
     public void onCollision() {
         // much code
-        System.out.println("ouch!");
         dir = new Direction(-dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
     }
     @Override

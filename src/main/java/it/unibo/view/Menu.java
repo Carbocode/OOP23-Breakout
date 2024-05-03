@@ -87,6 +87,7 @@ public class Menu extends JFrame {
         mainPanel.setVisible(true);
         mainPanel.setBackground(Color.CYAN);
         setFocusable(true);
+        pack();
         setVisible(true);
     }
 

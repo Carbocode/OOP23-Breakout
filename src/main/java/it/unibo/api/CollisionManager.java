@@ -1,6 +1,8 @@
 package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 import it.unibo.model.Ball;
@@ -52,15 +54,29 @@ public class CollisionManager {
     }
 
     private boolean collides(GameEntity a, GameEntity b) {
+        //TODO fix collision detection
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
         Point posB = b.getPosition();
         Dimension sizeB = b.getSize();
+        Rectangle aR = new Rectangle(posA, sizeA);
+        Rectangle bR = new Rectangle(posB, sizeB);
+        return aR.intersects(bR);
+        /* 
+        // calculate the distance between the center points of this and the other GameEntity
+        double dx =  posA.getX() - posB.getX();
+        double dy =  posA.getY() - posB.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // check if the distance is less than the sum of the dimensions of the two GameEntities
+        double combinedWidth = sizeA.getWidth() + sizeB.getWidth();
+        double combinedHeight = sizeA.getHeight() + sizeB.getHeight();
         // Simple collision detection
-        return posA.getX() < posB.getX() + sizeB.getWidth() &&
-                posA.getX() + sizeA.getWidth() > posB.getX() &&
-                posA.getY() < posB.getY() + sizeB.getHeight() &&
-                posA.getY() + sizeA.getHeight() > posB.getY();
+        if(distance <= (combinedWidth / 2.0) + (combinedHeight / 2.0)){
+            //System.out.println(a.toString() + " c " + b.toString());
+        }
+        return distance <= (combinedWidth / 2.0) + (combinedHeight / 2.0);
+        */
     }
 
 }
