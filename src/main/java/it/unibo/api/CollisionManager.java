@@ -62,21 +62,7 @@ public class CollisionManager {
         Rectangle aR = new Rectangle(posA, sizeA);
         Rectangle bR = new Rectangle(posB, sizeB);
         return aR.intersects(bR);
-        /* 
-        // calculate the distance between the center points of this and the other GameEntity
-        double dx =  posA.getX() - posB.getX();
-        double dy =  posA.getY() - posB.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // check if the distance is less than the sum of the dimensions of the two GameEntities
-        double combinedWidth = sizeA.getWidth() + sizeB.getWidth();
-        double combinedHeight = sizeA.getHeight() + sizeB.getHeight();
-        // Simple collision detection
-        if(distance <= (combinedWidth / 2.0) + (combinedHeight / 2.0)){
-            //System.out.println(a.toString() + " c " + b.toString());
-        }
-        return distance <= (combinedWidth / 2.0) + (combinedHeight / 2.0);
-        */
+
     }
 
 }

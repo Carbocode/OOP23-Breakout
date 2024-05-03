@@ -2,11 +2,9 @@ package it.unibo.controller;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.SwingUtilities;
 
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
-import it.unibo.api.GameEntity;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
@@ -45,6 +43,7 @@ public class GameLoop {
     public void run() {
         // soundPlayer.playBackgroundSound();
         long lastUpdateTime = System.currentTimeMillis();
+        var g = t.getGraphics();
         while (true) {
             long currentTime = System.currentTimeMillis();
             long elapsedTime = currentTime - lastUpdateTime;
@@ -53,7 +52,7 @@ public class GameLoop {
             if (elapsedTime >= UPDATE_INTERVAL) {
                 update();
                 t.updateGameState(balls, brickWall.getWall(), paddle);
-                t.paint(t.getGraphics());;
+                t.paint(g);
                 elapsedTime = 0;
             }
 
