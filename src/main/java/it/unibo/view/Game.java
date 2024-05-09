@@ -8,11 +8,11 @@ import java.util.*;
 
 import java.awt.*;
 
-public class TEST extends JPanel {
+public class Game extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private BarImpl bar;
-    public TEST(){
+    public Game(){
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH,GameInfo.GAME_HEIGHT));
     }
     @Override

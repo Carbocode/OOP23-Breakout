@@ -8,7 +8,6 @@ import it.unibo.controller.GameLoop;
 
 import java.awt.*;
 
-
 public class Menu extends JFrame {
     private static JPanel mainPanel;
     private JLabel titleLabel;
@@ -23,7 +22,6 @@ public class Menu extends JFrame {
         setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /* 
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
@@ -52,7 +50,7 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TO DO
                 dispose();
-                JFrame gameFrame = new Game();
+                JPanel gameFrame = new Game();
                 gameFrame.setVisible(true);
             }
         });
@@ -79,8 +77,8 @@ public class Menu extends JFrame {
         backgroundLabel.add(buttonPanel, BorderLayout.CENTER);
 
         mainPanel.add(backgroundLabel, BorderLayout.CENTER);
-        */
-        mainPanel = new TEST();
+
+        mainPanel = new Game();
         add(mainPanel);
         mainPanel.setVisible(true);
         mainPanel.setBackground(Color.CYAN);
@@ -89,10 +87,4 @@ public class Menu extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * Test to try
-     * 
-     * @param args
-     */
-    
 }

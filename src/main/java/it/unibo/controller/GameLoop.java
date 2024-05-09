@@ -38,9 +38,9 @@ public class GameLoop implements ActionListener {
     private int frames;
     private Timer timer;
 
-    private TEST t;
+    private Game t;
 
-    public GameLoop(TEST coso) {
+    public GameLoop(Game coso) {
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
         balls = new HashSet<Ball>();
