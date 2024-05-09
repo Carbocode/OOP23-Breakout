@@ -12,9 +12,11 @@ public class Game extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private BarImpl bar;
-    public Game(){
-        setPreferredSize(new Dimension(GameInfo.GAME_WIDTH,GameInfo.GAME_HEIGHT));
+
+    public Game() {
+        setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -24,18 +26,18 @@ public class Game extends JPanel {
                     (int) ball.getSize().getWidth(), (int) ball.getSize().getHeight());
 
         }
-        
 
         for (Brick brick : bricks) {
             g.setColor(brick.getColor());
-            if(brick.isAlive()){
+            if (brick.isAlive()) {
                 g.fillRect((int) brick.getPosition().getX(), (int) brick.getPosition().getY(),
-                    (int) brick.getSize().getWidth(), (int) brick.getSize().getHeight());
+                        (int) brick.getSize().getWidth(), (int) brick.getSize().getHeight());
             }
-            
+
         }
         g.setColor(Color.MAGENTA);
-        g.fillRect((int) (bar.getPosition().getX()-bar.getSize().getWidth()/2), (int) (bar.getPosition().getY()-bar.getSize().getHeight()/2),
+        g.fillRect((int) (bar.getPosition().getX() - bar.getSize().getWidth() / 2),
+                (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
     }
