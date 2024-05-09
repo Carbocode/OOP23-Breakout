@@ -7,6 +7,8 @@ import it.unibo.api.SoundManager;
 import it.unibo.controller.GameLoop;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
     private static JPanel mainPanel;
