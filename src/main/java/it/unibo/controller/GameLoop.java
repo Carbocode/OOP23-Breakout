@@ -19,7 +19,6 @@ import javax.swing.Timer;
 
 
 public class GameLoop implements ActionListener {
-    private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
 
     private CollisionManager manager;
     private SoundManager soundPlayer;
@@ -27,12 +26,14 @@ public class GameLoop implements ActionListener {
     private Set<Ball> balls;
     private BarImpl paddle;
 
-    //
+
     private long lastUpdateTime;
-    private int frames;
     private Timer timer;
 
-    public GameLoop(){
+   /**
+    * The `GameLoop` 
+    */
+    public GameLoop() {
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH,
         GameInfo.GAME_HEIGHT / 5);
@@ -59,7 +60,6 @@ public class GameLoop implements ActionListener {
         if (elapsedTime >= GameInfo.REFRESH_RATE) {
             update();
             lastUpdateTime = currentTime;
-            frames++;
         }
     }
 
@@ -71,7 +71,6 @@ public class GameLoop implements ActionListener {
         manager.checkAll();
         for (var b : balls) {
             b.update();
-            // System.out.println(b.toString());
         }
     }
 
