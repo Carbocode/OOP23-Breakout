@@ -72,6 +72,12 @@ public class GameLoop implements ActionListener {
     private void update() {
 
         manager.checkAll();
+        this.updateBalls();
+        DeathCollector.checkEntities(balls);
+        DeathCollector.checkEntities(brickWall.getWall());
+    }
+
+    private void updateBalls() {
         for (var b : balls) {
             b.update();
             // System.out.println(b.toString());
