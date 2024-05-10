@@ -4,8 +4,8 @@ import it.unibo.api.GameEntityImpl;
 
 public enum BrickTypes {
     ONE_HIT(GameEntityImpl.MIN_HEALTH, 10),
-    DOUBLE_HIT(2, 5),
-    IMMORTAL(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, 2);
+    DOUBLE_HIT(2, 40),
+    IMMORTAL(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, 110);
 
     private int health;
     private int occurence;
@@ -19,7 +19,7 @@ public enum BrickTypes {
         return this.health;
     }
 
-    public int geOccurence() {
+    public int getOccurence() {
         return this.occurence;
     }
 }
