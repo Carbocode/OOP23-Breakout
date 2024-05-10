@@ -7,6 +7,8 @@ import it.unibo.model.*;
 import java.util.*;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GameView extends JPanel {
     private Set<Ball> balls;
@@ -15,6 +17,23 @@ public class GameView extends JPanel {
 
     public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
+        addKeyListener(new TAdapter());
+        setFocusable(true);
+    }
+
+    private class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+            bar.buttonReleased(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            bar.buttonPressed(e);
+        }
     }
 
     @Override
@@ -36,7 +55,7 @@ public class GameView extends JPanel {
 
         }
         g.setColor(Color.MAGENTA);
-        g.fillRect((int) (bar.getPosition().getX() - bar.getSize().getWidth() / 2),
+        g.fillRect((int) (bar.getPosition().getX()),
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
