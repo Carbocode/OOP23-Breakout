@@ -37,7 +37,7 @@ public class BarImpl  extends GameEntityImpl {//implements Bar {
                 break;
             
             case RIGHT_VALUE:
-                if(position.x + size.width + MOVE_VALUE < m.getGameAreaWidth())
+                if(position.x + size.width + MOVE_VALUE < GameInfo.GAME_WIDTH)
                     position.x += MOVE_VALUE;
                 break;
             default:
