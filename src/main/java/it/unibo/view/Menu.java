@@ -29,14 +29,10 @@ public class Menu extends JFrame {
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
-        // creating the background image, it has to be done (TO DO)
-        ImageIcon backgroundImage = new ImageIcon("../api/appdata/images/space.jpg");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-        backgroundLabel.setLayout(new BorderLayout());
-
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
+        buttonPanel.setBackground(Color.CYAN);
 
         playButton = new JButton("PLAY");
         playButton.setPreferredSize(new Dimension(100, 50));
@@ -52,8 +48,12 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TO DO
                 dispose();
-                JPanel gameFrame = new GameView();
-                gameFrame.setVisible(true);
+                JPanel gamePanel=new JPanel();
+                GameView game= new GameView();
+                GameLoop gl = new GameLoop(game);
+                gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
+                gamePanel.setBackground(Color.BLACK);
+                gamePanel.setVisible(true);
             }
         });
 
@@ -75,17 +75,13 @@ public class Menu extends JFrame {
         buttonPanel.add(scoreboardButton);
         buttonPanel.add(exitButton);
 
-        backgroundLabel.add(titleLabel, BorderLayout.NORTH);
-        backgroundLabel.add(buttonPanel, BorderLayout.CENTER);
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        mainPanel.add(backgroundLabel, BorderLayout.CENTER);
-
-        mainPanel = new GameView();
         add(mainPanel);
         mainPanel.setVisible(true);
         mainPanel.setBackground(Color.CYAN);
         setFocusable(true);
-        pack();
         setVisible(true);
     }
 
