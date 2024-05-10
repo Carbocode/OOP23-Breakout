@@ -17,15 +17,13 @@ public class Main {
             public void run() {
                 
                 JFrame game = new JFrame();
-                /*gamePanel = new Game();
+                gamePanel = new Game();
                 game.add(gamePanel);
                 GameLoop gls = new GameLoop(gamePanel);
                 gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
                 gamePanel.setBackground(Color.BLACK);
                 game.pack();
-                game.setVisible(true);*/
-                menuPanel=new Menu();
-                game.add(menuPanel);
+                game.setVisible(true);
                 
             }
         });
