@@ -63,13 +63,11 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public void shiftLayout() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'shiftLayout'");
     }
 
     @Override
     public void removeDeathBricks() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeDeathBricks'");
     }
 
