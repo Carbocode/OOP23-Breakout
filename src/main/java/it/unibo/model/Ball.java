@@ -13,7 +13,7 @@ public class Ball extends GameEntityImpl{
     private boolean alive;
 
     public Ball(){
-        super(new Point(GameInfo.GAME_WIDTH/2, GameInfo.GAME_HEIGHT-5), new Dimension(5,5),1);
+        super(new Point(GameInfo.GAME_WIDTH/2, GameInfo.GAME_HEIGHT-50), new Dimension(5,5),1);
         this.dir = new Direction(-1, -1);
         this.alive = true;
     }
@@ -39,7 +39,7 @@ public class Ball extends GameEntityImpl{
             dir = new Direction(-dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
         }
         // if we fall, we die
-        if( candidate.getY() > GameInfo.GAME_HEIGHT){
+        if(candidate.getY() > GameInfo.GAME_HEIGHT){
             die();
         }
         position = candidate;
@@ -53,8 +53,7 @@ public class Ball extends GameEntityImpl{
     @Override
     public void onCollision() {
         // much code
-        System.out.println("ouch!");
-        dir = new Direction(-dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
+        dir = new Direction(dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
     }
     @Override
     public Point getPosition() {
