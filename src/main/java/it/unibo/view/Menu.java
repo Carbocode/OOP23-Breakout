@@ -52,8 +52,12 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TO DO
                 dispose();
-                JPanel gameFrame = new GameView();
-                gameFrame.setVisible(true);
+                JPanel gamePanel=new JPanel();
+                GameView game= new GameView();
+                GameLoop gl = new GameLoop(game);
+                gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
+                gamePanel.setBackground(Color.BLACK);
+                gamePanel.setVisible(true);
             }
         });
 
