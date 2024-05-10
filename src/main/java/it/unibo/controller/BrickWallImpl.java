@@ -10,8 +10,6 @@ import it.unibo.model.Brick;
 
 public class BrickWallImpl implements BrickWall {
 
-    final public static Dimension DEFAULT_BRICK_DIM_PERC = new Dimension(10, 5);
-
     private Set<Brick> wall;
     private int width;
     private int height;
@@ -25,28 +23,37 @@ public class BrickWallImpl implements BrickWall {
     public void generateLayout() {
         this.resetLayout();
 
-        int brickWidth = (width * DEFAULT_BRICK_DIM_PERC.width) / 100;
-        int brickHeight = (height * DEFAULT_BRICK_DIM_PERC.height) / 100;
+        int numBrickWidth = this.getNumBricksWidth();
+        int numBrickHeight = this.getNumBricksHeight();
 
-        int brickPerColumn = 100 / DEFAULT_BRICK_DIM_PERC.height;
-        int brickPerRow = 100 / DEFAULT_BRICK_DIM_PERC.width;
-        for (int i = 0; i < brickPerColumn; i++) {
-            for (int j = 0; j < brickPerRow; j++) {
+        int brickHeight = this.getBrickHeight();
+        int brickWidth = this.getBrickWidth();
+
+        for (int i = 0; i < numBrickHeight; i++) {
+            for (int j = 0; j < numBrickWidth; j++) {
                 wall.add(
                         BrickFactory.createRandomBrick(
                                 new Point(j * brickWidth, i * brickHeight),
-                                new Dimension(getBrickWidth(), getBrickHeight())));
+                                new Dimension(brickWidth, brickHeight)));
             }
         }
 
     }
 
-    private int getBrickWidth() {
-        return width / 100 * DEFAULT_BRICK_DIM_PERC.width;
+    private int getBrickHeight() {
+        return (int) Math.floor(Math.sqrt(this.height * this.width * Brick.ASPECT_RATIO));
     }
 
-    private int getBrickHeight() {
-        return height / 100 * DEFAULT_BRICK_DIM_PERC.height;
+    private int getBrickWidth() {
+        return (int) (this.getBrickHeight() * Brick.ASPECT_RATIO);
+    }
+
+    private int getNumBricksWidth() {
+        return this.width / getBrickWidth();
+    }
+
+    private int getNumBricksHeight() {
+        return this.height / getBrickHeight();
     }
 
     @Override
