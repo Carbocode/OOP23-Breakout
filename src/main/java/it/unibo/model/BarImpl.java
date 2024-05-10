@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 
-public class BarImpl  extends GameEntityImpl implements Bar {
+public class BarImpl  extends GameEntityImpl {//implements Bar {
 
 
     private static Measures m;

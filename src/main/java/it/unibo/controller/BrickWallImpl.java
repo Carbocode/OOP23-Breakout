@@ -10,11 +10,10 @@ import it.unibo.model.Brick;
 
 public class BrickWallImpl implements BrickWall {
 
-    final public static Dimension DEFAULT_BRICK_DIM_PERC = new Dimension(10, 5);
-
     private Set<Brick> wall;
     private int width;
     private int height;
+    private int sideOffset;
 
     public BrickWallImpl(int width, int height) {
         this.width = width;
@@ -25,26 +24,65 @@ public class BrickWallImpl implements BrickWall {
     public void generateLayout() {
         this.resetLayout();
 
-        int brickPerRow = width / DEFAULT_BRICK_DIM_PERC.width;
-        int brickPerColumn = height / DEFAULT_BRICK_DIM_PERC.height;
+        int gcd = gcd(this.width, this.height);
 
-        for (int i = 0; i < brickPerColumn; i++) {
-            for (int j = 0; j < brickPerRow; j++) {
+        // Calcola la dimensione base del mattoncino
+        int brickWidth = gcd;
+        int brickHeight = (int) (brickWidth / Brick.ASPECT_RATIO);
+
+        // Verifica che il mattoncino base riempia l'area
+        if (this.height % brickHeight != 0) {
+            brickHeight = gcd;
+            brickWidth = (int) (brickHeight * Brick.ASPECT_RATIO);
+        }
+
+        int numBricksRow = this.width / brickWidth;
+        int numBricksColumn = this.height / brickHeight;
+
+        this.sideOffset = (int) (this.width - (brickWidth * numBricksRow)) / 2;
+
+        for (int i = 0; i < numBricksColumn; i++) {
+            wall.add(
+                    BrickFactory.createImmortalBrick(
+                            new Point(0, i * brickHeight),
+                            new Dimension(brickWidth, brickHeight)));
+            for (int j = 0; j < numBricksRow; j++) {
                 wall.add(
                         BrickFactory.createRandomBrick(
-                                new Point(j * DEFAULT_BRICK_DIM_PERC.height, i * DEFAULT_BRICK_DIM_PERC.width),
-                                new Dimension(getBrickWidth(), getBrickHeight())));
+                                new Point((j * brickWidth) + this.sideOffset, i * brickHeight),
+                                new Dimension(brickWidth, brickHeight)));
             }
+            wall.add(
+                    BrickFactory.createImmortalBrick(
+                            new Point(this.width - this.sideOffset, i * brickHeight),
+                            new Dimension(brickWidth, brickHeight)));
         }
 
     }
 
-    private int getBrickWidth() {
-        return width / 100 * DEFAULT_BRICK_DIM_PERC.width;
+    private static int gcd(int a, int b) {
+        while (b != 0) {
+            int t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
     }
 
     private int getBrickHeight() {
-        return height / 100 * DEFAULT_BRICK_DIM_PERC.height;
+        return (int) Math.floor(Math.sqrt(this.height * this.width * Brick.ASPECT_RATIO));
+    }
+
+    private int getBrickWidth() {
+        return (int) (this.getBrickHeight() * Brick.ASPECT_RATIO);
+    }
+
+    private int getNumBricksWidth() {
+        return this.width / getBrickWidth();
+    }
+
+    private int getNumBricksHeight() {
+        return this.height / getBrickHeight();
     }
 
     @Override
@@ -54,13 +92,11 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public void shiftLayout() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'shiftLayout'");
     }
 
     @Override
     public void removeDeathBricks() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeDeathBricks'");
     }
 

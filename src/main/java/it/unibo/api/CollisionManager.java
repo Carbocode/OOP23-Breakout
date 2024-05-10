@@ -1,40 +1,52 @@
 package it.unibo.api;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Set;
 
 import it.unibo.model.Ball;
+import it.unibo.model.BarImpl;
 
 public class CollisionManager {
-    private Set<GameEntity> bricks;
+    private BrickWall bricks;
     private Set<Ball> balls;
-    private GameEntity paddle;
+    private BarImpl paddle;
 
-    public CollisionManager(Set<Ball> balls, Set<GameEntity> bricks, GameEntity paddle) {
+    public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
         // TODO
         this.balls = balls;
-        this.bricks = bricks;
+        this.bricks = brickWall;
         this.paddle = paddle;
+        
     }
 
     public void checkAll() {
         for(Ball ball : balls){
+            boolean collision = false;
             if (!ball.isAlive())
                 continue;
-            for(GameEntity brick : bricks){
+            for(GameEntity brick : bricks.getWall()){
                 if (!brick.isAlive())
                     continue;
                 if (collides(ball, brick)) {
-                    // BAD. it should notify the controller, so it can produce effects.
-                    ball.onCollision();
+                    
+                    //Sometimes the ball collides with multiple bricks at the same time. this calls its onCollision twice, thus having no effect
+                    if(GameInfo.DEBUG_MODE){
+                        System.out.println("Ball at  (" + ball.getPosition().toString()+ ") collides with (" + brick.getPosition().toString() + ")");
+                    }
+                    collision = true;
                     brick.onCollision();
                 }
             }
             // then we check with paddle
             if (collides(ball, paddle)) {
-                // again, awful.
+                System.out.println("Paddle hit");
+                collision = true;
+            }
+            if(collision){
                 ball.onCollision();
             }
+            
 
         }
 
@@ -45,11 +57,8 @@ public class CollisionManager {
         Dimension sizeA = a.getSize();
         Point posB = b.getPosition();
         Dimension sizeB = b.getSize();
-        // Simple collision detection
-        return posA.getX() < posB.getX() + sizeB.getWidth() &&
-                posA.getX() + sizeA.getWidth() > posB.getX() &&
-                posA.getY() < posB.getY() + sizeB.getHeight() &&
-                posA.getY() + sizeA.getHeight() > posB.getY();
+        Rectangle aR = new Rectangle(posA, sizeA);
+        Rectangle bR = new Rectangle(posB, sizeB);
+        return aR.intersects(bR);
     }
-
 }

@@ -9,6 +9,8 @@ import it.unibo.api.GameEntityImpl;
 
 public class Brick extends GameEntityImpl {
 
+    final public static double ASPECT_RATIO = 7.0 / 3;
+
     public Brick(Point position, Dimension size, int health, Color color) {
         super(position, size, health, color);
     }
@@ -22,7 +24,7 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public boolean isAlive() {
-        return super.isAlive();
+        return this.getHealth() != -1 ? super.isAlive() : true;
     }
 
     @Override

@@ -12,14 +12,15 @@ import it.unibo.model.BrickTypes;
  */
 public class BrickFactory {
 
-    static Random rand = new Random();
+    static private long seed = System.currentTimeMillis();
+    static private final Random rand = new Random(BrickFactory.seed);
 
     /**
      * Choses a Color for the Brick
      * 
      * @return a Color for the Brick
      */
-    static Color getRandomColor() {
+    static public Color getRandomColor() {
         BrickColors[] colors = BrickColors.values();
         return colors[rand.nextInt(colors.length)].getColor();
     }
@@ -29,7 +30,7 @@ public class BrickFactory {
      * 
      * @return a Health for the Brick
      */
-    static int getRandomHealth() {
+    static public int getRandomHealth() {
         BrickTypes[] colors = BrickTypes.values();
         return colors[rand.nextInt(colors.length)].getHealth();
     }
@@ -42,8 +43,31 @@ public class BrickFactory {
      * 
      * @return Brick
      */
-    static Brick createRandomBrick(Point position, Dimension size) {
-        return new Brick(position, size, getRandomHealth(), getRandomColor());
+    static public Brick createRandomBrick(Point position, Dimension size) {
+        int health = getRandomHealth();
+
+        Color color;
+
+        if (health < 0)
+            color = getRandomColor();
+        else
+            color = new Color(128, 128, 128);
+
+        return new Brick(position, size, health, color);
     }
 
+    static public void setSeed(long seed) {
+        BrickFactory.seed = seed;
+        BrickFactory.rand.setSeed(seed);
+    }
+
+    static public long getSeed() {
+        return BrickFactory.seed;
+    }
+
+    static public Brick createImmortalBrick(Point position, Dimension size) {
+        {
+            return new Brick(position, size, BrickTypes.IMMORTAL.getHealth(), new Color(128, 128, 128));
+        }
+    }
 }
