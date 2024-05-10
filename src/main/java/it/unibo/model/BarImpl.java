@@ -1,12 +1,12 @@
 package it.unibo.model;
+
 import it.unibo.view.*;
 import it.unibo.api.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 
-public class BarImpl  extends GameEntityImpl implements Bar {
-
+public class BarImpl extends GameEntityImpl implements Bar {
 
     private static Measures m;
 
@@ -27,17 +27,16 @@ public class BarImpl  extends GameEntityImpl implements Bar {
     public void onCollision() {
         // play sound
     }
-    
-    
-    public void move(){
+
+    public void move() {
         switch (direction) {
             case LEFT_VALUE:
-                if(position.x - MOVE_VALUE>0)
+                if (position.x - MOVE_VALUE > 0)
                     position.x -= MOVE_VALUE;
                 break;
-            
+
             case RIGHT_VALUE:
-                if(position.x + size.width + MOVE_VALUE < m.getGameAreaWidth())
+                if (position.x + size.width + MOVE_VALUE < m.getGameAreaWidth())
                     position.x += MOVE_VALUE;
                 break;
             default:
@@ -45,36 +44,35 @@ public class BarImpl  extends GameEntityImpl implements Bar {
         }
     }
 
-    public void setWidth(int newwidth){
+    public void setWidth(int newwidth) {
         size.width = newwidth;
         return;
     }
 
     public void buttonPressed(KeyEvent e) {
 
-        switch(e.getKeyCode()){
+        switch (e.getKeyCode()) {
 
             case KeyEvent.VK_LEFT:
-                //left arrow button pressed -> move left
+                // left arrow button pressed -> move left
                 direction = LEFT_VALUE;
                 break;
 
             case KeyEvent.VK_RIGHT:
-                //right arrow button pressed -> move right
+                // right arrow button pressed -> move right
                 direction = RIGHT_VALUE;
                 break;
 
             default:
-                //do nothing     
+                // do nothing
 
         }
     }
 
     public void buttonReleased(KeyEvent e) {
-        //button released -> stop moving
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) 
+        // button released -> stop moving
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT)
             direction = STOP_VALUE;
     }
 
-    
 }
