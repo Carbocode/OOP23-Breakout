@@ -39,7 +39,7 @@ public class GameLoop implements ActionListener {
 
     public GameLoop(GameView coso) {
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.floor(GameInfo.GAME_HEIGHT * 0.35));
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
