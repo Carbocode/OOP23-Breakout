@@ -43,7 +43,7 @@ public class BrickWallImpl implements BrickWall {
 
         for (int i = 0; i < numBricksColumn; i++) {
             wall.add(
-                    BrickFactory.createRandomBrick(
+                    BrickFactory.createImmortalBrick(
                             new Point(0, i * brickHeight),
                             new Dimension(brickWidth, brickHeight)));
             for (int j = 0; j < numBricksRow; j++) {
@@ -53,7 +53,7 @@ public class BrickWallImpl implements BrickWall {
                                 new Dimension(brickWidth, brickHeight)));
             }
             wall.add(
-                    BrickFactory.createRandomBrick(
+                    BrickFactory.createImmortalBrick(
                             new Point(this.width - this.sideOffset, i * brickHeight),
                             new Dimension(brickWidth, brickHeight)));
         }
