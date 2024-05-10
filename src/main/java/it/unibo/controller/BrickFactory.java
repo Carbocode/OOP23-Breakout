@@ -56,4 +56,9 @@ public class BrickFactory {
         return BrickFactory.seed;
     }
 
+    static public Brick createImmortalBrick(Point position, Dimension size) {
+        {
+            return new Brick(position, size, BrickTypes.IMMORTAL.getHealth(), new Color(128, 128, 128));
+        }
+    }
 }
