@@ -76,6 +76,7 @@ public class GameLoop implements ActionListener {
             b.update();
             // System.out.println(b.toString());
         }
+        paddle.move();
         t.repaint();
         t.updateGameState(balls, brickWall.getWall(), paddle);
     }

@@ -7,6 +7,8 @@ import it.unibo.model.*;
 import java.util.*;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GameView extends JPanel {
     private Set<Ball> balls;
@@ -15,6 +17,23 @@ public class GameView extends JPanel {
 
     public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
+        addKeyListener(new TAdapter());
+        setFocusable(true);
+    }
+
+    private class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+            bar.buttonReleased(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            bar.buttonPressed(e);
+        }
     }
 
     @Override
