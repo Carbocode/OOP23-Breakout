@@ -7,15 +7,12 @@ import it.unibo.api.GameEntityImpl;
 
 public class BarImpl  extends GameEntityImpl {//implements Bar {
 
-
-    private static Measures m;
-
     // (-1) left - (1) right - (0) do not move
     final private static int LEFT_VALUE = -1;
     final private static int RIGHT_VALUE = 1;
     final private static int STOP_VALUE = 0;
 
-    final private static int MOVE_VALUE = 2;
+    final private static int MOVE_VALUE = 5;
 
     private int direction;
 

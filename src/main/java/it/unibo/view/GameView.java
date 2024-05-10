@@ -55,7 +55,7 @@ public class GameView extends JPanel {
 
         }
         g.setColor(Color.MAGENTA);
-        g.fillRect((int) (bar.getPosition().getX() - bar.getSize().getWidth() / 2),
+        g.fillRect((int) (bar.getPosition().getX()),
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
