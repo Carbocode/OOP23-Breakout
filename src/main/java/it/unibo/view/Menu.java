@@ -1,10 +1,13 @@
 package it.unibo.view;
 
 import javax.swing.*;
+import java.util.*;
+import java.io.*;
 
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.controller.GameLoop;
+import it.unibo.controller.Match;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +19,7 @@ public class Menu extends JFrame {
     private JButton playButton;
     private JButton scoreboardButton;
     private JButton exitButton;
+    private Font font;
 
     private Measures measure = new Measures();
 
@@ -27,7 +31,13 @@ public class Menu extends JFrame {
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        File fontFile = new File("../appdata/font/8-bit-hud.ttf");
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+        titleLabel.setFont(font);
 
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
@@ -50,9 +60,7 @@ public class Menu extends JFrame {
                 GameView gamePanel=new GameView();
                 gamePanel = new GameView();
                 game.add(gamePanel);
-                GameLoop gls = new GameLoop(gamePanel);
-                gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
-                gamePanel.setBackground(Color.BLACK);
+                Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
             }
