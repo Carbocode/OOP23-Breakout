@@ -7,6 +7,8 @@ import it.unibo.api.SoundManager;
 import it.unibo.controller.GameLoop;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Menu extends JFrame {
@@ -23,7 +25,7 @@ public class Menu extends JFrame {
         setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /* 
+        
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
@@ -52,8 +54,8 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TO DO
                 dispose();
-                JFrame gameFrame = new Game();
-                gameFrame.setVisible(true);
+                //JFrame gameFrame = new Game();
+                //gameFrame.setVisible(true);
             }
         });
 
@@ -79,11 +81,8 @@ public class Menu extends JFrame {
         backgroundLabel.add(buttonPanel, BorderLayout.CENTER);
 
         mainPanel.add(backgroundLabel, BorderLayout.CENTER);
-        */
-        mainPanel = new TEST();
         add(mainPanel);
         mainPanel.setVisible(true);
-        mainPanel.setBackground(Color.CYAN);
         setFocusable(true);
         pack();
         setVisible(true);
