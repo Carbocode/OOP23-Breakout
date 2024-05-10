@@ -9,7 +9,7 @@ import it.unibo.api.GameEntityImpl;
 
 public class Brick extends GameEntityImpl {
 
-    final public static double ASPECT_RATIO = 16 / 9;
+    final public static double ASPECT_RATIO = 7.0 / 3;
 
     public Brick(Point position, Dimension size, int health, Color color) {
         super(position, size, health, color);

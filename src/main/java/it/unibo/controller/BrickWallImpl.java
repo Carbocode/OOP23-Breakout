@@ -13,6 +13,7 @@ public class BrickWallImpl implements BrickWall {
     private Set<Brick> wall;
     private int width;
     private int height;
+    private int sideOffset;
 
     public BrickWallImpl(int width, int height) {
         this.width = width;
@@ -23,21 +24,49 @@ public class BrickWallImpl implements BrickWall {
     public void generateLayout() {
         this.resetLayout();
 
-        int numBrickWidth = this.getNumBricksWidth();
-        int numBrickHeight = this.getNumBricksHeight();
+        int gcd = gcd(this.width, this.height);
 
-        int brickHeight = this.getBrickHeight();
-        int brickWidth = this.getBrickWidth();
+        // Calcola la dimensione base del mattoncino
+        int brickWidth = gcd;
+        int brickHeight = (int) (brickWidth / Brick.ASPECT_RATIO);
 
-        for (int i = 0; i < numBrickHeight; i++) {
-            for (int j = 0; j < numBrickWidth; j++) {
-                wall.add(
-                        BrickFactory.createRandomBrick(
-                                new Point(j * brickWidth, i * brickHeight),
-                                new Dimension(brickWidth, brickHeight)));
-            }
+        // Verifica che il mattoncino base riempia l'area
+        if (this.height % brickHeight != 0) {
+            brickHeight = gcd;
+            brickWidth = (int) (brickHeight * Brick.ASPECT_RATIO);
         }
 
+        int numBricksRow = this.width / brickWidth;
+        int numBricksColumn = this.height / brickHeight;
+
+        this.sideOffset = (int) (this.width - (brickWidth * numBricksRow)) / 2;
+
+        for (int i = 0; i < numBricksColumn; i++) {
+            wall.add(
+                    BrickFactory.createRandomBrick(
+                            new Point(0, i * brickHeight),
+                            new Dimension(brickWidth, brickHeight)));
+            for (int j = 0; j < numBricksRow; j++) {
+                wall.add(
+                        BrickFactory.createRandomBrick(
+                                new Point((j * brickWidth) + this.sideOffset, i * brickHeight),
+                                new Dimension(brickWidth, brickHeight)));
+            }
+            wall.add(
+                    BrickFactory.createRandomBrick(
+                            new Point(this.width - this.sideOffset, i * brickHeight),
+                            new Dimension(brickWidth, brickHeight)));
+        }
+
+    }
+
+    private static int gcd(int a, int b) {
+        while (b != 0) {
+            int t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
     }
 
     private int getBrickHeight() {
