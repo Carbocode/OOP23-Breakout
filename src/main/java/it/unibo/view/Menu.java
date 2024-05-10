@@ -46,14 +46,15 @@ public class Menu extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TO DO
-                dispose();
-                JPanel gamePanel=new JPanel();
-                GameView game= new GameView();
-                GameLoop gl = new GameLoop(game);
+                JFrame game = new JFrame();
+                GameView gamePanel=new GameView();
+                gamePanel = new GameView();
+                game.add(gamePanel);
+                GameLoop gls = new GameLoop(gamePanel);
                 gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
                 gamePanel.setBackground(Color.BLACK);
-                gamePanel.setVisible(true);
+                game.pack();
+                game.setVisible(true);
             }
         });
 
