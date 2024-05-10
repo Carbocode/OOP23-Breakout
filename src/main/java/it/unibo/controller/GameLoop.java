@@ -2,7 +2,6 @@ package it.unibo.controller;
 
 import java.util.concurrent.TimeUnit;
 
-
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameInfo;
@@ -15,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 import java.util.Set;
 import java.awt.Color;
@@ -33,21 +31,21 @@ public class GameLoop implements ActionListener {
     private Set<Ball> balls;
     private BarImpl paddle;
 
-
     private long lastUpdateTime;
     private int frames;
     private Timer timer;
 
-    private Game t;
+    private GameView t;
 
-    public GameLoop(Game coso) {
+    public GameLoop(GameView coso) {
         soundPlayer = new SoundManagerImpl();
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(200,5), 0, new Color(0));
-        manager = new CollisionManager(balls,brickWall,paddle);
+        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,
+                new Color(0));
+        manager = new CollisionManager(balls, brickWall, paddle);
         t = coso;
         t.updateGameState(balls, brickWall.getWall(), paddle);
 
@@ -55,6 +53,7 @@ public class GameLoop implements ActionListener {
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
         timer.start();
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         long currentTime = System.nanoTime();
@@ -84,6 +83,5 @@ public class GameLoop implements ActionListener {
     public void multiplyBall(Ball old) {
 
     }
-
 
 }

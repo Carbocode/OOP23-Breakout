@@ -8,12 +8,12 @@ import java.util.*;
 
 import java.awt.*;
 
-public class Game extends JPanel {
+public class GameView extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private BarImpl bar;
 
-    public Game() {
+    public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
     }
 

@@ -52,7 +52,7 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TO DO
                 dispose();
-                JPanel gameFrame = new Game();
+                JPanel gameFrame = new GameView();
                 gameFrame.setVisible(true);
             }
         });
@@ -80,7 +80,7 @@ public class Menu extends JFrame {
 
         mainPanel.add(backgroundLabel, BorderLayout.CENTER);
 
-        mainPanel = new Game();
+        mainPanel = new GameView();
         add(mainPanel);
         mainPanel.setVisible(true);
         mainPanel.setBackground(Color.CYAN);
