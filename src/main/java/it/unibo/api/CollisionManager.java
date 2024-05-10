@@ -12,27 +12,29 @@ public class CollisionManager {
     private Set<Ball> balls;
     private BarImpl paddle;
 
-    public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
-        // TODO
+    public CollisionManager(final Set<Ball> balls,
+    final BrickWall brickWall,
+    final BarImpl paddle){
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
-        
     }
 
-    public void checkAll() {
-        for(Ball ball : balls){
+    public final void checkAll(){
+        for (Ball ball : balls) {
             boolean collision = false;
-            if (!ball.isAlive())
+            if (!ball.isAlive()) {
                 continue;
-            for(GameEntity brick : bricks.getWall()){
-                if (!brick.isAlive())
+            }
+            for (GameEntity brick : bricks.getWall()) {
+                if (!brick.isAlive()) {
                     continue;
+                }
                 if (collides(ball, brick)) {
-                    
-                    //Sometimes the ball collides with multiple bricks at the same time. this calls its onCollision twice, thus having no effect
-                    if(GameInfo.DEBUG_MODE){
-                        System.out.println("Ball at  (" + ball.getPosition().toString()+ ") collides with (" + brick.getPosition().toString() + ")");
+                    if (GameInfo.DEBUG_MODE) {
+                        System.out.println("Ball at  ("
+                        + ball.getPosition().toString() + ") collides with ("
+                        + brick.getPosition().toString() + ")");
                     }
                     collision = true;
                     brick.onCollision();
@@ -43,24 +45,22 @@ public class CollisionManager {
                 System.out.println("Paddle hit");
                 collision = true;
             }
-            if(collision){
+            if (collision) {
                 ball.onCollision();
             }
-            
 
         }
 
     }
 
-    private boolean collides(GameEntity a, GameEntity b) {
-        //TODO fix collision detection
-        Point posA = a.getPosition();
-        Dimension sizeA = a.getSize();
-        Point posB = b.getPosition();
-        Dimension sizeB = b.getSize();
-        Rectangle aR = new Rectangle(posA, sizeA);
-        Rectangle bR = new Rectangle(posB, sizeB);
-        return aR.intersects(bR);
+    private boolean collides(final GameEntity a, final GameEntity b) {
+    Point posA = a.getPosition();
+    Dimension sizeA = a.getSize();
+    Point posB = b.getPosition();
+    Dimension sizeB = b.getSize();
+    Rectangle aR = new Rectangle(posA, sizeA);
+    Rectangle bR = new Rectangle(posB, sizeB);
+    return aR.intersects(bR);
 
-    }
+  }
 }

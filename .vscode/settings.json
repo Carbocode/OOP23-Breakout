@@ -1,3 +1,5 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.checkstyle.configuration": "/sun_checks.xml",
+    "java.checkstyle.version": "10.16.0"
 }

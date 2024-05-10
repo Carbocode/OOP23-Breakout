@@ -21,7 +21,7 @@ public class Brick extends GameEntityImpl {
     }
 
     @Override
-    public boolean isAlive() {
+    public final boolean isAlive() {
         return this.getHealth() != -1 ? super.isAlive() : true;
     }
 

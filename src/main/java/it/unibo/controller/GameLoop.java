@@ -1,6 +1,5 @@
 package it.unibo.controller;
 
-import java.util.concurrent.TimeUnit;
 
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
@@ -9,18 +8,15 @@ import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
 import it.unibo.model.BarImpl;
 import it.unibo.view.SoundManagerImpl;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-import java.util.Set;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.Set;
+import javax.swing.Timer;
+
 
 public class GameLoop implements ActionListener {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
@@ -31,27 +27,32 @@ public class GameLoop implements ActionListener {
     private Set<Ball> balls;
     private BarImpl paddle;
 
-
+    //
     private long lastUpdateTime;
     private int frames;
     private Timer timer;
 
     public GameLoop(){
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT/5);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH,
+        GameInfo.GAME_HEIGHT / 5);
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH/2,GameInfo.GAME_HEIGHT), new Dimension(30,5), 0, new Color(0));
-        manager = new CollisionManager(balls,brickWall,paddle);
+        paddle = new BarImpl(
+            new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT),
+            new Dimension(30, 5),
+             0, new Color(0));
+        manager = new CollisionManager(balls, brickWall, paddle);
 
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
         timer.start();
     }
+
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public final void actionPerformed(final ActionEvent e) {
         long currentTime = System.nanoTime();
         long elapsedTime = currentTime - lastUpdateTime;
 
@@ -62,21 +63,23 @@ public class GameLoop implements ActionListener {
         }
     }
 
-    /**
+    /*
      * Updates the gamestate
      */
     private void update() {
 
         manager.checkAll();
-        for(var b : balls){
+        for (var b : balls) {
             b.update();
-            //System.out.println(b.toString());
+            // System.out.println(b.toString());
         }
     }
-    public void multiplyBall(Ball old){
+
+    public void multiplyBall(final Ball old) {
 
     }
-    public static void main(String[] args){
+
+    public static void main(final String[] args) {
         System.out.println("Running!!");
         var x = new GameLoop();
     }
