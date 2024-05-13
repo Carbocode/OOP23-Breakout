@@ -39,11 +39,11 @@ public class GameLoop implements ActionListener {
 
     public GameLoop(GameView coso) {
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT / 5);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.floor(GameInfo.GAME_HEIGHT * 0.35));
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,
+        paddle = new BarImpl(new Point((GameInfo.GAME_WIDTH / 2)-100, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,
                 new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
         t = coso;
@@ -72,6 +72,12 @@ public class GameLoop implements ActionListener {
     private void update() {
 
         manager.checkAll();
+        this.updateBalls();
+        DeathCollector.checkEntities(balls);
+        DeathCollector.checkEntities(brickWall.getWall());
+    }
+
+    private void updateBalls() {
         for (var b : balls) {
             b.update();
             // System.out.println(b.toString());
