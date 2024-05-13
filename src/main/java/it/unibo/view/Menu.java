@@ -13,6 +13,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This is the menu frame, where you can choose between the play, scoreboard,
+ * exit button
+ * if you choose play it will open the game
+ * 
+ * @author Sohail Mama
+ */
 public class Menu extends JFrame {
     private static JPanel mainPanel;
     private JLabel titleLabel;
@@ -21,6 +28,7 @@ public class Menu extends JFrame {
     private JButton exitButton;
     private Font font;
 
+    private SoundManager sound = new SoundManagerImpl();
     private Measures measure = new Measures();
 
     public Menu() {
@@ -28,31 +36,34 @@ public class Menu extends JFrame {
         setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // creation of the panel of the menu
-        mainPanel = new JPanel(new GridLayout(3, 1));
-        titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        InputStream myStream;
+        // setting of an external font
+        InputStream fontStream;
         try {
-            myStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("font/8-bit-hud.ttf"));
-            font = Font.createFont(Font.TRUETYPE_FONT, myStream);
+            fontStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("font/8-bit-hud.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
 
-        titleLabel.setFont(font.deriveFont(50.0f));
+        // creation of the panel of the menu
+        mainPanel = new JPanel(new GridLayout(2, 1));
+        titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
+        titleLabel.setFont(font.deriveFont(55.0f));
+
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
-        buttonPanel.setBackground(Color.CYAN);
 
         playButton = new JButton("PLAY");
-        playButton.setFont(font);
+        playButton.setBackground(Color.ORANGE);
         playButton.setPreferredSize(new Dimension(100, 50));
 
         scoreboardButton = new JButton("SCOREBOARD");
+        scoreboardButton.setBackground(Color.ORANGE);
         scoreboardButton.setPreferredSize(new Dimension(100, 50));
 
         exitButton = new JButton("EXIT");
+        exitButton.setBackground(Color.ORANGE);
         exitButton.setPreferredSize(new Dimension(100, 50));
 
         playButton.addActionListener(new ActionListener() {
@@ -91,7 +102,6 @@ public class Menu extends JFrame {
 
         add(mainPanel);
         mainPanel.setVisible(true);
-        mainPanel.setBackground(Color.CYAN);
         setFocusable(true);
         setVisible(true);
     }
