@@ -31,20 +31,22 @@ public class Menu extends JFrame {
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(3, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        File fontFile = new File("../appdata/font/8-bit-hud.ttf");
+        InputStream myStream;
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+            myStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("font/8-bit-hud.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, myStream);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        titleLabel.setFont(font);
 
+        titleLabel.setFont(font.deriveFont(50.0f));
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
         buttonPanel.setBackground(Color.CYAN);
 
         playButton = new JButton("PLAY");
+        playButton.setFont(font);
         playButton.setPreferredSize(new Dimension(100, 50));
 
         scoreboardButton = new JButton("SCOREBOARD");
@@ -57,7 +59,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame game = new JFrame();
-                GameView gamePanel=new GameView();
+                GameView gamePanel = new GameView();
                 gamePanel = new GameView();
                 game.add(gamePanel);
                 Match.init(gamePanel);
