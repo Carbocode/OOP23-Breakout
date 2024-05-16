@@ -13,14 +13,15 @@ public class SoundManagerImpl implements SoundManager {
     @Override
     public void playBackgroundSound() {
         try {
-            String fileNameBg = "main_theme(passionfruit).mp3";
+            String fileNameBg = "sounds/main_theme.mp3";
             File backgroundFileAudio = new File(fileNameBg);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(backgroundFileAudio);
-            backgroundClip = AudioSystem.getClip();
-            backgroundClip.open(audioInputStream);
+            try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(backgroundFileAudio)) {
+                backgroundClip = AudioSystem.getClip();
+                backgroundClip.open(audioInputStream);
 
-            // Riproduci il suono
-            backgroundClip.start();
+                // Play the background sound
+                backgroundClip.start();
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -36,14 +37,15 @@ public class SoundManagerImpl implements SoundManager {
     @Override
     public void playCollisionSound() {
         try {
-            String fileNameColl = "hit1.wav";
+            String fileNameColl = "sounds/hit1.wav";
             File collisionFileAudio = new File(fileNameColl);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(collisionFileAudio);
-            collisionClip = AudioSystem.getClip();
-            collisionClip.open(audioInputStream);
+            try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(collisionFileAudio)) {
+                collisionClip = AudioSystem.getClip();
+                collisionClip.open(audioInputStream);
 
-            // Riproduci il suono di collisione
-            collisionClip.start();
+                // Play the collision sound
+                collisionClip.start();
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

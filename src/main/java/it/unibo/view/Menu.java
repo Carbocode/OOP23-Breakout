@@ -76,6 +76,7 @@ public class Menu extends JFrame {
                 Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
+
                 // it close the other window
                 JComponent comp = (JComponent) e.getSource();
                 Window win = SwingUtilities.getWindowAncestor(comp);
