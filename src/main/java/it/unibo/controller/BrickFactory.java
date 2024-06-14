@@ -52,12 +52,7 @@ public class BrickFactory {
     static public Brick createRandomBrick(Point position, Dimension size) {
         int health = getRandomHealth();
 
-        Color color;
-
-        if (health > 0)
-            color = getRandomColor();
-        else
-            color = new Color(128, 128, 128);
+        Color color = health > 0 ? getRandomColor() : new Color(128, 128, 128);
 
         return new Brick(position, size, health, color);
     }
@@ -73,7 +68,11 @@ public class BrickFactory {
 
     static public Brick createImmortalBrick(Point position, Dimension size) {
         {
-            return new Brick(position, size, BrickTypes.IMMORTAL.getHealth(), new Color(128, 128, 128));
+            return new Brick(
+                    position,
+                    size,
+                    BrickTypes.IMMORTAL.getHealth(),
+                    new Color(128, 128, 128));
         }
     }
 }

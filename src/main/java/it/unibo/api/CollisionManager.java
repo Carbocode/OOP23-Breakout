@@ -5,14 +5,14 @@ import java.awt.Rectangle;
 import java.util.Set;
 
 import it.unibo.model.Ball;
-import it.unibo.model.BarImpl;
+import it.unibo.model.Bar;
 
 public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
-    private BarImpl paddle;
+    private Bar paddle;
 
-    public CollisionManager(Set<Ball> balls, BrickWall brickWall, BarImpl paddle) {
+    public CollisionManager(Set<Ball> balls, BrickWall brickWall, Bar paddle) {
         // TODO
         this.balls = balls;
         this.bricks = brickWall;
