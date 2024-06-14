@@ -39,7 +39,7 @@ public class GameLoop implements ActionListener {
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
+        paddle = new Bar(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
         GameInfo.BAR_DIMENSION, 0, new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
         t = coso;

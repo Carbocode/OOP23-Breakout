@@ -26,13 +26,15 @@ public class CollisionManager {
             if (!ball.isAlive())
                 continue;
             for(GameEntity brick : bricks.getWall()){
-                if (!brick.isAlive())
+                if (!brick.isAlive()){
                     continue;
+                }
                 if (collides(ball, brick)) {
-                    
-                    //Sometimes the ball collides with multiple bricks at the same time. this calls its onCollision twice, thus having no effect
-                    if(GameInfo.DEBUG_MODE){
-                        System.out.println("Ball at  (" + ball.getPosition().toString()+ ") collides with (" + brick.getPosition().toString() + ")");
+                    //Sometimes the ball collides with multiple bricks at the same time. 
+                    //this calls its onCollision twice, thus having no effect
+                    if (GameInfo.DEBUG_MODE) {
+                        System.out.println("Ball at  (" + ball.getPosition().toString()
+                        + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
                     brick.onCollision();
@@ -43,10 +45,9 @@ public class CollisionManager {
                 System.out.println("Paddle hit");
                 collision = true;
             }
-            if(collision){
+            if (collision) {
                 ball.onCollision();
             }
-            
 
         }
 
