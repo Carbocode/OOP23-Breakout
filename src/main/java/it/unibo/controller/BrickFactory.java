@@ -54,7 +54,7 @@ public class BrickFactory {
 
         Color color;
 
-        if (health < 0)
+        if (health > 0)
             color = getRandomColor();
         else
             color = new Color(128, 128, 128);

@@ -4,8 +4,8 @@ import it.unibo.api.GameEntityImpl;
 
 public enum BrickTypes {
     ONE_HIT(GameEntityImpl.MIN_HEALTH, 10),
-    DOUBLE_HIT(2, 40),
-    IMMORTAL(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, 110);
+    // DOUBLE_HIT(2, 40),
+    IMMORTAL(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, 1);
 
     private int health;
     private int occurence;
