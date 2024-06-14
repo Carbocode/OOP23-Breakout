@@ -16,19 +16,7 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
-               /* JFrame game = new JFrame();
-                gamePanel = new GameView();
-                game.add(gamePanel);
-                GameLoop gls = new GameLoop(gamePanel);
-                gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
-                gamePanel.setBackground(Color.BLACK);
-                game.pack();
-                game.setVisible(true); */
-
-                menuPanel=new Menu();
-                
-
+                menuPanel = new Menu();
             }
         });
     }
