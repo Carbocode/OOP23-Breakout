@@ -69,7 +69,7 @@ public class BarImpl  extends GameEntityImpl {//implements Bar {
 
     public void buttonReleased(KeyEvent e) {
         //button released -> stop moving
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) 
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && this.direction == LEFT_VALUE|| e.getKeyCode() == KeyEvent.VK_RIGHT && this.direction == RIGHT_VALUE) 
             direction = STOP_VALUE;
     }
 
