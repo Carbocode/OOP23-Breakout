@@ -12,4 +12,7 @@ bin/
 .project
 .settings/
 .classpath
+
+
 .vscode
+.github
