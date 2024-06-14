@@ -70,14 +70,6 @@ public class BrickWallImpl implements BrickWall {
         return a;
     }
 
-    private int getBrickHeight() {
-        return (int) Math.floor(Math.sqrt(this.height * this.width * Brick.ASPECT_RATIO));
-    }
-
-    private int getBrickWidth() {
-        return (int) (this.getBrickHeight() * Brick.ASPECT_RATIO);
-    }
-
     @Override
     public void resetLayout() {
         this.wall = new LinkedHashSet<Brick>();
