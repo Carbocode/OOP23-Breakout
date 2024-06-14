@@ -6,7 +6,10 @@ import it.unibo.view.Menu;
 
 public class Main {
 
-    public static void main(String[] args) {
+    /* Main class.
+     * @param args args
+     */
+    public static void main(final String[] args){
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Menu menuPanel = new Menu();

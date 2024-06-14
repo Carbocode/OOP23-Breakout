@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class GameView extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
-    private BarImpl bar;
+    private Bar bar;
 
     public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
@@ -61,7 +61,7 @@ public class GameView extends JPanel {
 
     }
 
-    public void updateGameState(Set<Ball> balls, Set<Brick> bricks, BarImpl bar) {
+    public void updateGameState(Set<Ball> balls, Set<Brick> bricks, Bar bar) {
         this.balls = balls;
         this.bricks = bricks;
         this.bar = bar;
