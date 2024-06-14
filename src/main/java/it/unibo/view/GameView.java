@@ -24,20 +24,20 @@ public class GameView extends JPanel {
     private class TAdapter extends KeyAdapter {
 
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(final KeyEvent e) {
 
             bar.buttonReleased(e);
         }
 
         @Override
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(final KeyEvent e) {
 
             bar.buttonPressed(e);
         }
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.RED);
         for (Ball ball : balls) {
