@@ -45,7 +45,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.controller.GameLoop")
+    mainClass.set("it.unibo.controller.Main")
 }
 
 tasks.test {

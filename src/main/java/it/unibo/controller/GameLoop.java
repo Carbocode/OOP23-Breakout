@@ -8,15 +8,19 @@ import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
 import it.unibo.model.BarImpl;
 import it.unibo.view.SoundManagerImpl;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.util.Set;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.Set;
-import javax.swing.Timer;
-
+import it.unibo.view.*;
 
 public class GameLoop implements ActionListener {
 
@@ -26,26 +30,22 @@ public class GameLoop implements ActionListener {
     private Set<Ball> balls;
     private BarImpl paddle;
 
-
     private long lastUpdateTime;
     private Timer timer;
 
-   /**
-    * The `GameLoop` 
-    */
-    public GameLoop() {
+    private GameView t;
+
+    public GameLoop(GameView coso) {
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH,
-        GameInfo.GAME_HEIGHT / 5);
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.floor(GameInfo.GAME_HEIGHT * 0.35));
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(
-            new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT),
-            new Dimension(30, 5),
-             0, new Color(0));
+        paddle = new BarImpl(new Point((GameInfo.GAME_WIDTH / 2)-100, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,
+                new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
-
+        t = coso;
+        t.updateGameState(balls, brickWall.getWall(), paddle);
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
@@ -69,17 +69,23 @@ public class GameLoop implements ActionListener {
     private void update() {
 
         manager.checkAll();
+        this.updateBalls();
+        DeathCollector.checkEntities(balls);
+        DeathCollector.checkEntities(brickWall.getWall());
+    }
+
+    private void updateBalls() {
         for (var b : balls) {
             b.update();
+            // System.out.println(b.toString());
         }
+        paddle.move();
+        t.repaint();
+        t.updateGameState(balls, brickWall.getWall(), paddle);
     }
 
-    public void multiplyBall(final Ball old) {
-
+    public void multiplyBall(Ball old) {
+        balls.add(new Ball(old));
     }
 
-    public static void main(final String[] args) {
-        System.out.println("Running!!");
-        var x = new GameLoop();
-    }
 }

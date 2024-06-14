@@ -53,14 +53,13 @@ public class CollisionManager {
 
     }
 
-    private boolean collides(final GameEntity a, final GameEntity b) {
-    Point posA = a.getPosition();
-    Dimension sizeA = a.getSize();
-    Point posB = b.getPosition();
-    Dimension sizeB = b.getSize();
-    Rectangle aR = new Rectangle(posA, sizeA);
-    Rectangle bR = new Rectangle(posB, sizeB);
-    return aR.intersects(bR);
-
-  }
+    private boolean collides(GameEntity a, GameEntity b) {
+        Point posA = a.getPosition();
+        Dimension sizeA = a.getSize();
+        Point posB = b.getPosition();
+        Dimension sizeB = b.getSize();
+        Rectangle aR = new Rectangle(posA, sizeA);
+        Rectangle bR = new Rectangle(posB, sizeB);
+        return aR.intersects(bR);
+    }
 }

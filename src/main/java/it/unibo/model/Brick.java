@@ -9,15 +9,18 @@ import it.unibo.api.GameEntityImpl;
 
 public class Brick extends GameEntityImpl {
 
+    final public static double ASPECT_RATIO = 7.0 / 3;
+
     public Brick(Point position, Dimension size, int health, Color color) {
         super(position, size, health, color);
     }
 
     @Override
     public void onCollision() {
+        System.out.println(super.getPosition());
         int health = super.getHealth();
         if (health > 0)
-            super.setHealth(health--);
+            super.setHealth(--health);
     }
 
     @Override

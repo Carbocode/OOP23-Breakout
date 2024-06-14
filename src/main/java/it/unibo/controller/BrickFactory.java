@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 import it.unibo.model.Brick;
@@ -30,9 +31,14 @@ public class BrickFactory {
      * 
      * @return a Health for the Brick
      */
-    static public int getRandomHealth() {
-        BrickTypes[] colors = BrickTypes.values();
-        return colors[rand.nextInt(colors.length)].getHealth();
+    static private int getRandomHealth() {
+        ArrayList<BrickTypes> weightedList = new ArrayList<>();
+        for (BrickTypes type : BrickTypes.values()) {
+            for (int i = 0; i < type.getOccurence(); i++) {
+                weightedList.add(type);
+            }
+        }
+        return weightedList.get(rand.nextInt(weightedList.size())).getHealth();
     }
 
     /**
@@ -44,7 +50,16 @@ public class BrickFactory {
      * @return Brick
      */
     static public Brick createRandomBrick(Point position, Dimension size) {
-        return new Brick(position, size, getRandomHealth(), getRandomColor());
+        int health = getRandomHealth();
+
+        Color color;
+
+        if (health < 0)
+            color = getRandomColor();
+        else
+            color = new Color(128, 128, 128);
+
+        return new Brick(position, size, health, color);
     }
 
     static public void setSeed(long seed) {
@@ -56,4 +71,9 @@ public class BrickFactory {
         return BrickFactory.seed;
     }
 
+    static public Brick createImmortalBrick(Point position, Dimension size) {
+        {
+            return new Brick(position, size, BrickTypes.IMMORTAL.getHealth(), new Color(128, 128, 128));
+        }
+    }
 }
