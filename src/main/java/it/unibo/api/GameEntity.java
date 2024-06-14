@@ -4,26 +4,77 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 
+/**
+ * The GameEntity interface defines the basic properties and behaviors
+ * that any game entity must implement.
+ */
 public interface GameEntity {
 
-    public Point getPosition();
+    /**
+     * Gets the position of the game entity.
+     *
+     * @return the current position as a Point
+     */
+    Point getPosition();
 
-    public Dimension getSize();
+    /**
+     * Gets the size of the game entity.
+     *
+     * @return the current size as a Dimension
+     */
+    Dimension getSize();
 
-    public int getHealth();
+    /**
+     * Gets the health of the game entity.
+     *
+     * @return the current health as an integer
+     */
+    int getHealth();
 
-    public Color getColor();
+    /**
+     * Gets the color of the game entity.
+     *
+     * @return the current color as a Color
+     */
+    Color getColor();
 
-    public void onCollision();
+    /**
+     * Handles the collision event for the game entity.
+     */
+    void onCollision();
 
-    public boolean isAlive();
+    /**
+     * Checks if the game entity is alive (health > 0).
+     *
+     * @return true if the entity is alive, false otherwise
+     */
+    boolean isAlive();
 
-    public void setPosition(final Point position);
+    /**
+     * Sets the position of the game entity.
+     *
+     * @param position the new position as a Point
+     */
+    void setPosition(Point position);
 
-    public void setSize(final Dimension size);
+    /**
+     * Sets the size of the game entity.
+     *
+     * @param size the new size as a Dimension
+     */
+    void setSize(Dimension size);
 
-    public void setHealth(int health);
+    /**
+     * Sets the health of the game entity.
+     *
+     * @param health the new health as an integer
+     */
+    void setHealth(int health);
 
-    public void setColor(final Color color);
-
+    /**
+     * Sets the color of the game entity.
+     *
+     * @param color the new color as a Color
+     */
+    void setColor(Color color);
 }
