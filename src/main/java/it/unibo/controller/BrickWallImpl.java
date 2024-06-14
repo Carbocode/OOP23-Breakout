@@ -58,6 +58,7 @@ public class BrickWallImpl implements BrickWall {
                             new Dimension(brickWidth, brickHeight)));
         }
 
+        this.toString();
     }
 
     private static int gcd(int a, int b) {

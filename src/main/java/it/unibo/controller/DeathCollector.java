@@ -12,7 +12,7 @@ public class DeathCollector {
             GameEntity entity = iterator.next();
             if (!entity.isAlive()) {
                 iterator.remove();
-                System.out.println("Entità eliminata " + iterator.getClass());
+                System.out.println("Entità eliminata " + entity.getClass());
             }
         }
     }

@@ -17,9 +17,10 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public void onCollision() {
+        System.out.println(super.getPosition());
         int health = super.getHealth();
         if (health > 0)
-            super.setHealth(health--);
+            super.setHealth(--health);
     }
 
     @Override
