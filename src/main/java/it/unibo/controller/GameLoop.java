@@ -1,6 +1,5 @@
 package it.unibo.controller;
 
-import java.util.concurrent.TimeUnit;
 
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
@@ -11,7 +10,6 @@ import it.unibo.model.BarImpl;
 import it.unibo.view.SoundManagerImpl;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,7 +30,6 @@ public class GameLoop implements ActionListener {
     private BarImpl paddle;
 
     private long lastUpdateTime;
-    private int frames;
     private Timer timer;
 
     private GameView t;
@@ -62,7 +59,6 @@ public class GameLoop implements ActionListener {
         if (elapsedTime >= GameInfo.REFRESH_RATE) {
             update();
             lastUpdateTime = currentTime;
-            frames++;
         }
     }
 
@@ -88,7 +84,7 @@ public class GameLoop implements ActionListener {
     }
 
     public void multiplyBall(Ball old) {
-
+        balls.add(new Ball(old));
     }
 
 }
