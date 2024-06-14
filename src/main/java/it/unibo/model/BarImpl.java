@@ -12,7 +12,7 @@ public class BarImpl  extends GameEntityImpl {//implements Bar {
     final private static int RIGHT_VALUE = 1;
     final private static int STOP_VALUE = 0;
 
-    final private static int MOVE_VALUE = 5;
+    final private static float MOVE_VALUE = (float)0.01 * (float)GameInfo.GAME_WIDTH;
 
     private int direction;
 
