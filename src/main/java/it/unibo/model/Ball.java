@@ -28,7 +28,7 @@ public class Ball extends GameEntityImpl {
     }
 
     public void update() {
-        Point candidate = new Point(position.x + dir.getHorizontalVelocity(), position.y + dir.GetVerticalVelocity());
+        Point candidate = new Point(position.x + dir.getHorizontalVelocity()*GameInfo.BALL_SPEED, position.y + dir.GetVerticalVelocity()*GameInfo.BALL_SPEED);
         // we validate it. if its out of bounds, we reverse direction
         if (candidate.getX() <= 0 || candidate.getX() >= GameInfo.GAME_WIDTH) {
             dir = new Direction(-dir.getHorizontalVelocity(), dir.GetVerticalVelocity());

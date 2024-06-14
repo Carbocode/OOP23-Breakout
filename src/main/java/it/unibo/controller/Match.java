@@ -3,7 +3,6 @@ package it.unibo.controller;
 import it.unibo.view.*;
 
 import it.unibo.api.GameInfo;
-import java.util.*;
 import java.awt.*;
 
 public class Match {
