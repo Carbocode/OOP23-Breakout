@@ -55,14 +55,20 @@ public class Menu extends JFrame {
         buttonPanel.setOpaque(false);
 
         playButton = new JButton("PLAY");
+        playButton.setOpaque(true);
+        playButton.setBorderPainted(false);
         playButton.setBackground(new Color(252, 198, 3));
         playButton.setPreferredSize(new Dimension(100, 50));
 
         scoreboardButton = new JButton("SCOREBOARD");
+        scoreboardButton.setOpaque(true);
+        scoreboardButton.setBorderPainted(false);
         scoreboardButton.setBackground(new Color(252, 198, 3));
         scoreboardButton.setPreferredSize(new Dimension(100, 50));
 
         exitButton = new JButton("EXIT");
+        exitButton.setOpaque(true);
+        exitButton.setBorderPainted(false);
         exitButton.setBackground(new Color(252, 198, 3));
         exitButton.setPreferredSize(new Dimension(100, 50));
 
