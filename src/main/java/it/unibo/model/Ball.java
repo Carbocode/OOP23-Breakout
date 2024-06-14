@@ -91,7 +91,7 @@ public final class Ball extends GameEntityImpl {
      */
     @Override
     public void onCollision() {
-        dir = new Direction(dir.getHorizontalVelocity(), rand.nextInt(3) - 1);
+        dir = new Direction(rand.nextInt(3) - 1, -dir.getVerticalVelocity());
     }
 
     /**

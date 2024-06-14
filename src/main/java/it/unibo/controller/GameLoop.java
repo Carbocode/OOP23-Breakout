@@ -1,6 +1,5 @@
 package it.unibo.controller;
 
-
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameInfo;
