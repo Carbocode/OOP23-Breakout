@@ -1,13 +1,28 @@
 package it.unibo.view;
 
-import javax.swing.*;
-import java.util.*;
-import java.io.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
+import javax.swing.JComponent;
+
+import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
 import it.unibo.api.SoundManager;
 import it.unibo.controller.Match;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Window;
+import javax.swing.SwingUtilities;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -54,7 +69,6 @@ public class Menu extends JFrame {
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
-
         sound.playBackgroundSound();
 
         playButton = new JButton("PLAY");
@@ -90,6 +104,7 @@ public class Menu extends JFrame {
                 Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
+
                 // it close the other window
                 JComponent comp = (JComponent) e.getSource();
                 Window win = SwingUtilities.getWindowAncestor(comp);
