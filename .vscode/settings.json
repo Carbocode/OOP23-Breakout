@@ -1,5 +1,7 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
   "java.debug.settings.onBuildFailureProceed": true,
-  "java.configuration.updateBuildConfiguration": "automatic"
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.checkstyle.configuration": "${workspaceFolder}/build/javaqa/checkstyle.xml",
+  "java.checkstyle.version": "9.3"
 }

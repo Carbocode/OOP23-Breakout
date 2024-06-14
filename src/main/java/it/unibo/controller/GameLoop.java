@@ -6,7 +6,7 @@ import it.unibo.api.CollisionManager;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
-import it.unibo.model.BarImpl;
+import it.unibo.model.Bar;
 import it.unibo.view.SoundManagerImpl;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class GameLoop implements ActionListener {
     private SoundManager soundPlayer;
     private BrickWall brickWall;
     private Set<Ball> balls;
-    private BarImpl paddle;
+    private Bar paddle;
 
     private long lastUpdateTime;
     private Timer timer;
@@ -40,8 +40,7 @@ public class GameLoop implements ActionListener {
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
-        paddle = new BarImpl(new Point((GameInfo.GAME_WIDTH / 2)-100, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,
-                new Color(0));
+        paddle = new Bar(new Point((GameInfo.GAME_WIDTH / 2)-100, GameInfo.GAME_HEIGHT), new Dimension(200, 5), 0,new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
         t = coso;
         t.updateGameState(balls, brickWall.getWall(), paddle);
