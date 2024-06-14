@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 
-import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
-import it.unibo.controller.GameLoop;
 import it.unibo.controller.Match;
 
 import java.awt.*;
@@ -14,9 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This is the menu frame, where you can choose between the play, scoreboard,
- * exit button
- * if you choose play it will open the game
+ * This is the menu frame, where you can choose between the play, scoreboard, exit button.
+ * if you click play it will open the game.
+ * if you click scoreboard it will open a scoreboard with 
  * 
  * @author Sohail Mama
  */
@@ -30,7 +28,10 @@ public class Menu extends JFrame {
 
     private SoundManager sound = new SoundManagerImpl();
     private Measures measure = new Measures();
-
+    /**
+     * Menu constructor.
+     * @author Sohail Mama
+     */
     public Menu() {
         setTitle("Breakout");
         setSize(measure.getGameAreaWidth(), measure.getGameAreaHeight());
@@ -54,27 +55,29 @@ public class Menu extends JFrame {
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
 
+        sound.playBackgroundSound();
+
         playButton = new JButton("PLAY");
         playButton.setOpaque(true);
         playButton.setBorderPainted(false);
-        playButton.setBackground(new Color(252, 198, 3));
+        playButton.setBackground(Color.ORANGE);
         playButton.setPreferredSize(new Dimension(100, 50));
 
         scoreboardButton = new JButton("SCOREBOARD");
         scoreboardButton.setOpaque(true);
         scoreboardButton.setBorderPainted(false);
-        scoreboardButton.setBackground(new Color(252, 198, 3));
+        scoreboardButton.setBackground(Color.ORANGE);
         scoreboardButton.setPreferredSize(new Dimension(100, 50));
 
         exitButton = new JButton("EXIT");
         exitButton.setOpaque(true);
         exitButton.setBorderPainted(false);
-        exitButton.setBackground(new Color(252, 198, 3));
+        exitButton.setBackground(Color.ORANGE);
         exitButton.setPreferredSize(new Dimension(100, 50));
 
         playButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
@@ -97,14 +100,14 @@ public class Menu extends JFrame {
 
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 // TO DO
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 System.exit(0);
             }
         });
