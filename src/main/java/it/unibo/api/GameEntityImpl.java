@@ -24,7 +24,7 @@ public abstract class GameEntityImpl implements GameEntity {
         this.color = color;
     }
 
-    /**
+    /*
      * Game Entity Default Color is rgb(70, 70, 70)
      * 
      * @param position
@@ -38,7 +38,7 @@ public abstract class GameEntityImpl implements GameEntity {
         this.color = new Color(DEFAULT_COLOR.getRGB());
     }
 
-    /**
+    /*
      * Game Entity Default Health is IMMORTAL_ENTITY_HEALTH
      * 
      * @param position
@@ -125,16 +125,18 @@ public abstract class GameEntityImpl implements GameEntity {
     @Override
     public boolean equals(final Object o) {
 
-        if (this == o)
+        if (this == o){
             return true;
-        if (o == null || getClass() != o.getClass())
+        } 
+        if (o == null || getClass() != o.getClass()){
             return false;
+        }
 
         GameEntity that = (GameEntityImpl) o;
-        return health == that.getHealth() &&
-                Objects.equals(position, that.getPosition()) &&
-                Objects.equals(size, that.getSize()) &&
-                Objects.equals(color, that.getColor());
+        return health == that.getHealth() 
+        && Objects.equals(position, that.getPosition()) 
+        && Objects.equals(size, that.getSize()) 
+        && Objects.equals(color, that.getColor());
     }
 
     @Override

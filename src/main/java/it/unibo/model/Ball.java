@@ -16,6 +16,7 @@ import java.util.Random;
 public final class Ball extends GameEntityImpl {
     private Direction dir;
     private Random rand = new Random();
+    final Dimension BALL_DIMENSION = new Dimension(5,5);
 
     /**
      * Constructs a new Ball object at the default starting position
@@ -54,21 +55,26 @@ public final class Ball extends GameEntityImpl {
      * and its health is decreased if it falls out of the game area.
      */
     public void update() {
+        boolean acceptable = true;
         Point candidate = new Point(position.x + dir.getHorizontalVelocity() * GameInfo.BALL_SPEED,
                 position.y + dir.getVerticalVelocity() * GameInfo.BALL_SPEED);
         // Reverse direction if out of horizontal bounds
         if (candidate.getX() <= 0 || candidate.getX() >= GameInfo.GAME_WIDTH) {
             dir = new Direction(-dir.getHorizontalVelocity(), dir.getVerticalVelocity());
+            acceptable = false;
         }
         // Reverse direction if touching the top
         if (candidate.getY() <= 0) {
             dir = new Direction(dir.getHorizontalVelocity(), -dir.getVerticalVelocity());
+            acceptable = false;
         }
         // Decrease health if the ball falls out of the game area
         if (candidate.getY() > GameInfo.GAME_HEIGHT) {
             super.setHealth(super.getHealth() - 1);
         }
-        position = candidate;
+        if (acceptable) {
+            position = candidate;
+        }
     }
 
     /**

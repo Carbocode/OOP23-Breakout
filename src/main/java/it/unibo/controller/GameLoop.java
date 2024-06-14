@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashSet;
 import javax.swing.Timer;
@@ -49,7 +48,7 @@ public class GameLoop implements ActionListener {
         balls.add(new Ball());
         brickWall.generateLayout();
         paddle = new BarImpl(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
-        new Dimension(200, 5), 0, new Color(0));
+        GameInfo.BAR_DIMENSION, 0, new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
         ourView = view;
         ourView.updateGameState(balls, brickWall.getWall(), paddle);
