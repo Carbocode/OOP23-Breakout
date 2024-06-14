@@ -5,11 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 
-<<<<<<< HEAD:src/main/java/it/unibo/model/Bar.java
 public class Bar  extends GameEntityImpl {
-=======
-public class BarImpl  extends GameEntityImpl {
->>>>>>> 30235e45bb4703725d3a00c0ab214cc528cd8fdc:src/main/java/it/unibo/model/BarImpl.java
 
     // (-1) left - (1) right - (0) do not move
     private static final int LEFT_VALUE = -1;
@@ -20,11 +16,7 @@ public class BarImpl  extends GameEntityImpl {
 
     private int direction;
 
-<<<<<<< HEAD:src/main/java/it/unibo/model/Bar.java
     public Bar(Point position, Dimension size, int health, Color color) {
-=======
-    public BarImpl(final Point position, final Dimension size, final int health, final Color color) {
->>>>>>> 30235e45bb4703725d3a00c0ab214cc528cd8fdc:src/main/java/it/unibo/model/BarImpl.java
         super(position, size, health, color);
     }
 
