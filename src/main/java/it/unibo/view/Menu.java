@@ -70,6 +70,11 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame game = new JFrame();
+                // show a popup tutorial
+                JOptionPane.showMessageDialog(game,
+                    "Se leggi sto tutorial sei forte!",
+                    "Tutorial",
+                    JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel = new GameView();
                 gamePanel = new GameView();
                 game.add(gamePanel);
