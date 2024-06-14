@@ -13,6 +13,8 @@ public class CollisionManager {
     private Set<Ball> balls;
     private Bar paddle;
 
+    private final int BOMB_SIZE_RATIO = 5;
+
     public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle) {
         // TODO
         this.balls = balls;
@@ -58,7 +60,7 @@ public class CollisionManager {
 
     private void bomb(GameEntity ball){
         
-        Bomb bomb = new Bomb(new Point(ball.getPosition().x-100,ball.getPosition().y-100),new Dimension(200, 200));
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO, GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
 
         for (GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
