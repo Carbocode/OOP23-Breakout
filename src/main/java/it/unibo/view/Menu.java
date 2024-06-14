@@ -55,15 +55,15 @@ public class Menu extends JFrame {
         buttonPanel.setOpaque(false);
 
         playButton = new JButton("PLAY");
-        playButton.setBackground(Color.ORANGE);
+        playButton.setBackground(new Color(252, 198, 3));
         playButton.setPreferredSize(new Dimension(100, 50));
 
         scoreboardButton = new JButton("SCOREBOARD");
-        scoreboardButton.setBackground(Color.ORANGE);
+        scoreboardButton.setBackground(new Color(252, 198, 3));
         scoreboardButton.setPreferredSize(new Dimension(100, 50));
 
         exitButton = new JButton("EXIT");
-        exitButton.setBackground(Color.ORANGE);
+        exitButton.setBackground(new Color(252, 198, 3));
         exitButton.setPreferredSize(new Dimension(100, 50));
 
         playButton.addActionListener(new ActionListener() {
@@ -72,9 +72,9 @@ public class Menu extends JFrame {
                 JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
-                    "Se leggi sto tutorial sei forte!",
-                    "Tutorial",
-                    JOptionPane.INFORMATION_MESSAGE);
+                        "Se leggi sto tutorial sei forte!",
+                        "Tutorial",
+                        JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel = new GameView();
                 gamePanel = new GameView();
                 game.add(gamePanel);
