@@ -6,9 +6,11 @@ import it.unibo.api.GameInfo;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Random;;
 
-public class Ball extends GameEntityImpl {
+public final class Ball extends GameEntityImpl {
     private Direction dir;
+    Random rand = new Random();
 
     public Ball() {
         super(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50), new Dimension(5, 5), 1);
@@ -50,8 +52,8 @@ public class Ball extends GameEntityImpl {
 
     @Override
     public void onCollision() {
-        // much code
-        dir = new Direction(dir.getHorizontalVelocity(), -dir.GetVerticalVelocity());
+        
+        dir = new Direction(dir.getHorizontalVelocity(), rand.nextInt(3)-1);
     }
 
     @Override
