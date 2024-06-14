@@ -12,29 +12,30 @@ public class CollisionManager {
     private Set<Ball> balls;
     private Bar paddle;
 
-    public CollisionManager(Set<Ball> balls, BrickWall brickWall, Bar paddle) {
+    public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle) {
         // TODO
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
-        
+
     }
 
-    public void checkAll() {
-        for(Ball ball : balls){
+    public final void checkAll() {
+        for (Ball ball : balls) {
             boolean collision = false;
-            if (!ball.isAlive())
+            if (!ball.isAlive()) {
                 continue;
-            for(GameEntity brick : bricks.getWall()){
-                if (!brick.isAlive()){
+            }
+            for (GameEntity brick : bricks.getWall()) {
+                if (!brick.isAlive()) {
                     continue;
                 }
                 if (collides(ball, brick)) {
-                    //Sometimes the ball collides with multiple bricks at the same time. 
-                    //this calls its onCollision twice, thus having no effect
+                    // Sometimes the ball collides with multiple bricks at the same time.
+                    // this calls its onCollision twice, thus having no effect
                     if (GameInfo.DEBUG_MODE) {
                         System.out.println("Ball at  (" + ball.getPosition().toString()
-                        + ") collides with (" + brick.getPosition().toString() + ")");
+                                + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
                     brick.onCollision();
@@ -53,7 +54,7 @@ public class CollisionManager {
 
     }
 
-    private boolean collides(GameEntity a, GameEntity b) {
+    private boolean collides(final GameEntity a, final GameEntity b) {
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
         Point posB = b.getPosition();
