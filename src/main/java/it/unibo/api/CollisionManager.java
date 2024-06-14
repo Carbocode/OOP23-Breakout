@@ -6,6 +6,7 @@ import java.util.Set;
 
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import it.unibo.model.Bomb;
 
 public class CollisionManager {
     private BrickWall bricks;
@@ -38,7 +39,8 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
-                    brick.onCollision();
+                    bomb(ball);
+                    //brick.onCollision();
                 }
             }
             // then we check with paddle
@@ -50,6 +52,27 @@ public class CollisionManager {
                 ball.onCollision();
             }
 
+        }
+
+    }
+
+    private void bomb(GameEntity ball){
+        
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-100,ball.getPosition().y-100),new Dimension(200, 200));
+
+        for (GameEntity brick : bricks.getWall()) {
+            if (!brick.isAlive()) {
+                continue;
+            }
+            if (collides(bomb, brick)) {
+                // Sometimes the ball collides with multiple bricks at the same time.
+                // this calls its onCollision twice, thus having no effect
+                if (GameInfo.DEBUG_MODE) {
+                    System.out.println("Ball at  (" + ball.getPosition().toString()
+                             + ") collides with (" + brick.getPosition().toString() + ")");
+                }
+                brick.onCollision();
+            }
         }
 
     }
