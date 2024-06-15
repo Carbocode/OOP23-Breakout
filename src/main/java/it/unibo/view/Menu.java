@@ -27,9 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This is the menu frame, where you can choose between the play, scoreboard, exit button.
- * if you click play it will open the game.
- * if you click scoreboard it will open a scoreboard with 
+ * This is the menu frame, where you can choose between the play, scoreboard,
+ * exit button.
  * 
  * @author Sohail Mama
  */
@@ -40,11 +39,17 @@ public class Menu extends JFrame {
     private JButton scoreboardButton;
     private JButton exitButton;
     private Font font;
-
     private SoundManager sound = new SoundManagerImpl();
     private Measures measure = new Measures();
+
+    // these are some constant measures
+    private final float fontSize = 55.0f;
+    private final int buttonWidth = 100;
+    private final int buttonHeight = 50;
+
     /**
-     * Menu constructor.
+     * The Menu constructor.
+     * 
      * @author Sohail Mama
      */
     public Menu() {
@@ -64,7 +69,7 @@ public class Menu extends JFrame {
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(2, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        titleLabel.setFont(font.deriveFont(55.0f));
+        titleLabel.setFont(font.deriveFont(fontSize));
 
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
@@ -75,19 +80,19 @@ public class Menu extends JFrame {
         playButton.setOpaque(true);
         playButton.setBorderPainted(false);
         playButton.setBackground(Color.ORANGE);
-        playButton.setPreferredSize(new Dimension(100, 50));
+        playButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 
         scoreboardButton = new JButton("SCOREBOARD");
         scoreboardButton.setOpaque(true);
         scoreboardButton.setBorderPainted(false);
         scoreboardButton.setBackground(Color.ORANGE);
-        scoreboardButton.setPreferredSize(new Dimension(100, 50));
+        scoreboardButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 
         exitButton = new JButton("EXIT");
         exitButton.setOpaque(true);
         exitButton.setBorderPainted(false);
         exitButton.setBackground(Color.ORANGE);
-        exitButton.setPreferredSize(new Dimension(100, 50));
+        exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 
         playButton.addActionListener(new ActionListener() {
             @Override

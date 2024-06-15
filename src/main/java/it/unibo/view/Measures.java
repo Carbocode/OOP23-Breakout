@@ -2,8 +2,12 @@ package it.unibo.view;
 
 import java.awt.*;
 
+/**
+ * this class returns some measurements.
+ * @author Sohail Mama
+ */
 public class Measures {
-    public int getScreenHeight() {
+    public final int getScreenHeight() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] screens = ge.getScreenDevices();
         Rectangle bounds = new Rectangle();
@@ -13,7 +17,7 @@ public class Measures {
         return bounds.height;
     }
 
-    public int getScreenWidth() {
+    public final int getScreenWidth() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] screens = ge.getScreenDevices();
         Rectangle bounds = new Rectangle();
@@ -23,11 +27,12 @@ public class Measures {
         return bounds.width;
     }
 
-    public int getGameAreaHeight() {
+    public final int getGameAreaHeight() {
         return getScreenHeight() / 2;
     }
 
-    public int getGameAreaWidth() {
+    public final int getGameAreaWidth() {
         return getScreenWidth() / 2;
     }
+
 }
