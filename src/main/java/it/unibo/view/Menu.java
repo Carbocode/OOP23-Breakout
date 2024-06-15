@@ -74,7 +74,7 @@ public class Menu extends JFrame {
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
-        sound.playBackgroundSound();
+        sound.playMenuSound();
 
         playButton = new JButton("PLAY");
         playButton.setOpaque(true);
@@ -97,6 +97,7 @@ public class Menu extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
@@ -109,6 +110,9 @@ public class Menu extends JFrame {
                 Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
+                sound.playButtonSound();
+                sound.playGameSound();
+                sound.playBackgroundSound();
 
                 // it close the other window
                 JComponent comp = (JComponent) e.getSource();
@@ -121,6 +125,7 @@ public class Menu extends JFrame {
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 // TO DO
             }
         });
@@ -128,6 +133,7 @@ public class Menu extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 System.exit(0);
             }
         });

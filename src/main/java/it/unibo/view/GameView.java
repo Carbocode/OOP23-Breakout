@@ -1,20 +1,31 @@
 package it.unibo.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import it.unibo.api.GameInfo;
-import it.unibo.model.*;
-import java.util.*;
+import it.unibo.model.Ball;
+import it.unibo.model.Brick;
+import it.unibo.model.Bar;
 
-import java.awt.*;
+import java.util.Set;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * This class implements the gameView, that listens to the keys for moving the bar/paddle and create the components.
+ * @author Sohail Mama
+ */
 public class GameView extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private Bar bar;
-
+    /**
+     * GameView constructor.
+     * 
+     */
     public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
         addKeyListener(new TAdapter());
@@ -35,7 +46,9 @@ public class GameView extends JPanel {
             bar.buttonPressed(e);
         }
     }
-
+/**
+ * This method paint the components of the game.
+ */
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
@@ -60,8 +73,13 @@ public class GameView extends JPanel {
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
     }
-
-    public void updateGameState(Set<Ball> balls, Set<Brick> bricks, Bar bar) {
+/**
+ * this method update the game state.
+ * @param balls
+ * @param bricks
+ * @param bar
+ */
+    public void updateGameState(final Set<Ball> balls, final Set<Brick> bricks, final Bar bar) {
         this.balls = balls;
         this.bricks = bricks;
         this.bar = bar;
