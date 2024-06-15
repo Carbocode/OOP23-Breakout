@@ -7,19 +7,29 @@ import java.util.Set;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 
+/**
+ * Class that checks for collisions.
+ */
 public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
-
+    /**
+     *  Initializes CollisionManager.
+     * @param balls
+     * @param brickWall
+     * @param paddle
+     */
     public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle) {
-        // TODO
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
 
     }
 
+    /**
+     * Checks all objects for collision.
+     */
     public final void checkAll() {
         for (Ball ball : balls) {
             boolean collision = false;
