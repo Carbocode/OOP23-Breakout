@@ -4,9 +4,12 @@ package it.unibo.controller;
 import javax.swing.SwingUtilities;
 import it.unibo.view.Menu;
 
-public class Main {
+/**
+ * Main game class.
+ */
+public final class Main {
 
-    /* Main class.
+    /** Main class.
      * @param args args
      */
     public static void main(final String[] args) {
@@ -15,5 +18,8 @@ public class Main {
                 Menu menuPanel = new Menu();
             }
         });
+    }
+    private Main() {
+        throw new UnsupportedOperationException();
     }
 }

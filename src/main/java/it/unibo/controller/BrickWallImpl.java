@@ -8,6 +8,9 @@ import java.util.Set;
 import it.unibo.api.BrickWall;
 import it.unibo.model.Brick;
 
+/**
+ * Brick wall Implementation using random generation.
+ */
 public class BrickWallImpl implements BrickWall {
 
     public static final int SCALAR = 10;
