@@ -10,20 +10,20 @@ import it.unibo.model.Brick;
 
 public class BrickWallImpl implements BrickWall {
 
-    final public static int SCALAR = 10;
+    public static final int SCALAR = 10;
 
     private Set<Brick> wall;
     private int width;
     private int height;
     private int sideOffset;
 
-    public BrickWallImpl(int width, int height) {
+    public BrickWallImpl(final int width, final int height) {
         this.width = width;
         this.height = height;
     }
 
     @Override
-    public void generateLayout() {
+    public final void generateLayout() {
         this.resetLayout();
 
         int gcd = gcd(this.width, this.height);
@@ -38,28 +38,30 @@ public class BrickWallImpl implements BrickWall {
         this.sideOffset = (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
 
         for (int i = 0; i < numBricksColumn; i++) {
-            if (sideOffset > 0)
+            if (sideOffset > 0) {
                 wall.add(
                         BrickFactory.createImmortalBrick(
                                 new Point(0, i * brickHeight),
                                 new Dimension(sideOffset, brickHeight)));
+            }
             for (int j = 0; j < numBricksRow; j++) {
                 wall.add(
                         BrickFactory.createRandomBrick(
                                 new Point((j * brickWidth) + this.sideOffset, i * brickHeight),
                                 new Dimension(brickWidth, brickHeight)));
             }
-            if (sideOffset > 0)
+            if (sideOffset > 0) {
                 wall.add(
                         BrickFactory.createImmortalBrick(
                                 new Point(this.width - this.sideOffset, i * brickHeight),
                                 new Dimension(sideOffset, brickHeight)));
+            }
         }
 
         this.toString();
     }
 
-    private static int gcd(int a, int b) {
+    private static int gcd(final int a, final int b) {
         while (b > 0) {
             int temp = a % b;
             a = b;
@@ -69,47 +71,47 @@ public class BrickWallImpl implements BrickWall {
     }
 
     @Override
-    public void resetLayout() {
+    public final void resetLayout() {
         this.wall = new LinkedHashSet<Brick>();
     }
 
     @Override
-    public void shiftLayout() {
+    public final void shiftLayout() {
         throw new UnsupportedOperationException("Unimplemented method 'shiftLayout'");
     }
 
     @Override
-    public void removeDeathBricks() {
+    public final void removeDeathBricks() {
         throw new UnsupportedOperationException("Unimplemented method 'removeDeathBricks'");
     }
 
     @Override
-    public void setHeight(int height) {
+    public final void setHeight(final int height) {
         this.height = height;
     }
 
     @Override
-    public void setWidth(int width) {
+    public final void setWidth(final int width) {
         this.width = width;
     }
 
     @Override
-    public int getHeight() {
+    public final int getHeight() {
         return height;
     }
 
     @Override
-    public int getWidth() {
+    public final int getWidth() {
         return width;
     }
 
     @Override
-    public Set<Brick> getWall() {
+    public final Set<Brick> getWall() {
         return wall;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return wall.toString();
     }
 }
