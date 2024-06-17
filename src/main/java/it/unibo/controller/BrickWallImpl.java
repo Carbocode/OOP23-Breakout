@@ -61,7 +61,9 @@ public class BrickWallImpl implements BrickWall {
         this.toString();
     }
 
-    private static int gcd(final int a, final int b) {
+    private static int gcd(final int x, final int y) {
+        int a = x;
+        int b = y;
         while (b > 0) {
             int temp = a % b;
             a = b;
