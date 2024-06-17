@@ -16,15 +16,15 @@ import java.util.Random;
 public final class Ball extends GameEntityImpl {
     private Direction dir;
     private Random rand = new Random();
-    final Dimension BALL_DIMENSION = new Dimension(5,5);
+    private static final Dimension BALL_DIMENSION = new Dimension(5, 5);
+    private static final Point START_POINT = new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50);
 
     /**
      * Constructs a new Ball object at the default starting position
      * with a default direction.
      */
     public Ball() {
-        super(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50),
-        new Dimension(5, 5), 1);
+        super(START_POINT, BALL_DIMENSION, 1);
         this.dir = new Direction(-1, -1);
     }
 

@@ -34,22 +34,22 @@ public abstract class GameEntityImpl implements GameEntity {
     /**
      * The position of the entity in the game world.
      */
-    protected Point position;
+    private Point position;
 
     /**
      * The size of the entity.
      */
-    protected Dimension size;
+    private Dimension size;
 
     /**
      * The health of the entity.
      */
-    protected int health;
+    private int health;
 
     /**
      * The color of the entity.
      */
-    protected Color color;
+    private Color color;
 
     /**
      * Constructs a new GameEntityImpl object with the specified position, size, health, and color.
