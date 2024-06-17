@@ -7,9 +7,6 @@ import java.awt.Dimension;
  * configurations and settings for the game.
  */
 public final class GameInfo {
-    private GameInfo() {
-        throw new UnsupportedOperationException();
-    }
     /**
      * The width of the game window.
      */
@@ -39,5 +36,8 @@ public final class GameInfo {
      * The dimensions of the game bar (paddle).
      */
     public static final Dimension BAR_DIMENSION = new Dimension(200, 15);
+    private GameInfo() {
+        throw new UnsupportedOperationException();
+    }
 
 }
