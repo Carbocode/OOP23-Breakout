@@ -60,7 +60,7 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playGameSound() {
+    public final void playGameSound() {
         try {
             URL indFile = getClass().getClassLoader().getResource("sounds/introgame.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
@@ -74,7 +74,7 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playButtonSound() {
+    public final void playButtonSound() {
         try {
             URL indFile = getClass().getClassLoader().getResource("sounds/buttonsound.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
@@ -88,7 +88,7 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playMenuSound() {
+    public final void playMenuSound() {
         try {
             URL indFile = getClass().getClassLoader().getResource("sounds/intromenu.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
