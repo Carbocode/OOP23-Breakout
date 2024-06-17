@@ -71,6 +71,6 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public final String toString() {
-        return "(" + position.x + ";" + position.y + ")";
+        return "(" + getPosition().x + ";" + getPosition().y + ")";
     }
 }

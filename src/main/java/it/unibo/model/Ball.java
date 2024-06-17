@@ -56,6 +56,7 @@ public final class Ball extends GameEntityImpl {
      */
     public void update() {
         boolean acceptable = true;
+        Point position = getPosition();
         Point candidate = new Point(position.x + dir.getHorizontalVelocity() * GameInfo.BALL_SPEED,
                 position.y + dir.getVerticalVelocity() * GameInfo.BALL_SPEED);
         // Reverse direction if out of horizontal bounds
@@ -73,7 +74,7 @@ public final class Ball extends GameEntityImpl {
             super.setHealth(super.getHealth() - 1);
         }
         if (acceptable) {
-            position = candidate;
+            setPosition(candidate);
         }
     }
 
@@ -94,25 +95,9 @@ public final class Ball extends GameEntityImpl {
         dir = new Direction(rand.nextInt(3) - 1, -dir.getVerticalVelocity());
     }
 
-    /**
-     * Gets the current position of the Ball.
-     *
-     * @return the current position
-     */
-    @Override
-    public Point getPosition() {
-        return this.position;
-    }
 
-    /**
-     * Gets the current size of the Ball.
-     *
-     * @return the current size
-     */
-    @Override
-    public Dimension getSize() {
-        return size;
-    }
+
+
 
     /**
      * Gets the current health of the Ball.

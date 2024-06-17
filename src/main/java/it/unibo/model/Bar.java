@@ -41,6 +41,7 @@ public class Bar  extends GameEntityImpl {
      * if none is pressed the bar will stay in position
      */
     public final void move() {
+        Point position = getPosition();
         switch (direction) {
             case LEFT_VALUE:
                 if (position.x - MOVE_VALUE > 0) {
@@ -49,13 +50,14 @@ public class Bar  extends GameEntityImpl {
                 break;
 
             case RIGHT_VALUE:
-                if (position.x + size.width + MOVE_VALUE < GameInfo.GAME_WIDTH) {
+                if (position.x + getSize().width + MOVE_VALUE < GameInfo.GAME_WIDTH) {
                     position.x += MOVE_VALUE;
                 }
                 break;
             default:
                 break;
         }
+        setPosition(position);
     }
 
     /**
@@ -63,7 +65,7 @@ public class Bar  extends GameEntityImpl {
      * @param newwidth change width, used to handle power up
      */
     public final void setWidth(final int newwidth) {
-        size.width = newwidth;
+        setSize(new Dimension(newwidth, getSize().height));
         return;
     }
 
