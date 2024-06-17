@@ -15,7 +15,6 @@ import java.net.URL;
  * This is the soundmanager, that plays the music when the game starts and play
  * the collision sound.
  * 
- * @author Sohail Mama
  */
 public class SoundManagerImpl implements SoundManager {
     private Clip backgroundClip;

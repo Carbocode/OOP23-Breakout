@@ -50,7 +50,6 @@ public class Menu extends JFrame {
     /**
      * The Menu constructor.
      * 
-     * @author Sohail Mama
      */
     public Menu() {
         setTitle("Breakout");
