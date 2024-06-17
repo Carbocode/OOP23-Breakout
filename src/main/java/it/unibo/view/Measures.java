@@ -7,7 +7,6 @@ import java.awt.GraphicsDevice;
 /**
  * this class returns some measurements.
  * 
- * @author Sohail Mama
  */
 public class Measures {
     /**
