@@ -1,10 +1,12 @@
 package it.unibo.controller;
 
-import it.unibo.view.*;
+import it.unibo.view.GameView;
 
 import it.unibo.api.GameInfo;
-import java.awt.*;
-
+import java.awt.Color;
+/**
+ * 
+ */
 public class Match {
 
     private static GameLoop gameLoop;

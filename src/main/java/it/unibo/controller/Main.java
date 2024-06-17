@@ -4,15 +4,9 @@ package it.unibo.controller;
 import javax.swing.SwingUtilities;
 import it.unibo.view.Menu;
 
-/**
- * Main Class.
- */
-public final class Main {
+public class Main {
 
-    private Main() {
-        throw new UnsupportedOperationException();
-    }
-    /** Main class.
+    /* Main class.
      * @param args args
      */
     public static void main(final String[] args) {
