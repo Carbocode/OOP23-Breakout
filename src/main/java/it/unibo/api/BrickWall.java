@@ -9,32 +9,32 @@ import it.unibo.model.Brick;
  */
 public interface BrickWall {
     /**
-     * Create Level Layout
+     * Create Level Layout.
      */
-    public void generateLayout();
+    void generateLayout();
 
     /**
-     * Resets the level
+     * Resets the level.
      */
-    public void resetLayout();
+    void resetLayout();
 
     /**
-     * Resets the level
+     * Resets the level.
      */
-    public void shiftLayout();
+    void shiftLayout();
 
     /**
-     * Resets the level
+     * Resets the level.
      */
-    public void removeDeathBricks();
+    void removeDeathBricks();
 
-    public void setHeight(int height);
+    void setHeight(int height);
 
-    public void setWidth(int width);
+    void setWidth(int width);
 
-    public int getHeight();
+    int getHeight();
 
-    public int getWidth();
+    int getWidth();
 
-    public Set<Brick> getWall();
+    Set<Brick> getWall();
 }

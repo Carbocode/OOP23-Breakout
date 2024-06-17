@@ -6,7 +6,10 @@ import java.awt.Dimension;
  * The GameInfo class contains static constants that define various
  * configurations and settings for the game.
  */
-public class GameInfo {
+public final class GameInfo {
+    private GameInfo() {
+        throw new UnsupportedOperationException();
+    }
     /**
      * The width of the game window.
      */
