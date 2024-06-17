@@ -12,14 +12,20 @@ import it.unibo.model.Brick;
  * Brick wall Implementation using random generation.
  */
 public class BrickWallImpl implements BrickWall {
-
+    /**
+     * How many bricks?
+     */
     public static final int SCALAR = 10;
 
     private Set<Brick> wall;
     private int width;
     private int height;
     private int sideOffset;
-
+    /**
+     * Constructor.
+     * @param width
+     * @param height
+     */
     public BrickWallImpl(final int width, final int height) {
         this.width = width;
         this.height = height;

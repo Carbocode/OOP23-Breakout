@@ -32,7 +32,7 @@ public class GameView extends JPanel {
         setFocusable(true);
     }
 
-    private class TAdapter extends KeyAdapter {
+    private final class TAdapter extends KeyAdapter {
 
         @Override
         public void keyReleased(final KeyEvent e) {
