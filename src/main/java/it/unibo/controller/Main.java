@@ -1,15 +1,11 @@
 package it.unibo.controller;
 
-
 import javax.swing.SwingUtilities;
 import it.unibo.view.Menu;
 
-/**
- * Main game class.
- */
-public final class Main {
+public class Main {
 
-    /** Main class.
+    /* Main class.
      * @param args args
      */
     public static void main(final String[] args) {
