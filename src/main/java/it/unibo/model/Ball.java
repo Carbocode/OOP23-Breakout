@@ -3,6 +3,8 @@ package it.unibo.model;
 import it.unibo.api.Direction;
 import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
+import it.unibo.api.SoundManager;
+import it.unibo.view.SoundManagerImpl;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -18,6 +20,7 @@ public final class Ball extends GameEntityImpl {
     private Random rand = new Random();
     private static final Dimension BALL_DIMENSION = new Dimension(5, 5);
     private static final Point START_POINT = new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50);
+    private SoundManager sound = new SoundManagerImpl();
 
     /**
      * Constructs a new Ball object at the default starting position
@@ -92,12 +95,9 @@ public final class Ball extends GameEntityImpl {
      */
     @Override
     public void onCollision() {
+        sound.playCollisionSound();
         dir = new Direction(rand.nextInt(3) - 1, -dir.getVerticalVelocity());
     }
-
-
-
-
 
     /**
      * Gets the current health of the Ball.

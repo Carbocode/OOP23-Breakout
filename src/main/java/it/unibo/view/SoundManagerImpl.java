@@ -54,7 +54,7 @@ public class SoundManagerImpl implements SoundManager {
     @Override
     public final void playCollisionSound() {
         try {
-            URL indFile = getClass().getClassLoader().getResource("sounds/collision.wav");
+            URL indFile = getClass().getClassLoader().getResource("sounds/hit2.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
             collisionClip = AudioSystem.getClip();
             collisionClip.open(audioInputStream);

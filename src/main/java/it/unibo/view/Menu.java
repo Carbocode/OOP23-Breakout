@@ -45,9 +45,9 @@ public class Menu extends JFrame {
     private Measures measure = new Measures();
 
     // these are some constant measures
-    private final float fontSize = 55.0f;
-    private final int buttonWidth = 100;
-    private final int buttonHeight = 50;
+    private static final float FONTSIZE = 55.0f;
+    private static final int BUTTONWIDTH = 100;
+    private static final int BUTTONHEIGHT = 50;
 
     /**
      * The Menu constructor.
@@ -70,7 +70,7 @@ public class Menu extends JFrame {
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(2, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        titleLabel.setFont(font.deriveFont(fontSize));
+        titleLabel.setFont(font.deriveFont(FONTSIZE));
 
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
@@ -81,19 +81,19 @@ public class Menu extends JFrame {
         playButton.setOpaque(true);
         playButton.setBorderPainted(false);
         playButton.setBackground(Color.ORANGE);
-        playButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        playButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         scoreboardButton = new JButton("SCOREBOARD");
         scoreboardButton.setOpaque(true);
         scoreboardButton.setBorderPainted(false);
         scoreboardButton.setBackground(Color.ORANGE);
-        scoreboardButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        scoreboardButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         exitButton = new JButton("EXIT");
         exitButton.setOpaque(true);
         exitButton.setBorderPainted(false);
         exitButton.setBackground(Color.ORANGE);
-        exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        exitButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         playButton.addActionListener(new ActionListener() {
             @Override
