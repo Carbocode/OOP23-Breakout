@@ -1,8 +1,10 @@
 package it.unibo.view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import it.unibo.api.GameInfo;
+import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
 import it.unibo.model.Bar;
@@ -23,6 +25,8 @@ public class GameView extends JPanel {
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private Bar bar;
+    private GameView game;
+    private SoundManager sound = new SoundManagerImpl();
 
     /**
      * GameView constructor.
@@ -88,6 +92,14 @@ public class GameView extends JPanel {
         this.balls = balls;
         this.bricks = bricks;
         this.bar = bar;
-
+        if (balls.isEmpty()) {
+            sound.playGameOverSound();
+            JOptionPane.showMessageDialog(game,
+                    "HAI PERSO\nma d'altronde uomini forti destini forti\nuomini deboli destini deboli",
+                    "Game Over",
+                    JOptionPane.INFORMATION_MESSAGE);
+            // close the window
+            System.exit(0);
+        }
     }
 }

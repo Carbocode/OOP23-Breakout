@@ -22,7 +22,7 @@ public class SoundManagerImpl implements SoundManager {
     private Clip buttonClip;
     private Clip menuClip;
     private Clip gameClip;
-
+    private Clip gameoverClip;
     @Override
     public final void playBackgroundSound() {
         try {
@@ -38,9 +38,16 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public final void stopBackgroundSound() {
-        if (backgroundClip != null && backgroundClip.isRunning()) {
-            backgroundClip.stop();
+    public final void playGameOverSound() {
+        try {
+            URL indFile = getClass().getClassLoader().getResource("sounds/gameover.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
+            gameoverClip = AudioSystem.getClip();
+            gameoverClip.open(audioInputStream);
+            // Riproduci il suono
+            gameoverClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
 

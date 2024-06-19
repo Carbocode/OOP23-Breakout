@@ -25,6 +25,8 @@ import java.awt.GridLayout;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * This is the menu frame, where you can choose between the play, scoreboard,
@@ -100,7 +102,7 @@ public class Menu extends JFrame {
                 JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
-                        "Se leggi sto tutorial sei forte!",
+                        "I mattoncini grigi sono indistruttibili ma tutto il resto invece si\nSFOGA LA TUA RABBIA",
                         "Tutorial",
                         JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel = new GameView();
@@ -109,9 +111,21 @@ public class Menu extends JFrame {
                 Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
+                game.setResizable(false);
                 sound.playButtonSound();
                 sound.playGameSound();
                 sound.playBackgroundSound();
+                game.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(final WindowEvent e) {
+                        System.out.println("Chiusura della finestra");
+
+                        if (confirmExit()) {
+                            dispose(); // close the window
+                            System.exit(0);
+                        }
+                    }
+                });
 
                 // it close the other window
                 JComponent comp = (JComponent) e.getSource();
@@ -148,6 +162,13 @@ public class Menu extends JFrame {
         mainPanel.setVisible(true);
         setFocusable(true);
         setVisible(true);
+    }
+
+    private boolean confirmExit() {
+        // show a pop up that ask you if you are sure that you want to leave
+        int option = javax.swing.JOptionPane.showConfirmDialog(this, "Sei sicuro di voler uscire?", "Conferma Uscita",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+        return option == javax.swing.JOptionPane.YES_OPTION;
     }
 
 }

@@ -12,9 +12,9 @@ public interface SoundManager {
         void playBackgroundSound();
 
         /**
-         * this method stops the background music in-game.
+         * this method plays the game over sound.
          */
-        void stopBackgroundSound();
+        void playGameOverSound();
 
         /**
          * this method plays the collision sound.

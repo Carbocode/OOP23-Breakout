@@ -1,15 +1,18 @@
 package it.unibo.model;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
+import it.unibo.api.SoundManager;
+import it.unibo.view.SoundManagerImpl;
 
 /**
- *  Bar class that handle the movements and dynamics of the bar.
+ * Bar class that handle the movements and dynamics of the bar.
  */
-public class Bar  extends GameEntityImpl {
+public class Bar extends GameEntityImpl {
 
     // (-1) left - (1) right - (0) do not move
     private static final int LEFT_VALUE = -1;
@@ -19,13 +22,15 @@ public class Bar  extends GameEntityImpl {
     private static final float MOVE_VALUE = (float) 0.01 * (float) GameInfo.GAME_WIDTH;
 
     private int direction;
+    private SoundManager sound;
 
     /**
      * Standard constructor.
+     * 
      * @param position starting position of the bar
-     * @param size dimension of the bar
-     * @param health ignored since bar will not be affected by health
-     * @param color colour displayed in the bar
+     * @param size     dimension of the bar
+     * @param health   ignored since bar will not be affected by health
+     * @param color    colour displayed in the bar
      */
     public Bar(final Point position, final Dimension size, final int health, final Color color) {
         super(position, size, health, color);
@@ -34,10 +39,13 @@ public class Bar  extends GameEntityImpl {
     @Override
     public void onCollision() {
         // play sound
+        sound = new SoundManagerImpl();
+        sound.playCollisionSound();
     }
 
     /**
-     * This function move the bar every game cycle depending on the button currently being pressed.
+     * This function move the bar every game cycle depending on the button currently
+     * being pressed.
      * if none is pressed the bar will stay in position
      */
     public final void move() {
@@ -62,6 +70,7 @@ public class Bar  extends GameEntityImpl {
 
     /**
      * Method used to change the width of the bar during game loop.
+     * 
      * @param newwidth change width, used to handle power up
      */
     public final void setWidth(final int newwidth) {
@@ -73,6 +82,7 @@ public class Bar  extends GameEntityImpl {
      * This method is used to detect a button pressed by the user.
      * if the button match the arrow left or arrow right,
      * the last button pressed is stored and used for the next movement
+     * 
      * @param e button pressed
      */
     public final void buttonPressed(final KeyEvent e) {
@@ -97,7 +107,9 @@ public class Bar  extends GameEntityImpl {
 
     /**
      * This method is used to detect a button released by the user.
-     * if the button match the arrow left or arrow right the bar will not be moved until next button pressed
+     * if the button match the arrow left or arrow right the bar will not be moved
+     * until next button pressed
+     * 
      * @param e button pressed
      */
     public final void buttonReleased(final KeyEvent e) {
@@ -107,5 +119,5 @@ public class Bar  extends GameEntityImpl {
             direction = STOP_VALUE;
         }
     }
- 
+
 }
