@@ -1,24 +1,34 @@
-package main.java.it.unibo.model;
-import main.java.it.unibo.api.Scoreboard;
+package it.unibo.model;
 
+import it.unibo.api.Scoreboard;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.io.FileWriter;
 
-public ScoreboardImpl implements Scoreboard{
+public class ScoreboardImpl implements Scoreboard{
 
-    //this function open and read the JSON file and return JSON file converted into JSONArray
-    private JSONArray open(){
+    /**
+     * this function open and read the JSON file and return JSON file converted into JSONArray
+    */
+    private JSONArray open() throws IOException{
+        try {
+            // read JSON file content
+            String jsonContent = new String(Files.readAllBytes(Paths.get("appdata/Scoreboard.json")));
 
-        // read JSON file content
-        String jsonContent = new String(Files.readAllBytes(Paths.get("appdata/Scoreboard.json")));
-
-        // convert JSON string into JSON object array
-        return new JSONArray(jsonContent);
-
+            // convert JSON string into JSON object array
+            return new JSONArray(jsonContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;    
     }
 
-    List<String> top10(){
+    public List<String> top10(){
         try {
 
             JSONArray jsonArray = open();
@@ -45,16 +55,23 @@ public ScoreboardImpl implements Scoreboard{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
-    void add(String name,int points){
+    public void add(String name,int points){
 
         //if put is true the new score needs to be added, if it's false it means it was already added
         Boolean put = true;
+
+        JSONArray inputArray = new JSONArray();
         
         //input JSONArray
-        JSONArray inputArray = open();
+        try{
+            inputArray = open();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Create a new JSONArray for the results
         JSONArray outputArray = new JSONArray();
@@ -91,9 +108,5 @@ public ScoreboardImpl implements Scoreboard{
         } catch (IOException e) {
             System.err.println("Error while saving JSON file: " + e.getMessage());
         }
-
     }
-
-    
-
 }

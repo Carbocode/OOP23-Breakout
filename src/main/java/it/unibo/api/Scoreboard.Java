@@ -1,4 +1,6 @@
-package main.java.it.unibo.api;
+package it.unibo.api;
+
+import java.util.List;
 
 /**
  * An interface modelling a factory of Scoreboard.
@@ -10,10 +12,14 @@ package main.java.it.unibo.api;
  public interface Scoreboard {
 
     /**
+     * 
+     */
+
+    /**
      * @return a List<String> containing the top 10 players and score
      * e.g.:  (format: "*position* *user* : *score*p" example: "1 ABC : 3814p")
      */
-    List<String> top10();
+    public List<String> top10();
 
     /**
      * @return void 
@@ -21,5 +27,5 @@ package main.java.it.unibo.api;
      * @param name the name of the player
      * @param points the points made by the player during the game
      */
-    void add(String name,int points);
+    public void add(String name,int points);
 }

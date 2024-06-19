@@ -27,6 +27,10 @@ dependencies {
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
 
+    implementation("org.json:json:20220320")
+    
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+
     /*
      * Simple Logging Facade for Java (SLF4J) with Apache Log4j
      * See: http://www.slf4j.org/
