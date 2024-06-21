@@ -6,6 +6,7 @@ import java.util.Set;
 
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import it.unibo.model.Bomb;
 
 /**
  * Class that checks for collisions.
@@ -14,12 +15,18 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
+<<<<<<< HEAD
     /**
      *  Initializes CollisionManager.
      * @param balls
      * @param brickWall
      * @param paddle
      */
+=======
+
+    private final int BOMB_SIZE_RATIO = 5;
+
+>>>>>>> origin/Bomb_Feature
     public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle) {
         this.balls = balls;
         this.bricks = brickWall;
@@ -48,7 +55,8 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
-                    brick.onCollision();
+                    bomb(ball);
+                    //brick.onCollision();
                 }
             }
             // then we check with paddle
@@ -60,6 +68,27 @@ public class CollisionManager {
                 ball.onCollision();
             }
 
+        }
+
+    }
+
+    private void bomb(GameEntity ball){
+        
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO, GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
+
+        for (GameEntity brick : bricks.getWall()) {
+            if (!brick.isAlive()) {
+                continue;
+            }
+            if (collides(bomb, brick)) {
+                // Sometimes the ball collides with multiple bricks at the same time.
+                // this calls its onCollision twice, thus having no effect
+                if (GameInfo.DEBUG_MODE) {
+                    System.out.println("Ball at  (" + ball.getPosition().toString()
+                             + ") collides with (" + brick.getPosition().toString() + ")");
+                }
+                brick.onCollision();
+            }
         }
 
     }
