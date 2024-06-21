@@ -7,7 +7,8 @@ import java.util.Objects;
 
 /**
  * The abstract class GameEntityImpl implements the GameEntity interface.
- * It provides a base implementation for common properties and methods that all game entities share.
+ * It provides a base implementation for common properties and methods that all
+ * game entities share.
  */
 public abstract class GameEntityImpl implements GameEntity {
 
@@ -52,12 +53,13 @@ public abstract class GameEntityImpl implements GameEntity {
     private Color color;
 
     /**
-     * Constructs a new GameEntityImpl object with the specified position, size, health, and color.
+     * Constructs a new GameEntityImpl object with the specified position, size,
+     * health, and color.
      *
      * @param position the position of the entity
-     * @param size the size of the entity
-     * @param health the health of the entity
-     * @param color the color of the entity
+     * @param size     the size of the entity
+     * @param health   the health of the entity
+     * @param color    the color of the entity
      */
     public GameEntityImpl(final Point position, final Dimension size, final int health, final Color color) {
         this.position = position;
@@ -214,11 +216,14 @@ public abstract class GameEntityImpl implements GameEntity {
     }
 
     /**
-     * Compares this game entity to the specified object. The result is true if and only if
-     * the argument is not null and is a GameEntity object that has the same position, size, health, and color as this object.
+     * Compares this game entity to the specified object. The result is true if and
+     * only if
+     * the argument is not null and is a GameEntity object that has the same
+     * position, size, health, and color as this object.
      *
      * @param o the object to compare this GameEntity against
-     * @return true if the given object represents a GameEntity equivalent to this game entity, false otherwise
+     * @return true if the given object represents a GameEntity equivalent to this
+     *         game entity, false otherwise
      */
     @Override
     public boolean equals(final Object o) {
