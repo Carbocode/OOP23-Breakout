@@ -7,6 +7,7 @@ import java.util.Set;
 
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import it.unibo.model.BarExtender;
 import it.unibo.model.BigBar;
 import it.unibo.model.Brick;
 
@@ -17,7 +18,6 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
-    private BigBar bb;
 
     /**
      * Initializes CollisionManager.
@@ -55,7 +55,7 @@ public class CollisionManager {
                     }
                     collision = true;
                     brick.onCollision();
-
+                    BarExtender.extendBar(paddle);
                 }
             }
             // then we check with paddle
