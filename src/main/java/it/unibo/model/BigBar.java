@@ -1,5 +1,9 @@
 package it.unibo.model;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 public class BigBar extends Bar {
     private boolean bigBar = false;
     private int time = 0;
@@ -11,14 +15,8 @@ public class BigBar extends Bar {
     }
 
     public final void extendedBar() {
-        if (time < fullTime) {
-            time++;
-            this.bar.setWidth((int) (getSize().getWidth() * 0.5));
-            return;
-        } else {
-            time = 0;
-        }
-
+        this.bar.setWidth(300);
+        return;
     }
 
 }

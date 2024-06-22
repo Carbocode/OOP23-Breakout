@@ -1,4 +1,5 @@
 package it.unibo.api;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -6,6 +7,8 @@ import java.util.Set;
 
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import it.unibo.model.BigBar;
+import it.unibo.model.Brick;
 
 /**
  * Class that checks for collisions.
@@ -14,8 +17,11 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
+    private BigBar bb;
+
     /**
-     *  Initializes CollisionManager.
+     * Initializes CollisionManager.
+     * 
      * @param balls
      * @param brickWall
      * @param paddle
@@ -49,6 +55,7 @@ public class CollisionManager {
                     }
                     collision = true;
                     brick.onCollision();
+
                 }
             }
             // then we check with paddle
