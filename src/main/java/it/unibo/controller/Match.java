@@ -4,6 +4,12 @@ import it.unibo.view.GameView;
 
 import it.unibo.api.GameInfo;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * this class initialize a new game.
@@ -13,7 +19,7 @@ public final class Match {
     private static GameLoop gameLoop;
 
     /**
-     * this method initialize the gmapanel.
+     * this method initialize the gamepanel.
      * 
      * @param gamePanel
      */
@@ -33,6 +39,5 @@ public final class Match {
     }
 
     private Match() {
-        throw new UnsupportedOperationException();
     }
 }

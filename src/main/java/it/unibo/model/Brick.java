@@ -16,8 +16,10 @@ public class Brick extends GameEntityImpl {
      * Aspect Ratio.
      */
     public static final double ASPECT_RATIO = 7.0 / 3;
+
     /**
      * Constructor.
+     * 
      * @param position
      * @param size
      * @param health

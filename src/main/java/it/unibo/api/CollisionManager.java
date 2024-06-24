@@ -5,9 +5,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Set;
 
+import it.unibo.controller.ScoreManagerImpl;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
-import it.unibo.model.BarExtender;
+
 /**
  * Class that checks for collisions.
  */
@@ -15,6 +16,7 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
+    private ScoreManager score;
 
     /**
      * Initializes CollisionManager.
@@ -27,6 +29,7 @@ public class CollisionManager {
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
+        this.score = new ScoreManagerImpl();
 
     }
 
@@ -51,8 +54,8 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
+                    score.increment(200);
                     brick.onCollision();
-                    BarExtender.extendBar(paddle);
                 }
             }
             // then we check with paddle

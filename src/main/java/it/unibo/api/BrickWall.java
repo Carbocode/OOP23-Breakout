@@ -5,7 +5,7 @@ import java.util.Set;
 import it.unibo.model.Brick;
 
 /**
- * Generates the level procedurally, based on difficulty
+ * Generates the level procedurally, based on difficulty.
  */
 public interface BrickWall {
     /**

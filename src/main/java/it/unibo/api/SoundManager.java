@@ -36,4 +36,9 @@ public interface SoundManager {
          * this method plays the intro sound of the menu.
          */
         void playMenuSound();
+
+        /**
+         * this method plays the win sound.
+         */
+        void playVictorySound();
 }
