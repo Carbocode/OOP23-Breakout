@@ -8,9 +8,6 @@ import java.util.Set;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.model.BarExtender;
-import it.unibo.model.BigBar;
-import it.unibo.model.Brick;
-
 /**
  * Class that checks for collisions.
  */

@@ -12,15 +12,26 @@ public final class Match {
 
     private static GameLoop gameLoop;
 
+    /**
+     * this method initialize the gmapanel.
+     * 
+     * @param gamePanel
+     */
     public static void init(final GameView gamePanel) {
         gameLoop = new GameLoop(gamePanel);
         gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
         gamePanel.setBackground(Color.BLACK);
     }
 
+    /**
+     * this method returns the game loop.
+     * 
+     * @return gameloop
+     */
     public static GameLoop getGameLoop() {
         return gameLoop;
     }
+
     private Match() {
         throw new UnsupportedOperationException();
     }

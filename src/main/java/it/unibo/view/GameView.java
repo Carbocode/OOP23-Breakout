@@ -10,7 +10,6 @@ import it.unibo.model.Brick;
 import it.unibo.model.Bar;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
