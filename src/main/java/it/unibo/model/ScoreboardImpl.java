@@ -18,7 +18,7 @@ import java.io.FileWriter;
 
 public class ScoreboardImpl implements Scoreboard{
 
-    /**
+    /** 
      * this function open and read the JSON file and return JSON file converted into JSONArray
     */
 
