@@ -15,10 +15,10 @@ public class Measures {
      * @return ScreenHeight
      */
     public final int getScreenHeight() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] screens = ge.getScreenDevices();
+        final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        final GraphicsDevice[] screens = ge.getScreenDevices();
         Rectangle bounds = new Rectangle();
-        for (GraphicsDevice screen : screens) {
+        for (final GraphicsDevice screen : screens) {
             bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
         }
         return bounds.height;
@@ -30,10 +30,10 @@ public class Measures {
      * @return ScreenWidth
      */
     public final int getScreenWidth() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] screens = ge.getScreenDevices();
+        final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        final GraphicsDevice[] screens = ge.getScreenDevices();
         Rectangle bounds = new Rectangle();
-        for (GraphicsDevice screen : screens) {
+        for (final GraphicsDevice screen : screens) {
             bounds = bounds.union(screen.getDefaultConfiguration().getBounds());
         }
         return bounds.width;
