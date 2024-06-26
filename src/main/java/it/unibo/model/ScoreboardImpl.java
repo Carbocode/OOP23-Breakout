@@ -13,14 +13,17 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.io.BufferedWriter;
 
-/**  `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
-*/
+/**
+ * `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
+ */
 public class ScoreboardImpl implements Scoreboard {
 
     private static final String SCOREBOARD_FILE = "scoreboard/Scoreboard.json";
 
     /**
-     * This function opens and reads the JSON file and returns the JSON file converted into JSONArray.
+     * This function opens and reads the JSON file and returns the JSON file
+     * converted into JSONArray.
+     * 
      * @return jsonArray
      */
     public JSONArray open() throws IOException {
@@ -44,8 +47,9 @@ public class ScoreboardImpl implements Scoreboard {
             throw new IOException("Invalid URI", e);
         }
     }
+
     /**
-     * @return JList<String> list of top 10 playes based on score. 
+     * @return JList<String> list of top 10 playes based on score.
      */
     public final JList<String> top10() {
         try {
@@ -78,6 +82,7 @@ public class ScoreboardImpl implements Scoreboard {
      * The `add` method in the `ScoreboardImpl` class is responsible for adding a
      * new entry to the
      * scoreboard with the given name and points.
+     * 
      * @param name
      * @param points
      */

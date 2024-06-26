@@ -12,12 +12,14 @@ public class Bomb extends GameEntityImpl {
 
     /**
      * bomb general constructor.
+     * 
      * @param position position of the bomb (the same of the ball)
-     * @param size size of the explosion
+     * @param size     size of the explosion
      */
     public Bomb(final Point position, final Dimension size) {
         super(position, size);
     }
+
     @Override
     public void onCollision() {
         // nothing
