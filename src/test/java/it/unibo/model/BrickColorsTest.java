@@ -2,15 +2,18 @@ package it.unibo.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Color;
-
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for BrickColors.
+ */
 public class BrickColorsTest {
 
+    /**
+     * Test if color layout is correct.
+     */
     @Test
     public void testGetColorByRow() {
-
         assertEquals(BrickColors.PURPLE.getColor(), BrickColors.getColor(0));
         assertEquals(BrickColors.BLUE.getColor(), BrickColors.getColor(1));
         assertEquals(BrickColors.CYAN.getColor(), BrickColors.getColor(2));

@@ -38,11 +38,11 @@ public class BrickWallImpl implements BrickWall {
     @Override
     public final void generateLayout() {
         this.resetLayout();
-        int gcd = getGcd(this.width, this.height);
-        int brickWidth = getBrickWidth(gcd);
-        int brickHeight = getBrickHeight(brickWidth);
-        int numBricksRow = getNumBricksRow(brickWidth);
-        int numBricksColumn = getNumBricksColumn(brickHeight);
+        final int gcd = getGcd(this.width, this.height);
+        final int brickWidth = getBrickWidth(gcd);
+        final int brickHeight = getBrickHeight(brickWidth);
+        final int numBricksRow = getNumBricksRow(brickWidth);
+        final int numBricksColumn = getNumBricksColumn(brickHeight);
         this.sideOffset = getSideOffset(brickWidth, numBricksRow);
 
         IntStream
@@ -99,7 +99,7 @@ public class BrickWallImpl implements BrickWall {
 
     public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         wall.add(BrickFactory.createRandomBrick(
-                new Point((colIndex * brickWidth) + this.sideOffset, rowIndex * brickHeight),
+                new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),
                 new Dimension(brickWidth, brickHeight),
                 BrickColors.getColor(rowIndex)));
     }
@@ -108,7 +108,7 @@ public class BrickWallImpl implements BrickWall {
         int a = x;
         int b = y;
         while (b > 0) {
-            int temp = a % b;
+            final int temp = a % b;
             a = b;
             b = temp;
         }

@@ -21,6 +21,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Logger;
+
 
 /**
  * This class implements the gameView, that listens to the keys for moving the
@@ -28,19 +30,21 @@ import java.net.URL;
  * 
  */
 public class GameView extends JPanel {
+    public static final long serialVersionUID = 4328743;
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private Bar bar;
     private GameView game;
-    private SoundManager sound = new SoundManagerImpl();
+    private final SoundManager sound = new SoundManagerImpl();
     private int score;
     private final int infoX = GameInfo.GAME_WIDTH - 100;
     private final int scoreY = GameInfo.GAME_HEIGHT - 25;
     private final int bombY = scoreY - 30;
     private final int dupliY = bombY - 30;
     private final int enlargeY = dupliY - 30;
-    private final int fontSizeScore = 23;
+    private static final int FONT_SIZE_SCORE = 23;
     private Image backgroundImage;
+    private final Logger log;
 
     /**
      * GameView constructor.
@@ -51,6 +55,7 @@ public class GameView extends JPanel {
         addKeyListener(new TAdapter());
         setFocusable(true);
         backgroundPanel();
+        log = Logger.getLogger(GameView.class.getName());
     }
 
     private final class TAdapter extends KeyAdapter {
@@ -71,10 +76,10 @@ public class GameView extends JPanel {
     private void backgroundPanel() {
         try {
             // Carica l'immagine dall'URL
-            URL url = getClass().getClassLoader().getResource("images/bg.jpg");
+            final URL url = getClass().getClassLoader().getResource("images/bg.jpg");
             backgroundImage = ImageIO.read(url);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.warning(e.getMessage());
         }
     }
 
@@ -88,13 +93,13 @@ public class GameView extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         g.setColor(Color.RED);
-        for (Ball ball : balls) {
+        for (final Ball ball : balls) {
             g.fillOval((int) ball.getPosition().getX(), (int) ball.getPosition().getY(),
                     (int) ball.getSize().getWidth(), (int) ball.getSize().getHeight());
 
         }
 
-        for (Brick brick : bricks) {
+        for (final Brick brick : bricks) {
             g.setColor(brick.getColor());
             if (brick.isAlive()) {
                 g.fillRect((int) brick.getPosition().getX(), (int) brick.getPosition().getY(),
@@ -108,7 +113,7 @@ public class GameView extends JPanel {
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
         g.setColor(Color.YELLOW);
-        g.setFont(new Font("Monospaced", Font.BOLD, fontSizeScore));
+        g.setFont(new Font("Monospaced", Font.BOLD, FONT_SIZE_SCORE));
         g.drawString(score + "pts", infoX, scoreY);
         g.setColor(Color.RED);
         g.drawString(PowerUp.BOMB.getCDInSecs() + "S Bomb", infoX, bombY);

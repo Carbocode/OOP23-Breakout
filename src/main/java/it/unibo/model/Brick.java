@@ -33,7 +33,6 @@ public class Brick extends GameEntityImpl {
      */
     @Override
     public final void onCollision() {
-        System.out.println(super.getPosition());
         int health = super.getHealth();
         if (health > 0) {
             super.setHealth(--health);
@@ -47,7 +46,7 @@ public class Brick extends GameEntityImpl {
      */
     @Override
     public final boolean isAlive() {
-        return this.getHealth() != -1 ? super.isAlive() : true;
+        return this.getHealth() == -1 || super.isAlive();
     }
 
     /**
@@ -84,7 +83,7 @@ public class Brick extends GameEntityImpl {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Brick brick = (Brick) o;
+        final Brick brick = (Brick) o;
         return Objects.equals(getPosition(), brick.getPosition());
     }
 

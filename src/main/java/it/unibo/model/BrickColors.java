@@ -20,7 +20,7 @@ public enum BrickColors {
      */
     CYAN(new Color(45, 255, 230)),
     /**
-     * Yellow
+     * Yellow.
      */
     YELLOW(new Color(249, 200, 14)),
     /**
@@ -57,7 +57,7 @@ public enum BrickColors {
      * @return the color corresponding to the row index
      */
     public static Color getColor(final int row) {
-        BrickColors[] values = BrickColors.values();
+        final BrickColors[] values = BrickColors.values();
         return values[row % values.length].color;
     }
 

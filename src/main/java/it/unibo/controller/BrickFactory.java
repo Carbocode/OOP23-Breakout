@@ -27,7 +27,7 @@ public final class BrickFactory {
      * @return a random brick
      */
     public static Brick createRandomBrick(final Point position, final Dimension size, final Color color) {
-        int health = BrickTypes.getHealth(BrickFactory.RAND);
+        final int health = BrickTypes.getHealth(BrickFactory.RAND);
 
         if (health < 0) {
             return createImmortalBrick(position, size);

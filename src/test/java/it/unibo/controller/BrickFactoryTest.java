@@ -13,14 +13,23 @@ import it.unibo.model.Brick;
 import it.unibo.model.BrickColors;
 import it.unibo.model.BrickTypes;
 
+/**
+ * Test class for BrickFactory.
+ */
 public class BrickFactoryTest {
 
+    /**
+     * Sets the seed for random generation.
+     */
     @BeforeEach
     public void setUp() {
         // Reset the seed before each test to ensure deterministic behavior
         BrickFactory.setSeed(0);
     }
 
+    /**
+     * Test if the Brick generated is correct.
+     */
     @Test
     public void testCreateRandomBrick() {
         Point position = new Point(10, 20);
@@ -39,6 +48,9 @@ public class BrickFactoryTest {
         }
     }
 
+    /**
+     * Test if the Brick generated is correct
+     */
     @Test
     public void testCreateImmortalBrick() {
         Point position = new Point(5, 15);
@@ -53,25 +65,13 @@ public class BrickFactoryTest {
         assertEquals(Color.GRAY, brick.getColor());
     }
 
+    /**
+     * Test if the Seed is correct
+     */
     @Test
     public void testSetAndGetSeed() {
         long seed = 12345L;
         BrickFactory.setSeed(seed);
         assertEquals(seed, BrickFactory.getSeed());
     }
-
-    /*
-     * @Test
-     * public void testRandomBrickHealthVariation() {
-     * Point position = new Point(10, 20);
-     * Dimension size = new Dimension(30, 10);
-     * 
-     * BrickFactory.setSeed(1);
-     * Brick brick1 = BrickFactory.createRandomBrick(position, size);
-     * BrickFactory.setSeed(2);
-     * Brick brick2 = BrickFactory.createRandomBrick(position, size);
-     * 
-     * assertNotEquals(brick1.getHealth(), brick2.getHealth());
-     * }
-     */
 }

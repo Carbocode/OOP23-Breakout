@@ -19,12 +19,11 @@ public final class DeathCollector {
      * @param entities the set of game entities to check
      */
     public static void checkEntities(final Set<? extends GameEntity> entities) {
-        Iterator<? extends GameEntity> iterator = entities.iterator();
+        final Iterator<? extends GameEntity> iterator = entities.iterator();
         while (iterator.hasNext()) {
-            GameEntity entity = iterator.next();
+            final GameEntity entity = iterator.next();
             if (!entity.isAlive()) {
                 iterator.remove();
-                System.out.println("Entity removed: " + entity.getClass());
             }
         }
     }

@@ -9,6 +9,9 @@ import java.awt.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for Brick.
+ */
 public class BrickTest {
 
     private Brick brick;
@@ -17,6 +20,9 @@ public class BrickTest {
     private int health;
     private Color color;
 
+    /**
+     * Setup a Brick for tests.
+     */
     @BeforeEach
     public void setUp() {
         position = new Point(10, 20);
@@ -26,6 +32,9 @@ public class BrickTest {
         brick = new Brick(position, size, health, color);
     }
 
+    /**
+     * Test if Constructor works.
+     */
     @Test
     public void testConstructor() {
         assertEquals(position, brick.getPosition());
@@ -34,6 +43,9 @@ public class BrickTest {
         assertEquals(color, brick.getColor());
     }
 
+    /**
+     * Test if Collision interacts with Health correclty.
+     */
     @Test
     public void testOnCollision() {
         brick.onCollision();
@@ -52,6 +64,9 @@ public class BrickTest {
         assertEquals(-1, brick.getHealth());
     }
 
+    /**
+     * Test if Brick Health works.
+     */
     @Test
     public void testIsAlive() {
         assertTrue(brick.isAlive());
@@ -64,12 +79,18 @@ public class BrickTest {
         assertTrue(brick.isAlive());
     }
 
+    /**
+     * Test if Health is correct.
+     */
     @Test
     public void testSetAndGetHealth() {
         brick.setHealth(5);
         assertEquals(5, brick.getHealth());
     }
 
+    /**
+     * Test if Brick is deterministic.
+     */
     @Test
     public void testEqualsAndHashCode() {
         Brick anotherBrick = new Brick(new Point(10, 20), new Dimension(30, 10), 3, Color.RED);
@@ -81,16 +102,25 @@ public class BrickTest {
         assertNotEquals(brick.hashCode(), differentBrick.hashCode());
     }
 
+    /**
+     * Test if returned String is correct.
+     */
     @Test
     public void testToString() {
         assertEquals("(10;20)", brick.toString());
     }
 
+    /**
+     * Test if Position is correct.
+     */
     @Test
     public void testGetPosition() {
         assertEquals(position, brick.getPosition());
     }
 
+    /**
+     * Test if Size is correct.
+     */
     @Test
     public void testGetSize() {
         assertEquals(size, brick.getSize());
