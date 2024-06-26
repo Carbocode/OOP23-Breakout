@@ -9,7 +9,7 @@ import java.util.List;
  * retrieve the top 10 players list
  */
 
- public interface Scoreboard {
+public interface Scoreboard {
 
     /**
      * 

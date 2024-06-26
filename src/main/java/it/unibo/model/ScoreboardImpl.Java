@@ -5,6 +5,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
@@ -15,17 +18,24 @@ public class ScoreboardImpl implements Scoreboard{
     /**
      * this function open and read the JSON file and return JSON file converted into JSONArray
     */
-    private JSONArray open() throws IOException{
-        try {
-            // read JSON file content
-            String jsonContent = new String(Files.readAllBytes(Paths.get("appdata/Scoreboard.json")));
 
-            // convert JSON string into JSON object array
+    public JSONArray open() throws IOException {
+        try {
+            // Ottieni l'URL del file JSON
+            URL indFile = getClass().getClassLoader().getResource("scoreboard/Scoreboard.json");
+
+            // Leggi il contenuto del file JSON e converti in stringa
+            String jsonContent = new String(Files.readAllBytes(Paths.get(indFile.toURI())));
+
+            // Converti la stringa JSON in un array di oggetti JSON
             return new JSONArray(jsonContent);
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            throw new IOException("Invalid URI", e);
         }
-        return null;    
     }
 
     public List<String> top10(){
@@ -45,10 +55,10 @@ public class ScoreboardImpl implements Scoreboard{
                 resultList.add(resultString);
             }
 
-            // print results (only for debug)
-            //for (String result : resultList) {
-            //    System.out.println(result);
-            //}
+            //print results (only for debug)
+            for (String result : resultList) {
+                System.out.println(result);
+            }
 
             return resultList;
 

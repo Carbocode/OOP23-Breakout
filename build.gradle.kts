@@ -28,7 +28,6 @@ dependencies {
     implementation("org.jooq:jool:0.9.15")
 
     implementation("org.json:json:20220320")
-    
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
 
     /*
