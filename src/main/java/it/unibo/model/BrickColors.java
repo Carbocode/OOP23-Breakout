@@ -20,7 +20,7 @@ public enum BrickColors {
      */
     CYAN(new Color(45, 255, 230)),
     /**
-     * Yellow
+     * Yellow.
      */
     YELLOW(new Color(249, 200, 14)),
     /**
