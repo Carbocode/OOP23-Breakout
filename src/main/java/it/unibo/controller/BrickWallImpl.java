@@ -91,12 +91,30 @@ public class BrickWallImpl implements BrickWall {
                 new Dimension(sideOffset, brickHeight));
     }
 
+    /**
+     * Adds an immortal brick to the wall at the specified position and size.
+     * This method only adds the brick if the side offset is greater than 0.
+     * 
+     * @param position the position of the brick
+     * @param size     the size of the brick
+     */
     public void addImmortalBrick(final Point position, final Dimension size) {
         if (sideOffset > 0) {
             wall.add(BrickFactory.createImmortalBrick(position, size));
         }
     }
 
+    /**
+     * Adds a random brick to the wall at the specified row and column index.
+     * The position of the brick is calculated based on the row and column index,
+     * the brick width, and the brick height. The color of the brick is determined
+     * by the row index.
+     * 
+     * @param rowIndex    the row index of the brick
+     * @param colIndex    the column index of the brick
+     * @param brickWidth  the width of the brick
+     * @param brickHeight the height of the brick
+     */
     public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         wall.add(BrickFactory.createRandomBrick(
                 new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),

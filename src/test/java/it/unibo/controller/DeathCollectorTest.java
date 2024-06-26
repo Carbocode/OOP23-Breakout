@@ -16,7 +16,7 @@ import it.unibo.model.Brick;
 /**
  * Test class for DeathCollector.
  */
-public class DeathCollectorTest {
+class DeathCollectorTest {
 
     private Set<Brick> entities;
     private Brick aliveBrick;
@@ -26,7 +26,7 @@ public class DeathCollectorTest {
      * Setup before each test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         entities = new HashSet<>();
 
         aliveBrick = new Brick(new Point(10, 20), new Dimension(30, 10), 1, Color.RED);
@@ -40,7 +40,7 @@ public class DeathCollectorTest {
      * Test that dead entities are removed from the set.
      */
     @Test
-    public void testCheckEntitiesRemovesDeadEntities() {
+    void testCheckEntitiesRemovesDeadEntities() {
         DeathCollector.checkEntities(entities);
         assertTrue(entities.contains(aliveBrick));
         assertFalse(entities.contains(deadBrick));
@@ -50,7 +50,7 @@ public class DeathCollectorTest {
      * Test that no entities are removed when all are alive.
      */
     @Test
-    public void testCheckEntitiesWithAllAlive() {
+    void testCheckEntitiesWithAllAlive() {
         entities.remove(deadBrick);
         DeathCollector.checkEntities(entities);
         assertTrue(entities.contains(aliveBrick));
@@ -60,7 +60,7 @@ public class DeathCollectorTest {
      * Test that all entities are removed when all are dead.
      */
     @Test
-    public void testCheckEntitiesWithAllDead() {
+    void testCheckEntitiesWithAllDead() {
         entities.remove(aliveBrick);
         DeathCollector.checkEntities(entities);
         assertTrue(entities.isEmpty());
@@ -70,7 +70,7 @@ public class DeathCollectorTest {
      * Test that checkEntities handles an empty set correctly.
      */
     @Test
-    public void testCheckEntitiesWithEmptySet() {
+    void testCheckEntitiesWithEmptySet() {
         entities.clear();
         DeathCollector.checkEntities(entities);
         assertTrue(entities.isEmpty());

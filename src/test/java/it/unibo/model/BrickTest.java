@@ -9,10 +9,12 @@ import java.awt.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.api.GameEntityImpl;
+
 /**
  * Test class for Brick.
  */
-public class BrickTest {
+class BrickTest {
 
     private Brick brick;
     private Point position;
@@ -24,7 +26,7 @@ public class BrickTest {
      * Setup a Brick for tests.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         position = new Point(10, 20);
         size = new Dimension(30, 10);
         health = 3;
@@ -36,7 +38,7 @@ public class BrickTest {
      * Test if Constructor works.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals(position, brick.getPosition());
         assertEquals(size, brick.getSize());
         assertEquals(health, brick.getHealth());
@@ -47,35 +49,38 @@ public class BrickTest {
      * Test if Collision interacts with Health correclty.
      */
     @Test
-    public void testOnCollision() {
+    void testOnCollision() {
+        final int damage = -1;
+
         brick.onCollision();
-        assertEquals(health - 1, brick.getHealth());
+        assertEquals(health + damage, brick.getHealth());
 
         // Test health does not go below zero for normal bricks
-        brick.setHealth(1);
+        brick.setHealth(GameEntityImpl.MIN_HEALTH);
         brick.onCollision();
         assertEquals(0, brick.getHealth());
         brick.onCollision();
         assertEquals(0, brick.getHealth());
 
         // Test immortal brick does not lose health
-        brick.setHealth(-1);
+        brick.setHealth(GameEntityImpl.IMMORTAL_ENTITY_HEALTH);
         brick.onCollision();
-        assertEquals(-1, brick.getHealth());
+        assertEquals(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, brick.getHealth());
     }
 
     /**
      * Test if Brick Health works.
      */
     @Test
-    public void testIsAlive() {
+    void testIsAlive() {
         assertTrue(brick.isAlive());
 
-        brick.setHealth(0);
+        final int deathHealth = 0;
+        brick.setHealth(deathHealth);
         assertFalse(brick.isAlive());
 
         // Test immortal brick is always alive
-        brick.setHealth(-1);
+        brick.setHealth(GameEntityImpl.IMMORTAL_ENTITY_HEALTH);
         assertTrue(brick.isAlive());
     }
 
@@ -83,21 +88,27 @@ public class BrickTest {
      * Test if Health is correct.
      */
     @Test
-    public void testSetAndGetHealth() {
-        brick.setHealth(5);
-        assertEquals(5, brick.getHealth());
+    void testSetAndGetHealth() {
+        final int health = 5;
+        brick.setHealth(health);
+        assertEquals(health, brick.getHealth());
     }
 
     /**
      * Test if Brick is deterministic.
      */
     @Test
-    public void testEqualsAndHashCode() {
-        Brick anotherBrick = new Brick(new Point(10, 20), new Dimension(30, 10), 3, Color.RED);
+    void testEqualsAndHashCode() {
+        final Point firstBrickPosition = new Point(10, 20);
+        final Point secondBrickPosition = new Point(15, 25);
+        final Dimension brickDimension = new Dimension(30, 10);
+        final int brickHealth = 3;
+
+        final Brick anotherBrick = new Brick(firstBrickPosition, brickDimension, brickHealth, Color.RED);
         assertEquals(brick, anotherBrick);
         assertEquals(brick.hashCode(), anotherBrick.hashCode());
 
-        Brick differentBrick = new Brick(new Point(15, 25), new Dimension(30, 10), 3, Color.RED);
+        final Brick differentBrick = new Brick(secondBrickPosition, brickDimension, brickHealth, Color.RED);
         assertNotEquals(brick, differentBrick);
         assertNotEquals(brick.hashCode(), differentBrick.hashCode());
     }
@@ -106,15 +117,16 @@ public class BrickTest {
      * Test if returned String is correct.
      */
     @Test
-    public void testToString() {
-        assertEquals("(10;20)", brick.toString());
+    void testToString() {
+        final String expectedOutput = "(10;20)";
+        assertEquals(expectedOutput, brick.toString());
     }
 
     /**
      * Test if Position is correct.
      */
     @Test
-    public void testGetPosition() {
+    void testGetPosition() {
         assertEquals(position, brick.getPosition());
     }
 
@@ -122,7 +134,7 @@ public class BrickTest {
      * Test if Size is correct.
      */
     @Test
-    public void testGetSize() {
+    void testGetSize() {
         assertEquals(size, brick.getSize());
     }
 }
