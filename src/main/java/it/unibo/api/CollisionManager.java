@@ -63,7 +63,7 @@ public class CollisionManager {
             if (!ball.isAlive()) {
                 continue;
             }
-            
+            boolean greyCollision = false;
             // Collision with bricks
             long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
@@ -78,6 +78,8 @@ public class CollisionManager {
                     collision = true;
                     if (!(brick.getHealth() == -1)) {
                         score.increment(points);
+                    }else{
+                        greyCollision = true;
                     }
                     brick.onCollision();
                 }
@@ -102,24 +104,27 @@ public class CollisionManager {
             if (collision) {
                 long powerUPStartTime = System.nanoTime();
                 ball.onCollision();
-                for (PowerUp pu : PowerUp.values()) {
-                    if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
-                        switch (pu) {
-                            case ENLARGE:
-                                handleEnlargePowerUp();
-                                break;
-                            case BOMB:
-                                bomb(ball);
-                                break;
-                            case DUPLI:
-                                newBalls.add(new Ball(ball));  // Collect new ball
-                                PowerUp.DUPLI.use();
-                                break;
-                            default:
-                                break;
+                if(!greyCollision) {
+                    for (PowerUp pu : PowerUp.values()) {
+                        if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
+                            switch (pu) {
+                                case ENLARGE:
+                                    handleEnlargePowerUp();
+                                    break;
+                                case BOMB:
+                                    bomb(ball);
+                                    break;
+                                case DUPLI:
+                                    newBalls.add(new Ball(ball));  // Collect new ball
+                                    PowerUp.DUPLI.use();
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
+                
                 long PowerUpEndTime = System.nanoTime();
                 DBGPrint("Power Up Handling", PowerUpEndTime-powerUPStartTime);
             }
