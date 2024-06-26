@@ -53,19 +53,22 @@ public class CollisionManager {
      * Checks all objects for collision.
      */
     public final void checkAll() {
-        List<Ball> newBalls = new ArrayList<Ball>();
-        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over, gives Error if not used
+        List<Ball> newBalls = new ArrayList<>();
+        long startTime = System.nanoTime();
+    
+        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
             boolean collision = false;
             if (!ball.isAlive()) {
                 continue;
             }
+            
+            // Collision with bricks
+            long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
                 if (!brick.isAlive()) {
                     continue;
                 }
                 if (collides(ball, brick)) {
-                    // Sometimes the ball collides with multiple bricks at the same time.
-                    // this calls its onCollision twice, thus having no effect
                     if (GameInfo.DEBUG_MODE) {
                         System.out.println("Ball at  (" + ball.getPosition().toString()
                                 + ") collides with (" + brick.getPosition().toString() + ")");
@@ -75,40 +78,70 @@ public class CollisionManager {
                     brick.onCollision();
                 }
             }
-            // then we check with paddle
+            long brickEndTime = System.nanoTime();
+            DBGPrint("Brick Collision", brickEndTime - brickStartTime);
+    
+            // Collision with paddle
+            long paddleStartTime = System.nanoTime();
             if (collides(ball, paddle)) {
-                System.out.println("Paddle hit");
                 //collision = true;
                 ball.onCollision();
             }
+            long paddleEndTime = System.nanoTime();
+            DBGPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
+    
+            // Handle collisions
             if (collision) {
+                long powerUPStartTime = System.nanoTime();
                 ball.onCollision();
                 for (PowerUp pu : PowerUp.values()) {
-                    if (rnd.nextInt(100) <= pu.getProbability()) {
+                    if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
                         switch (pu) {
                             case ENLARGE:
                                 handleEnlargePowerUp();
                                 break;
                             case BOMB:
-                                // handle BOMB power-up
                                 bomb(ball);
                                 break;
                             case DUPLI:
                                 newBalls.add(new Ball(ball));  // Collect new ball
+                                PowerUp.DUPLI.use();
                                 break;
                             default:
                                 break;
                         }
                     }
                 }
+                long PowerUpEndTime = System.nanoTime();
+                DBGPrint("Power Up Handling", PowerUpEndTime-powerUPStartTime);
             }
         }
-        if(balls.size()+newBalls.size() <= MAX_BALLS) {
-            balls.addAll(newBalls);  // Add new balls after iteration
+    
+        // Add new balls
+        long addBallsStartTime = System.nanoTime();
+        if (balls.size() + newBalls.size() <= MAX_BALLS) {
+            balls.addAll(newBalls);
         }
-        
+        long addBallsEndTime = System.nanoTime();
+        DBGPrint("Add Balls ", addBallsEndTime-addBallsStartTime);
+    
+        long endTime = System.nanoTime();
+        DBGPrint("TOTAL", endTime-startTime);
+    }
+    private void DBGPrint(String name, long difference) {
+        if (!GameInfo.DEBUG_MODE) {
+            return;
+        }
+        long milliseconds = TimeUnit.NANOSECONDS.toMillis(difference);
+        String output = String.format("%s took %d ms", name.toUpperCase(), milliseconds);
+        if (milliseconds > 10) {
+            System.out.println("\u001B[31m" + output + "\u001B[0m");  // ANSI escape code for red color
+        } else {
+            //System.out.println(output);
+        }
     }
     private void handleEnlargePowerUp() {
+        PowerUp.ENLARGE.use();
         Dimension originalSize = paddle.getSize();
         paddle.setSize(new Dimension((int)paddle.getSize().getWidth() + ENLARGE_SIZE, 
                                      (int)paddle.getSize().getHeight()));
@@ -119,7 +152,7 @@ public class CollisionManager {
         }, 5, TimeUnit.SECONDS);
     }
     private void bomb(GameEntity ball){
-        
+        PowerUp.BOMB.use();
         Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),
         ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),
         new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO,
