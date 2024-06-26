@@ -1,6 +1,9 @@
 package it.unibo.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,9 +30,13 @@ class BrickTest {
      */
     @BeforeEach
     void setUp() {
-        position = new Point(10, 20);
-        size = new Dimension(30, 10);
-        health = 3;
+        final Point position = new Point(10, 20);
+        final Dimension size = new Dimension(30, 10);
+        final int health = 3;
+
+        this.position = position;
+        this.size = size;
+        this.health = health;
         color = Color.RED;
         brick = new Brick(position, size, health, color);
     }

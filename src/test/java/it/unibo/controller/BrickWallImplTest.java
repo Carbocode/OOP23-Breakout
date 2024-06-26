@@ -1,6 +1,9 @@
 package it.unibo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Set;
 
@@ -53,6 +56,8 @@ class BrickWallImplTest {
 
     /**
      * Test if the Brick count generated is correct.
+     * 
+     * @return brick number in a wall
      */
     int calculateExpectedBrickCount() {
         // Simplified example of expected brick count calculation

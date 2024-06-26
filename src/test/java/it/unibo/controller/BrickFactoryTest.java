@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,7 +51,7 @@ class BrickFactoryTest {
     }
 
     /**
-     * Test if the Brick generated is correct
+     * Test if the Brick generated is correct.
      */
     @Test
     void testCreateImmortalBrick() {
@@ -67,7 +68,7 @@ class BrickFactoryTest {
     }
 
     /**
-     * Test if the Seed is correct
+     * Test if the Seed is correct.
      */
     @Test
     void testSetAndGetSeed() {

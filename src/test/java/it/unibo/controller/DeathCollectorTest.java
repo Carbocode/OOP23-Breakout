@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,8 +30,14 @@ class DeathCollectorTest {
     void setUp() {
         entities = new HashSet<>();
 
-        aliveBrick = new Brick(new Point(10, 20), new Dimension(30, 10), 1, Color.RED);
-        deadBrick = new Brick(new Point(15, 25), new Dimension(30, 10), 0, Color.GRAY);
+        final Point firstBrickPosition = new Point(10, 20);
+        final Point secondBrickPosition = new Point(15, 25);
+        final Dimension brickDimension = new Dimension(30, 10);
+        final int firstBrickHealth = 1;
+        final int secondBrickHealth = 0;
+
+        aliveBrick = new Brick(firstBrickPosition, brickDimension, firstBrickHealth, Color.RED);
+        deadBrick = new Brick(secondBrickPosition, brickDimension, secondBrickHealth, Color.GRAY);
 
         entities.add(aliveBrick);
         entities.add(deadBrick);
