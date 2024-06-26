@@ -36,6 +36,7 @@ import java.awt.event.WindowEvent;
  * @author Sohail Mama
  */
 public class Menu extends JFrame {
+    public static final long serialVersionUID = 4328743;
     private static JPanel mainPanel;
     private JLabel titleLabel;
     private JButton playButton;

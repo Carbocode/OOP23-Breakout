@@ -15,6 +15,8 @@ import it.unibo.api.GameInfo;
  * This is the view of the scoreboard.
  */
 public class ScoreboardView extends JFrame {
+    public static final long serialVersionUID = 4328749;
+
     /**
      * Scoreboard view constructor.
      * 
@@ -26,11 +28,11 @@ public class ScoreboardView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        ScoreboardImpl s = new ScoreboardImpl();
+        final ScoreboardImpl s = new ScoreboardImpl();
 
         add(new JScrollPane(s.top10()), BorderLayout.CENTER);
 
-        JButton backButton = new JButton("< RETURN");
+        final JButton backButton = new JButton("< RETURN");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
