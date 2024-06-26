@@ -17,8 +17,6 @@ public final class Main {
     public static void main(final String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ScoreboardImpl t = new ScoreboardImpl();
-                t.top10();
                 new Menu();
             }
         });
