@@ -6,26 +6,35 @@ import java.awt.Color;
  * Enum representing different colors for bricks.
  */
 public enum BrickColors {
-    /**
-     * Blue.
-     */
-    BLUE(new Color(32, 46, 133)),
-    /**
-     * Yellow.
-     */
-    YELLOW(new Color(51, 51, 255)),
-    /**
-     * Magenta.
-     */
-    MAGENTA(new Color(255, 0, 255)),
-    /**
-     * Light Blue.
-     */
-    LIGHT_BLUE(new Color(51, 255, 255)),
+
     /**
      * Purple.
      */
-    PURPLE(new Color(127, 0, 255));
+    PURPLE(new Color(127, 0, 255)),
+    /**
+     * Blue.
+     */
+    BLUE(new Color(2, 55, 136)),
+    /**
+     * Cyan.
+     */
+    CYAN(new Color(45, 255, 230)),
+    /**
+     * Yellow
+     */
+    YELLOW(new Color(249, 200, 14)),
+    /**
+     * Magenta.
+     */
+    MAGENTA(new Color(247, 6, 207)),
+    /**
+     * Red.
+     */
+    RED(new Color(253, 55, 119)),
+    /**
+     * Dark Purple.
+     */
+    DARK_PURPLE(new Color(84, 13, 110));
 
     /**
      * Color.

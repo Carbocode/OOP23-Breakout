@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 
 import it.unibo.api.BrickWall;
 import it.unibo.model.Brick;
+import it.unibo.model.BrickColors;
 
 /**
  * Brick wall Implementation using random generation.
@@ -37,35 +38,37 @@ public class BrickWallImpl implements BrickWall {
     @Override
     public final void generateLayout() {
         this.resetLayout();
-        int gcd = calculateGcd(this.width, this.height);
-        int brickWidth = calculateBrickWidth(gcd);
-        int brickHeight = calculateBrickHeight(brickWidth);
-        int numBricksRow = calculateNumBricksRow(brickWidth);
-        int numBricksColumn = calculateNumBricksColumn(brickHeight);
-        this.sideOffset = calculateSideOffset(brickWidth, numBricksRow);
+        int gcd = getGcd(this.width, this.height);
+        int brickWidth = getBrickWidth(gcd);
+        int brickHeight = getBrickHeight(brickWidth);
+        int numBricksRow = getNumBricksRow(brickWidth);
+        int numBricksColumn = getNumBricksColumn(brickHeight);
+        this.sideOffset = getSideOffset(brickWidth, numBricksRow);
 
-        IntStream.range(0, numBricksColumn).forEach(i -> addBricksToRow(i, brickWidth, brickHeight, numBricksRow));
+        IntStream
+                .range(0, numBricksColumn)
+                .forEach(i -> addBricksToRow(i, brickWidth, brickHeight, numBricksRow));
 
         this.toString();
     }
 
-    private int calculateBrickWidth(final int gcd) {
+    private int getBrickWidth(final int gcd) {
         return gcd * SCALAR;
     }
 
-    private int calculateBrickHeight(final int brickWidth) {
+    private int getBrickHeight(final int brickWidth) {
         return (int) (brickWidth / Brick.ASPECT_RATIO);
     }
 
-    private int calculateNumBricksRow(final int brickWidth) {
+    private int getNumBricksRow(final int brickWidth) {
         return (int) Math.floor(this.width / brickWidth);
     }
 
-    private int calculateNumBricksColumn(final int brickHeight) {
+    private int getNumBricksColumn(final int brickHeight) {
         return (int) Math.floor(this.height / brickHeight);
     }
 
-    private int calculateSideOffset(final int brickWidth, final int numBricksRow) {
+    private int getSideOffset(final int brickWidth, final int numBricksRow) {
         return (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
     }
 
@@ -74,25 +77,34 @@ public class BrickWallImpl implements BrickWall {
             final int brickWidth,
             final int brickHeight,
             final int numBricksRow) {
-        addImmortalBrick(new Point(0, rowIndex * brickHeight), new Dimension(sideOffset, brickHeight));
-        IntStream.range(0, numBricksRow).forEach(j -> addRandomBrick(rowIndex, j, brickWidth, brickHeight));
-        addImmortalBrick(new Point(this.width - this.sideOffset, rowIndex * brickHeight),
+
+        addImmortalBrick(
+                new Point(0, rowIndex * brickHeight),
+                new Dimension(sideOffset, brickHeight));
+
+        IntStream
+                .range(0, numBricksRow)
+                .forEach(j -> addRandomBrick(rowIndex, j, brickWidth, brickHeight));
+
+        addImmortalBrick(
+                new Point(this.width - this.sideOffset, rowIndex * brickHeight),
                 new Dimension(sideOffset, brickHeight));
     }
 
-    private void addImmortalBrick(final Point position, final Dimension size) {
+    public void addImmortalBrick(final Point position, final Dimension size) {
         if (sideOffset > 0) {
             wall.add(BrickFactory.createImmortalBrick(position, size));
         }
     }
 
-    private void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
+    public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         wall.add(BrickFactory.createRandomBrick(
                 new Point((colIndex * brickWidth) + this.sideOffset, rowIndex * brickHeight),
-                new Dimension(brickWidth, brickHeight)));
+                new Dimension(brickWidth, brickHeight),
+                BrickColors.getColor(rowIndex)));
     }
 
-    private static int calculateGcd(final int x, final int y) {
+    private static int getGcd(final int x, final int y) {
         int a = x;
         int b = y;
         while (b > 0) {
