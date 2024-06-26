@@ -8,7 +8,6 @@ import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.view.SoundManagerImpl;
-import it.unibo.model.ScoreboardImpl;
 /**
  * Bar class that handle the movements and dynamics of the bar.
  */
