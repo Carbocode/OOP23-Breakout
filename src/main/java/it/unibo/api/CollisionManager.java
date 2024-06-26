@@ -66,7 +66,11 @@ public class CollisionManager {
             // then we check with paddle
             if (collides(ball, paddle)) {
                 System.out.println("Paddle hit");
-                collision = true;
+                if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
+                    ball.barCollision(-1);
+                } else {
+                    ball.barCollision(1);
+                }
             }
             if (collision) {
                 ball.onCollision();
