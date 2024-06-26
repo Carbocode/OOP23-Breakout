@@ -29,8 +29,8 @@ public class CollisionManager {
     private final int ENLARGE_SIZE = 100;
     private final int MAX_BALLS= 10;
     private ScoreManager score;
+    private final int points = 200;
     private Random rnd;
-    private int gridSize = 100;
     private ScheduledExecutorService scheduler;
 
     /**
