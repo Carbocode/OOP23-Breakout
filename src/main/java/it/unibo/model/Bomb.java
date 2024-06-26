@@ -8,7 +8,7 @@ import it.unibo.api.GameEntityImpl;
 /**
  * Bomb power up class.
  */
-public class Bomb extends GameEntityImpl{
+public class Bomb extends GameEntityImpl {
 
     /**
      * bomb general constructor.
