@@ -85,7 +85,6 @@ public final class Ball extends GameEntityImpl {
         }
     }
 
-
     /**
      * Handles the collision event by changing the Ball's direction.
      */

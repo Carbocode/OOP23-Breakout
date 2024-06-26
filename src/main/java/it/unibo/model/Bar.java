@@ -33,8 +33,6 @@ public class Bar extends GameEntityImpl {
         super(position, size, health, color);
     }
 
-
-
     /**
      * This function move the bar every game cycle depending on the button currently
      * being pressed.
@@ -108,8 +106,6 @@ public class Bar extends GameEntityImpl {
             direction = STOP_VALUE;
         }
     }
-
-
 
     @Override
     public void onCollision() {

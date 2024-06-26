@@ -34,6 +34,7 @@ public class CollisionManager {
     private final ScheduledExecutorService scheduler;
     private final SoundManager sound;
     private final Logger log;
+
     /**
      * Initializes CollisionManager.
      * 
@@ -60,7 +61,7 @@ public class CollisionManager {
     public final void checkAll() {
         final List<Ball> newBalls = new ArrayList<>();
         final long startTime = System.nanoTime();
-        for (final Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
+        for (final Ball ball : new ArrayList<>(balls)) { // Create a copy to iterate over
             boolean collision = false;
             if (!ball.isAlive()) {
                 continue;
@@ -149,6 +150,7 @@ public class CollisionManager {
         final long endTime = System.nanoTime();
         debugPrint("TOTAL", endTime - startTime);
     }
+
     private void debugPrint(final String name, final long difference) {
         if (!GameInfo.DEBUG_MODE) {
             return;
@@ -173,9 +175,9 @@ public class CollisionManager {
     private void bomb(final GameEntity ball) {
         PowerUp.BOMB.use();
         final Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2),
-        ball.getPosition().y - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2)),
-        new Dimension(GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO,
-        GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO));
+                ball.getPosition().y - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2)),
+                new Dimension(GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO,
+                        GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO));
         for (final GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
                 continue;
@@ -185,6 +187,7 @@ public class CollisionManager {
             }
         }
     }
+
     private boolean collides(final GameEntity a, final GameEntity b) {
         final Point posA = a.getPosition();
         final Dimension sizeA = a.getSize();
