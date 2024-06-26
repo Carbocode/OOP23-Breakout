@@ -11,8 +11,6 @@ import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Bomb;
-import it.unibo.view.SoundManagerImpl;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +46,6 @@ public class CollisionManager {
         this.score = score;
         rnd = new Random();
         scheduler = Executors.newScheduledThreadPool(1);
-        sound = new SoundManagerImpl();
     }
 
     /**
@@ -63,7 +60,8 @@ public class CollisionManager {
             if (!ball.isAlive()) {
                 continue;
             }
-            
+            boolean greyCollision = false;
+            int forcedDirection = 0;
             // Collision with bricks
             long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
@@ -91,7 +89,7 @@ public class CollisionManager {
             }
             long brickEndTime = System.nanoTime();
             DBGPrint("Brick Collision", brickEndTime - brickStartTime);
-
+    
             // Collision with paddle
             long paddleStartTime = System.nanoTime();
             if (collides(ball, paddle)) {
@@ -104,46 +102,53 @@ public class CollisionManager {
             }
             long paddleEndTime = System.nanoTime();
             DBGPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
-
+    
             // Handle collisions
             if (collision) {
                 long powerUPStartTime = System.nanoTime();
-                ball.onCollision();
-                for (PowerUp pu : PowerUp.values()) {
-                    if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
-                        switch (pu) {
-                            case ENLARGE:
-                                handleEnlargePowerUp();
-                                break;
-                            case BOMB:
-                                bomb(ball);
-                                break;
-                            case DUPLI:
-                                newBalls.add(new Ball(ball));  // Collect new ball
-                                PowerUp.DUPLI.use();
-                                break;
-                            default:
-                                break;
+                if (greyCollision){
+                    ball.guidedCollision(forcedDirection);
+                }else{
+                    ball.onCollision();
+                }
+
+                if(!greyCollision) {
+                    for (PowerUp pu : PowerUp.values()) {
+                        if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
+                            switch (pu) {
+                                case ENLARGE:
+                                    handleEnlargePowerUp();
+                                    break;
+                                case BOMB:
+                                    bomb(ball);
+                                    break;
+                                case DUPLI:
+                                    newBalls.add(new Ball(ball));  // Collect new ball
+                                    PowerUp.DUPLI.use();
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
+                
                 long PowerUpEndTime = System.nanoTime();
-                DBGPrint("Power Up Handling", PowerUpEndTime - powerUPStartTime);
+                DBGPrint("Power Up Handling", PowerUpEndTime-powerUPStartTime);
             }
         }
-
+    
         // Add new balls
         long addBallsStartTime = System.nanoTime();
         if (balls.size() + newBalls.size() <= maxBalls) {
             balls.addAll(newBalls);
         }
         long addBallsEndTime = System.nanoTime();
-        DBGPrint("Add Balls ", addBallsEndTime - addBallsStartTime);
-
+        DBGPrint("Add Balls ", addBallsEndTime-addBallsStartTime);
+    
         long endTime = System.nanoTime();
-        DBGPrint("TOTAL", endTime - startTime);
+        DBGPrint("TOTAL", endTime-startTime);
     }
-
     private void DBGPrint(String name, long difference) {
         if (!GameInfo.DEBUG_MODE) {
             return;
@@ -151,12 +156,11 @@ public class CollisionManager {
         long milliseconds = TimeUnit.NANOSECONDS.toMillis(difference);
         String output = String.format("%s took %d ms", name.toUpperCase(), milliseconds);
         if (milliseconds > 10) {
-            System.out.println("\u001B[31m" + output + "\u001B[0m"); // ANSI escape code for red color
+            System.out.println("\u001B[31m" + output + "\u001B[0m");  // ANSI escape code for red color
         } else {
-            // System.out.println(output);
+            //System.out.println(output);
         }
     }
-
     private void handleEnlargePowerUp() {
         PowerUp.ENLARGE.use();
         Dimension originalSize = paddle.getSize();
@@ -168,8 +172,7 @@ public class CollisionManager {
             paddle.setSize(originalSize);
         }, 5, TimeUnit.SECONDS);
     }
-
-    private void bomb(GameEntity ball) {
+    private void bomb(GameEntity ball){
         PowerUp.BOMB.use();
         Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(bombSizeRatio*2),
         ball.getPosition().y-GameInfo.GAME_WIDTH/(bombSizeRatio*2)),
@@ -184,7 +187,6 @@ public class CollisionManager {
             }
         }
     }
-
     private boolean collides(final GameEntity a, final GameEntity b) {
         final Point posA = a.getPosition();
         final Dimension sizeA = a.getSize();
