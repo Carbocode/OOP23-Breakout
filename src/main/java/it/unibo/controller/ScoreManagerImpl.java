@@ -2,6 +2,9 @@ package it.unibo.controller;
 
 import it.unibo.api.ScoreManager;
 
+/**
+ * This class manage the score of the game.
+ */
 public class ScoreManagerImpl implements ScoreManager {
 
     private int score;

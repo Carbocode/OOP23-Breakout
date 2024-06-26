@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
+import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.controller.Match;
 
@@ -43,6 +44,7 @@ public class Menu extends JFrame {
     private Font font;
     private SoundManager sound = new SoundManagerImpl();
     private Measures measure = new Measures();
+    private Menu menu;
 
     // these are some constant measures
     private static final float FONTSIZE = 55.0f;
@@ -139,7 +141,10 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 sound.playButtonSound();
-                // TO DO
+                JFrame scoreBoard = new ScoreboardView(menu);
+                scoreBoard.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
+                scoreBoard.setVisible(true);
+                scoreBoard.setResizable(false);
             }
         });
 
