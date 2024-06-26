@@ -50,7 +50,7 @@ class BrickFactoryTest {
     }
 
     /**
-     * Test if the Brick generated is correct
+     * Test if the Brick generated is correct.
      */
     @Test
     void testCreateImmortalBrick() {
