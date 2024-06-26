@@ -11,7 +11,15 @@ import javax.swing.JScrollPane;
 
 import it.unibo.api.GameInfo;
 
+/**
+ * This is the view of the scoreboard.
+ */
 public class ScoreboardView extends JFrame {
+    /**
+     * Scoreboard view constructor.
+     * 
+     * @param menu
+     */
     public ScoreboardView(final Menu menu) {
         setTitle("SCOREBOARD");
         setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_WIDTH);

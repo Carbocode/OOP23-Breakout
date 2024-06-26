@@ -93,7 +93,7 @@ public class GameView extends JPanel {
             g.setColor(brick.getColor());
             if (brick.isAlive()) {
                 g.fillRect((int) brick.getPosition().getX(), (int) brick.getPosition().getY(),
-                        (int) brick.getSize().getWidth(), (int) brick.getSize().getHeight());
+                        (int) brick.getSize().getWidth() - 1, (int) brick.getSize().getHeight() - 1);
             }
 
         }
