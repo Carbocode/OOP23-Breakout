@@ -2,6 +2,9 @@ package it.unibo.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,22 +17,10 @@ class BrickColorsTest {
      */
     @Test
     void testGetColorByRow() {
-        int row = 0;
+        BrickColors[] colors = BrickColors.values();
 
-        assertEquals(BrickColors.PURPLE.getColor(), BrickColors.getColor(row));
-        assertEquals(BrickColors.BLUE.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.CYAN.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.YELLOW.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.MAGENTA.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.RED.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.DARK_PURPLE.getColor(), BrickColors.getColor(++row));
-
-        assertEquals(BrickColors.PURPLE.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.BLUE.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.CYAN.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.YELLOW.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.MAGENTA.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.RED.getColor(), BrickColors.getColor(++row));
-        assertEquals(BrickColors.DARK_PURPLE.getColor(), BrickColors.getColor(++row));
+        for (int i = 0; i < (colors.length * 2); i++) {
+            assertEquals(colors[i % colors.length].getColor(), BrickColors.getColor(i));
+        }
     }
 }
