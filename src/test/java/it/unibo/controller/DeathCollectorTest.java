@@ -1,6 +1,7 @@
 package it.unibo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +17,7 @@ import it.unibo.model.Brick;
 /**
  * Test class for DeathCollector.
  */
-public class DeathCollectorTest {
+class DeathCollectorTest {
 
     private Set<Brick> entities;
     private Brick aliveBrick;
@@ -26,11 +27,17 @@ public class DeathCollectorTest {
      * Setup before each test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         entities = new HashSet<>();
 
-        aliveBrick = new Brick(new Point(10, 20), new Dimension(30, 10), 1, Color.RED);
-        deadBrick = new Brick(new Point(15, 25), new Dimension(30, 10), 0, Color.GRAY);
+        final Point firstBrickPosition = new Point(10, 20);
+        final Point secondBrickPosition = new Point(15, 25);
+        final Dimension brickDimension = new Dimension(30, 10);
+        final int firstBrickHealth = 1;
+        final int secondBrickHealth = 0;
+
+        aliveBrick = new Brick(firstBrickPosition, brickDimension, firstBrickHealth, Color.RED);
+        deadBrick = new Brick(secondBrickPosition, brickDimension, secondBrickHealth, Color.GRAY);
 
         entities.add(aliveBrick);
         entities.add(deadBrick);
@@ -40,7 +47,7 @@ public class DeathCollectorTest {
      * Test that dead entities are removed from the set.
      */
     @Test
-    public void testCheckEntitiesRemovesDeadEntities() {
+    void testCheckEntitiesRemovesDeadEntities() {
         DeathCollector.checkEntities(entities);
         assertTrue(entities.contains(aliveBrick));
         assertFalse(entities.contains(deadBrick));
@@ -50,7 +57,7 @@ public class DeathCollectorTest {
      * Test that no entities are removed when all are alive.
      */
     @Test
-    public void testCheckEntitiesWithAllAlive() {
+    void testCheckEntitiesWithAllAlive() {
         entities.remove(deadBrick);
         DeathCollector.checkEntities(entities);
         assertTrue(entities.contains(aliveBrick));
@@ -60,7 +67,7 @@ public class DeathCollectorTest {
      * Test that all entities are removed when all are dead.
      */
     @Test
-    public void testCheckEntitiesWithAllDead() {
+    void testCheckEntitiesWithAllDead() {
         entities.remove(aliveBrick);
         DeathCollector.checkEntities(entities);
         assertTrue(entities.isEmpty());
@@ -70,7 +77,7 @@ public class DeathCollectorTest {
      * Test that checkEntities handles an empty set correctly.
      */
     @Test
-    public void testCheckEntitiesWithEmptySet() {
+    void testCheckEntitiesWithEmptySet() {
         entities.clear();
         DeathCollector.checkEntities(entities);
         assertTrue(entities.isEmpty());
