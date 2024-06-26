@@ -19,6 +19,7 @@ public class CollisionManager {
     private Bar paddle;
     private ScoreManager score;
     private Random rnd;
+    private final int points = 200;
 
     /**
      * Initializes CollisionManager.
@@ -57,8 +58,8 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
-                    if (brick.isAlive()&&brick.getColor()!=Color.) {
-                        score.increment(200);
+                    if (!(brick.getHealth() == -1)) {
+                        score.increment(points);
                     }
                     brick.onCollision();
                 }
