@@ -13,19 +13,17 @@ import javax.swing.JList;
 public interface Scoreboard {
 
     /**
-     * 
-     */
-
-    /**
      * @return a List<String> containing the top 10 players and score
      * e.g.:  (format: "*position* *user* : *score*p" example: "1 ABC : 3814p")
      */
-    public JList<String> top10();
+    JList<String> top10();
 
     /**
-     * add a player (as soon as the game ends) with his score into the right spot in the leaderboard.
-     * @param name the name of the player
+     * add a player (as soon as the game ends) with his score into the right spot in
+     * the leaderboard.
+     * 
+     * @param name   the name of the player
      * @param points the points made by the player during the game
      */
-    public void add(String name,int points);
+    void add(String name, int points);
 }

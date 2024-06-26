@@ -36,7 +36,7 @@ public class Bar extends GameEntityImpl {
     }
 
     @Override
-    public void onCollision() {
+    public final void onCollision() {
         // play sound
         sound = new SoundManagerImpl();
         sound.playCollisionSound();
@@ -85,7 +85,6 @@ public class Bar extends GameEntityImpl {
      * @param e button pressed
      */
     public final void buttonPressed(final KeyEvent e) {
-        
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_LEFT:
@@ -100,7 +99,6 @@ public class Bar extends GameEntityImpl {
 
             default:
                 // do nothing
-
         }
     }
 
@@ -118,5 +116,4 @@ public class Bar extends GameEntityImpl {
             direction = STOP_VALUE;
         }
     }
-
 }

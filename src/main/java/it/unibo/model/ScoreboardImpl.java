@@ -45,7 +45,7 @@ public class ScoreboardImpl implements Scoreboard {
         }
     }
     /**
-     * @return top10
+     * @return JList<String> list of top 10 playes based on score. 
      */
     public final JList<String> top10() {
         try {
