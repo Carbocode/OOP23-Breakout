@@ -52,8 +52,10 @@ public class ScoreboardImpl implements Scoreboard{
             // add first 10 elements in the json file to the output list
             for (int i = 0; i < Math.min(10, jsonArray.length()); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+
                 String name = jsonObject.getString("name");
                 int points = jsonObject.getInt("points");
+                
                 String resultString = "Name: " + name + ", Points: " + points;
                 resultList.addElement(i+1 + "° - " + resultString);
             }
