@@ -2,7 +2,6 @@ package it.unibo.controller;
 
 import javax.swing.SwingUtilities;
 import it.unibo.view.Menu;
-import it.unibo.model.ScoreboardImpl;
 
 /**
  * this class starts the game.
