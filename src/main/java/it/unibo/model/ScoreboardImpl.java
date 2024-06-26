@@ -5,8 +5,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -17,17 +19,18 @@ import java.io.FileWriter;
 public class ScoreboardImpl implements Scoreboard{
 
     /** 
-     * This function opens and reads the JSON file and returns the JSON file converted into JSONArray.
-     */
+     * this function open and read the JSON file and return JSON file converted into JSONArray
+    */
+
     public JSONArray open() throws IOException {
         try {
-            // Get the URL of the JSON file
+            // Ottieni l'URL del file JSON
             URL indFile = getClass().getClassLoader().getResource("scoreboard/Scoreboard.json");
 
-            // Read the content of the JSON file and convert it to a string
+            // Leggi il contenuto del file JSON e converti in stringa
             String jsonContent = new String(Files.readAllBytes(Paths.get(indFile.toURI())));
 
-            // Convert the JSON string into a JSONArray
+            // Converti la stringa JSON in un array di oggetti JSON
             return new JSONArray(jsonContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,24 +41,25 @@ public class ScoreboardImpl implements Scoreboard{
         }
     }
 
-    public JList<String> top10() {
+    public JList<String> top10(){
         try {
+
             JSONArray jsonArray = open();
 
-            // Create output list
+            // create output list
             DefaultListModel<String> resultList = new DefaultListModel<>();
 
-            // Add first 10 elements in the JSON file to the output list
+            // add first 10 elements in the json file to the output list
             for (int i = 0; i < Math.min(10, jsonArray.length()); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 String name = jsonObject.getString("name");
                 int points = jsonObject.getInt("points");
-
+                
                 String resultString = "Name: " + name + ", Points: " + points;
-                resultList.addElement((i + 1) + "° - " + resultString);
+                resultList.addElement(i+1 + "° - " + resultString);
             }
-            JList<String> listd = new JList<>(resultList);
+            JList<String> listd = new JList<String>(resultList);
 
             return listd;
 
@@ -65,14 +69,19 @@ public class ScoreboardImpl implements Scoreboard{
         return null;
     }
 
-    public void add(String name, int points) {
-        boolean put = true;
-        JSONArray inputArray = new JSONArray();
 
-        // Input JSONArray
-        try {
+
+    public void add(String name,int points){
+
+        //if put is true the new score needs to be added, if it's false it means it was already added
+        Boolean put = true;
+
+        JSONArray inputArray = new JSONArray();
+        
+        //input JSONArray
+        try{
             inputArray = open();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -80,10 +89,10 @@ public class ScoreboardImpl implements Scoreboard{
         JSONArray outputArray = new JSONArray();
 
         // Create a new JSONArray of output with all the elements in order
-        for (int i = 0; i < inputArray.length(); i++) {
+        for(int i = 0; i<inputArray.length();i++){
             JSONObject jsonObject = inputArray.getJSONObject(i);
-
-            if (put && points > jsonObject.getInt("points")) {
+            
+            if(put && points>jsonObject.getInt("points")){
                 JSONObject outputNewObject = new JSONObject();
                 outputNewObject.put("name", name);
                 outputNewObject.put("points", points);
@@ -91,11 +100,14 @@ public class ScoreboardImpl implements Scoreboard{
                 put = false;
             }
 
-            outputArray.put(jsonObject);
-        }
+            JSONObject outputObject = new JSONObject();
+            outputObject.put("name", jsonObject.getString("name"));
+            outputObject.put("points", jsonObject.getInt("points"));
+            outputArray.put(outputObject);
 
-        // If the new score hasn't been added, add it to the end
-        if (put) {
+        };
+
+        if(put){
             JSONObject outputNewObject = new JSONObject();
             outputNewObject.put("name", name);
             outputNewObject.put("points", points);
@@ -103,8 +115,8 @@ public class ScoreboardImpl implements Scoreboard{
         }
 
         // Save the output JSONArray to a JSON file
-        try (FileWriter fileWriter = new FileWriter(getClass().getClassLoader().getResource("scoreboard/Scoreboard.json").getFile())) {
-            fileWriter.write(outputArray.toString(2)); // Indent with 2 spaces for better readability
+        try (FileWriter fileWriter = new FileWriter("appdata/Scoreboard.json")) {
+            fileWriter.write(outputArray.toString());
         } catch (IOException e) {
             System.err.println("Error while saving JSON file: " + e.getMessage());
         }

@@ -1,13 +1,17 @@
 [
-    {"name": "XYZ", "points": 6400},
-    {"name": "BUJ", "points": 5800},
-    {"name": "PAL", "points": 5400},
-    {"name": "BUC", "points": 4200},
-    {"name": "POL", "points": 4000},
-    {"name": "SAS", "points": 3800},
-    {"name": "TUO", "points": 3800},
-    {"name": "DEF", "points": 3400},
-    {"name": "WIZ", "points": 3000},
-    {"name": "IOT", "points": 3000},
-    {"name": "WUZ", "points": 2400}
+    {"name": "XZC", "points": 50},
+    {"name": "ABC", "points": 40},
+    {"name": "XYZ", "points": 30},
+    {"name": "DEF", "points": 20},
+    {"name": "MNO", "points": 10},
+    {"name": "XZC", "points": 50},
+    {"name": "ABC", "points": 40},
+    {"name": "XYZ", "points": 30},
+    {"name": "DEF", "points": 20},
+    {"name": "MNO", "points": 10},
+    {"name": "XZC", "points": 50},
+    {"name": "ABC", "points": 40},
+    {"name": "XYZ", "points": 30},
+    {"name": "DEF", "points": 20},
+    {"name": "MNO", "points": 10}
 ]
