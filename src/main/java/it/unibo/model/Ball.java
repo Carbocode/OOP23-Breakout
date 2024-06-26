@@ -49,6 +49,8 @@ public final class Ball extends GameEntityImpl {
      * @return the current direction
      */
     private Direction getDirection() {
+        sound.playCollisionSound();
+
         return dir;
     }
 
@@ -64,11 +66,13 @@ public final class Ball extends GameEntityImpl {
                 position.y + dir.getVerticalVelocity() * GameInfo.BALL_SPEED);
         // Reverse direction if out of horizontal bounds
         if (candidate.getX() <= 0 || candidate.getX() >= GameInfo.GAME_WIDTH) {
+            sound.playCollisionSound();
             dir = new Direction(-dir.getHorizontalVelocity(), dir.getVerticalVelocity());
             acceptable = false;
         }
         // Reverse direction if touching the top
         if (candidate.getY() <= 0) {
+            sound.playCollisionSound();
             dir = new Direction(dir.getHorizontalVelocity(), -dir.getVerticalVelocity());
             acceptable = false;
         }
@@ -101,7 +105,8 @@ public final class Ball extends GameEntityImpl {
 
     /**
      * Handles the collision with bar event by changing the Ball's direction.
-     * @param hitDirection the excepted bounce from the bar. 
+     * 
+     * @param hitDirection the excepted bounce from the bar.
      */
     public void barCollision(final int hitDirection) {
         sound.playCollisionSound();

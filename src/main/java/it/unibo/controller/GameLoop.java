@@ -22,9 +22,75 @@ import it.unibo.view.GameView;
  * Class that handles the main GameLoop.
  */
 public class GameLoop implements ActionListener {
+    /**
+     * PowerUP description enum.
+     */
+    public enum PowerUp {
+        /**
+         * Bomb power up.
+         */
+        BOMB(5, 15000),
+        /**
+         * Duplication power up.
+         */
+        DUPLI(50, 2000),
+        /**
+         * Enlargement.
+         */
+        ENLARGE(10, 5000); 
+        private final double probability;
+        private final long cooldownMillis;
+        private long lastUsedTime;
+        /**
+         * 
+         * @param probability
+         * @param cooldownMillis
+         */
+        PowerUp(final double probability, final long cooldownMillis) {
+            this.probability = probability;
+            this.cooldownMillis = cooldownMillis;
+            this.lastUsedTime = 0;  // Initialize lastUsedTime to 0 (not used yet)
+        }
+        /**
+         * 
+         * @return Probability
+         */
+        public double getProbability() {
+            return probability;
+        }
+        /**
+         * 
+         * @return Cooldown of the power up.
+         */
+        public long getCooldownMillis() {
+            return cooldownMillis;
+        }
+        /**
+         * 
+         * @return remaining CD
+         */
+        public int getCDInSecs() {
+            if (!isOnCooldown()) {
+                return 0;
+            }
+            return (int) (cooldownMillis - (System.currentTimeMillis() - lastUsedTime)) / 1000;
+        }
+        /**
+         * 
+         * @return is it on CD?
+         */
+        public boolean isOnCooldown() {
+            return System.currentTimeMillis() - lastUsedTime < cooldownMillis;
+        }
+        /**
+         * ALWAYS USE WHEN ACTIVATING POWER UP.
+         */
+        public void use() {
+            lastUsedTime = System.currentTimeMillis();
+        }
+    }
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private static final double BRICK_PERCENT = 0.35;
-
     private CollisionManager manager;
     private BrickWall brickWall;
     private Set<Ball> balls;
