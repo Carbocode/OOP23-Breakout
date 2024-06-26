@@ -21,7 +21,6 @@ public class Bar extends GameEntityImpl {
     private static final float MOVE_VALUE = (float) 0.01 * (float) GameInfo.GAME_WIDTH;
 
     private int direction;
-    private SoundManager sound;
 
     /**
      * Standard constructor.
@@ -38,7 +37,7 @@ public class Bar extends GameEntityImpl {
     @Override
     public final void onCollision() {
         // play sound
-        sound = new SoundManagerImpl();
+        final SoundManager sound = new SoundManagerImpl();
         sound.playCollisionSound();
     }
 
@@ -74,7 +73,6 @@ public class Bar extends GameEntityImpl {
      */
     public final void setWidth(final int newwidth) {
         setSize(new Dimension(newwidth, getSize().height));
-        return;
     }
 
     /**

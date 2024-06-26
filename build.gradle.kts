@@ -3,7 +3,7 @@ plugins {
     java
 
     // Apply the application plugin to add support for building a CLI application
-    // You can run your app via task "run": ./gradlew run
+    // You can run your app via task "run": ./\ run
     application
 
     /*
