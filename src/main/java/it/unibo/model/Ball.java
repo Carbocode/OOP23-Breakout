@@ -100,6 +100,15 @@ public final class Ball extends GameEntityImpl {
     }
 
     /**
+     * Handles the collision with bar event by changing the Ball's direction.
+     * @param hitDirection the excepted bounce from the bar. 
+     */
+    public void barCollision(final int hitDirection) {
+        sound.playCollisionSound();
+        dir = new Direction(hitDirection, -dir.getVerticalVelocity());
+    }
+
+    /**
      * Gets the current health of the Ball.
      *
      * @return the current health
