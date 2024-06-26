@@ -8,14 +8,17 @@ import it.unibo.api.GameEntity;
 /**
  * Class responsible for removing dead entities from a set.
  */
-public class DeathCollector {
+public final class DeathCollector {
+
+    private DeathCollector() {
+    }
 
     /**
      * Checks entities and removes those that are not alive.
      * 
      * @param entities the set of game entities to check
      */
-    public static void checkEntities(Set<? extends GameEntity> entities) {
+    public static void checkEntities(final Set<? extends GameEntity> entities) {
         Iterator<? extends GameEntity> iterator = entities.iterator();
         while (iterator.hasNext()) {
             GameEntity entity = iterator.next();
