@@ -27,7 +27,6 @@ public class CollisionManager {
     private final Set<Ball> balls;
     private final Bar paddle;
     private static final int BOMB_SIZE_RATIO = 5;
-    private static int enlargeSize = 100;
     private static int maxBalls = 10;
     private final ScoreManager score;
     private static final int POINTS_INCREASE = 200;
