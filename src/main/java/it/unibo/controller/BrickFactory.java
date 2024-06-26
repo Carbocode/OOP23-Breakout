@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.util.Random;
 
 import it.unibo.model.Brick;
-import it.unibo.model.BrickColors;
 import it.unibo.model.BrickTypes;
 
 /**
@@ -27,15 +26,29 @@ public final class BrickFactory {
      * @param size     size of the brick
      * @return a random brick
      */
-    public static Brick createRandomBrick(final Point position, final Dimension size) {
-        int health = BrickTypes.getRandomHealth(BrickFactory.RAND);
+    public static Brick createRandomBrick(final Point position, final Dimension size, final Color color) {
+        int health = BrickTypes.getHealth(BrickFactory.RAND);
 
         if (health < 0) {
             return createImmortalBrick(position, size);
         } else {
-            Color color = BrickColors.getColor(position.y);
             return new Brick(position, size, health, color);
         }
+    }
+
+    /**
+     * Creates an immortal brick.
+     * 
+     * @param position position of the brick
+     * @param size     size of the brick
+     * @return an immortal brick
+     */
+    public static Brick createImmortalBrick(final Point position, final Dimension size) {
+        return new Brick(
+                position,
+                size,
+                BrickTypes.IMMORTAL.getHealth(),
+                Color.GRAY);
     }
 
     /**
@@ -57,18 +70,4 @@ public final class BrickFactory {
         return BrickFactory.seed;
     }
 
-    /**
-     * Creates an immortal brick.
-     * 
-     * @param position position of the brick
-     * @param size     size of the brick
-     * @return an immortal brick
-     */
-    public static Brick createImmortalBrick(final Point position, final Dimension size) {
-        return new Brick(
-                position,
-                size,
-                BrickTypes.IMMORTAL.getHealth(),
-                Color.GRAY);
-    }
 }
