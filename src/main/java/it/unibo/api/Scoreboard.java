@@ -2,6 +2,8 @@ package it.unibo.api;
 
 import java.util.List;
 
+import javax.swing.JList;
+
 /**
  * An interface modelling a factory of Scoreboard.
  * The general idea is that the software will store the scoreboard into
@@ -19,7 +21,7 @@ public interface Scoreboard {
      * @return a List<String> containing the top 10 players and score
      * e.g.:  (format: "*position* *user* : *score*p" example: "1 ABC : 3814p")
      */
-    public List<String> top10();
+    public JList<String> top10();
 
     /**
      * @return void 

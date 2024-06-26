@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import it.unibo.model.ScoreboardImpl;
 
 import it.unibo.api.GameInfo;
 
@@ -19,13 +20,9 @@ public class ScoreboardView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        String[] scores = {
-                "Stringa 1", "Stringa 2", "Stringa 3", "Stringa 4", "Stringa 5",
-                "Stringa 6", "Stringa 7", "Stringa 8", "Stringa 9", "Stringa 10"
-        };
+        ScoreboardImpl s = new ScoreboardImpl();
 
-        JList<String> stringList = new JList<>(scores);
-        add(new JScrollPane(stringList), BorderLayout.CENTER);
+        add(new JScrollPane(s.top10()), BorderLayout.CENTER);
 
         JButton backButton = new JButton("<RETURN>");
         backButton.addActionListener(new ActionListener() {

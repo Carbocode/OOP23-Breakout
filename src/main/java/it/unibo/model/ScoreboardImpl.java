@@ -5,6 +5,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,13 +41,13 @@ public class ScoreboardImpl implements Scoreboard{
         }
     }
 
-    public List<String> top10(){
+    public JList<String> top10(){
         try {
 
             JSONArray jsonArray = open();
 
             // create output list
-            List<String> resultList = new ArrayList<>();
+            DefaultListModel<String> resultList = new DefaultListModel<>();
 
             // add first 10 elements in the json file to the output list
             for (int i = 0; i < Math.min(10, jsonArray.length()); i++) {
@@ -51,21 +55,18 @@ public class ScoreboardImpl implements Scoreboard{
                 String name = jsonObject.getString("name");
                 int points = jsonObject.getInt("points");
                 String resultString = "Name: " + name + ", Points: " + points;
-                resultList.add(resultString);
+                resultList.addElement(i+1 + "° - " + resultString);
             }
+            JList<String> listd = new JList<String>(resultList);
 
-            //print results (only for debug)
-            for (String result : resultList) {
-                System.out.println(result);
-            }
-
-            return resultList;
+            return listd;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
 
     public void add(String name,int points){
