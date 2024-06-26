@@ -48,6 +48,7 @@ public class GameView extends JPanel {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
         addKeyListener(new TAdapter());
         setFocusable(true);
+        backgroundPanel();
     }
 
     private final class TAdapter extends KeyAdapter {
@@ -81,8 +82,7 @@ public class GameView extends JPanel {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        /*backgroundPanel();
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);*/
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         g.setColor(Color.RED);
         for (Ball ball : balls) {
