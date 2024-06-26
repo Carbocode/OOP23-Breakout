@@ -35,7 +35,6 @@ import java.util.logging.Logger;
  * This is the menu frame, where you can choose between the play, scoreboard,
  * exit button.
  * 
- * @author Sohail Mama
  */
 public class Menu extends JFrame {
     public static final long serialVersionUID = 4328743;
