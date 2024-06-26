@@ -28,11 +28,12 @@ import java.net.URL;
  * 
  */
 public class GameView extends JPanel {
+    public static final long serialVersionUID = 4328743;
     private Set<Ball> balls;
     private Set<Brick> bricks;
     private Bar bar;
     private GameView game;
-    private SoundManager sound = new SoundManagerImpl();
+    private final SoundManager sound = new SoundManagerImpl();
     private int score;
     private final int infoX = GameInfo.GAME_WIDTH - 100;
     private final int scoreY = GameInfo.GAME_HEIGHT - 25;
