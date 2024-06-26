@@ -5,9 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import it.unibo.api.GameInfo;
-import it.unibo.api.ScoreManager;
 import it.unibo.api.SoundManager;
-import it.unibo.controller.ScoreManagerImpl;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
 import it.unibo.model.Bar;

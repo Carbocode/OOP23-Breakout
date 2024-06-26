@@ -4,12 +4,6 @@ import it.unibo.view.GameView;
 
 import it.unibo.api.GameInfo;
 import java.awt.Color;
-import java.awt.Image;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /**
  * this class initialize a new game.

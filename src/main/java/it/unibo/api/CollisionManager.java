@@ -1,12 +1,10 @@
 package it.unibo.api;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Set;
 import java.util.Random;
-import it.unibo.controller.ScoreManagerImpl;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 
@@ -27,6 +25,7 @@ public class CollisionManager {
      * @param balls
      * @param brickWall
      * @param paddle
+     * @param score
      */
     public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle,
             final ScoreManager score) {
