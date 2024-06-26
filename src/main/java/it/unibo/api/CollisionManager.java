@@ -1,9 +1,11 @@
 package it.unibo.api;
+
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Set;
 
+import it.unibo.controller.ScoreManagerImpl;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 
@@ -14,8 +16,11 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
+    private ScoreManager score;
+
     /**
-     *  Initializes CollisionManager.
+     * Initializes CollisionManager.
+     * 
      * @param balls
      * @param brickWall
      * @param paddle
@@ -24,6 +29,7 @@ public class CollisionManager {
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
+        this.score = new ScoreManagerImpl();
 
     }
 
@@ -48,6 +54,7 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
+                    score.increment(200);
                     brick.onCollision();
                 }
             }

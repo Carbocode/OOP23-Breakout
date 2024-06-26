@@ -3,6 +3,7 @@ package it.unibo.controller;
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameInfo;
+import it.unibo.api.ScoreManager;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
@@ -16,6 +17,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.HashSet;
 import it.unibo.view.GameView;
+
 /**
  * Class that handles the main GameLoop.
  */
@@ -24,19 +26,20 @@ public class GameLoop implements ActionListener {
     private static final double BRICK_PERCENT = 0.35;
 
     private CollisionManager manager;
-    private SoundManager soundPlayer;
     private BrickWall brickWall;
     private Set<Ball> balls;
     private Bar paddle;
+    private SoundManager soundPlayer;
+    private ScoreManager score;
 
     private long lastUpdateTime;
     private Timer timer;
 
-
-
     private GameView ourView;
+
     /**
      * Initializer.
+     * 
      * @param view
      */
     public GameLoop(final GameView view) {
@@ -48,8 +51,9 @@ public class GameLoop implements ActionListener {
         paddle = new Bar(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
                 GameInfo.BAR_DIMENSION, 0, new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
+        score = new ScoreManagerImpl();
         ourView = view;
-        ourView.updateGameState(balls, brickWall.getWall(), paddle);
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
@@ -85,10 +89,12 @@ public class GameLoop implements ActionListener {
         }
         paddle.move();
         ourView.repaint();
-        ourView.updateGameState(balls, brickWall.getWall(), paddle);
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
     }
+
     /**
      * Ball duplication.
+     * 
      * @param old
      */
     public final void multiplyBall(final Ball old) {

@@ -12,9 +12,9 @@ public interface SoundManager {
         void playBackgroundSound();
 
         /**
-         * this method stops the background music in-game.
+         * this method plays the game over sound.
          */
-        void stopBackgroundSound();
+        void playGameOverSound();
 
         /**
          * this method plays the collision sound.
@@ -36,4 +36,9 @@ public interface SoundManager {
          * this method plays the intro sound of the menu.
          */
         void playMenuSound();
+
+        /**
+         * this method plays the win sound.
+         */
+        void playVictorySound();
 }

@@ -3,23 +3,24 @@ package it.unibo.controller;
 import javax.swing.SwingUtilities;
 import it.unibo.view.Menu;
 
-
 /**
- * Main.
-*/
+ * this class starts the game.
+ */
 public final class Main {
 
-    /** Main class.
+    /**
+     * Main class.
+     * 
      * @param args args
      */
     public static void main(final String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                Menu menuPanel = new Menu();
+                new Menu();
             }
         });
     }
+
     private Main() {
-        throw new UnsupportedOperationException();
     }
 }
