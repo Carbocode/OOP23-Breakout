@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
+import it.unibo.controller.ScoreManagerImpl;
+import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
 import it.unibo.model.Bar;
@@ -33,9 +35,12 @@ public class GameView extends JPanel {
     private GameView game;
     private SoundManager sound = new SoundManagerImpl();
     private int score;
-    private final int scoreX = GameInfo.GAME_WIDTH - 120;
+    private final int infoX = GameInfo.GAME_WIDTH - 100;
     private final int scoreY = GameInfo.GAME_HEIGHT - 25;
-    private final int fontSizeScore = 30;
+    private final int bombY = scoreY - 30;
+    private final int dupliY = bombY - 30;
+    private final int enlargeY = dupliY - 30;
+    private final int fontSizeScore = 23;
     private Image backgroundImage;
 
     /**
@@ -81,6 +86,7 @@ public class GameView extends JPanel {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         g.setColor(Color.RED);
         for (Ball ball : balls) {
@@ -104,7 +110,14 @@ public class GameView extends JPanel {
 
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Monospaced", Font.BOLD, fontSizeScore));
-        g.drawString("" + score, scoreX, scoreY);
+        g.drawString(score + "pts", infoX, scoreY);
+        g.setColor(Color.RED);
+        g.drawString(PowerUp.BOMB.getCDInSecs() + "S Bomb", infoX, bombY);
+        g.setColor(Color.BLUE);
+        g.drawString(PowerUp.DUPLI.getCDInSecs() + "S Dup", infoX, dupliY);
+        g.setColor(Color.GREEN);
+        g.drawString(PowerUp.ENLARGE.getCDInSecs() + "S Enl", infoX, enlargeY);
+
     }
 
     /**
