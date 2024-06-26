@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import it.unibo.api.BrickWall;
 import it.unibo.model.Brick;
@@ -21,10 +22,12 @@ public class BrickWallImpl implements BrickWall {
     private int width;
     private int height;
     private int sideOffset;
+
     /**
      * Constructor.
-     * @param width
-     * @param height
+     * 
+     * @param width  the width of the brick wall
+     * @param height the height of the brick wall
      */
     public BrickWallImpl(final int width, final int height) {
         this.width = width;
@@ -34,43 +37,58 @@ public class BrickWallImpl implements BrickWall {
     @Override
     public final void generateLayout() {
         this.resetLayout();
+        int gcd = calculateGcd(this.width, this.height);
+        int brickWidth = calculateBrickWidth(gcd);
+        int brickHeight = calculateBrickHeight(brickWidth);
+        int numBricksRow = calculateNumBricksRow(brickWidth);
+        int numBricksColumn = calculateNumBricksColumn(brickHeight);
+        this.sideOffset = calculateSideOffset(brickWidth, numBricksRow);
 
-        int gcd = gcd(this.width, this.height);
-
-        // Calcola la dimensione base del mattoncino
-        int brickWidth = gcd * SCALAR;
-        int brickHeight = (int) (brickWidth / Brick.ASPECT_RATIO);
-
-        int numBricksRow = (int) Math.floor(this.width / brickWidth);
-        int numBricksColumn = (int) Math.floor(this.height / brickHeight);
-
-        this.sideOffset = (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
-
-        for (int i = 0; i < numBricksColumn; i++) {
-            if (sideOffset > 0) {
-                wall.add(
-                        BrickFactory.createImmortalBrick(
-                                new Point(0, i * brickHeight),
-                                new Dimension(sideOffset, brickHeight)));
-            }
-            for (int j = 0; j < numBricksRow; j++) {
-                wall.add(
-                        BrickFactory.createRandomBrick(
-                                new Point((j * brickWidth) + this.sideOffset, i * brickHeight),
-                                new Dimension(brickWidth, brickHeight)));
-            }
-            if (sideOffset > 0) {
-                wall.add(
-                        BrickFactory.createImmortalBrick(
-                                new Point(this.width - this.sideOffset, i * brickHeight),
-                                new Dimension(sideOffset, brickHeight)));
-            }
-        }
+        IntStream.range(0, numBricksColumn).forEach(i -> addBricksToRow(i, brickWidth, brickHeight, numBricksRow));
 
         this.toString();
     }
 
-    private static int gcd(final int x, final int y) {
+    private int calculateBrickWidth(int gcd) {
+        return gcd * SCALAR;
+    }
+
+    private int calculateBrickHeight(int brickWidth) {
+        return (int) (brickWidth / Brick.ASPECT_RATIO);
+    }
+
+    private int calculateNumBricksRow(int brickWidth) {
+        return (int) Math.floor(this.width / brickWidth);
+    }
+
+    private int calculateNumBricksColumn(int brickHeight) {
+        return (int) Math.floor(this.height / brickHeight);
+    }
+
+    private int calculateSideOffset(int brickWidth, int numBricksRow) {
+        return (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
+    }
+
+    private void addBricksToRow(int rowIndex, int brickWidth, int brickHeight, int numBricksRow) {
+        addImmortalBrick(new Point(0, rowIndex * brickHeight), new Dimension(sideOffset, brickHeight));
+        IntStream.range(0, numBricksRow).forEach(j -> addRandomBrick(rowIndex, j, brickWidth, brickHeight));
+        addImmortalBrick(new Point(this.width - this.sideOffset, rowIndex * brickHeight),
+                new Dimension(sideOffset, brickHeight));
+    }
+
+    private void addImmortalBrick(Point position, Dimension size) {
+        if (sideOffset > 0) {
+            wall.add(BrickFactory.createImmortalBrick(position, size));
+        }
+    }
+
+    private void addRandomBrick(int rowIndex, int colIndex, int brickWidth, int brickHeight) {
+        wall.add(BrickFactory.createRandomBrick(
+                new Point((colIndex * brickWidth) + this.sideOffset, rowIndex * brickHeight),
+                new Dimension(brickWidth, brickHeight)));
+    }
+
+    private static int calculateGcd(final int x, final int y) {
         int a = x;
         int b = y;
         while (b > 0) {
@@ -83,7 +101,7 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public final void resetLayout() {
-        this.wall = new LinkedHashSet<Brick>();
+        this.wall = new LinkedHashSet<>();
     }
 
     @Override

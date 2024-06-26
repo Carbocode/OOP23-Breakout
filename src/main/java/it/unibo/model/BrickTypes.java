@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import it.unibo.api.GameEntityImpl;
-import it.unibo.controller.BrickFactory;
 
 /**
  * Enum declaring all brick types.
@@ -14,43 +13,48 @@ public enum BrickTypes {
      * Plain brick.
      */
     ONE_HIT(GameEntityImpl.MIN_HEALTH, 10),
+    /**
+     * Double hit brick.
+     */
     DOUBLE_HIT(2, 3),
     /**
      * Grey, immortal bricks.
      */
     IMMORTAL(GameEntityImpl.IMMORTAL_ENTITY_HEALTH, 1);
 
-    private int health;
-    private int occurence;
+    private final int health;
+    private final int occurrence;
 
     /**
      * Constructor.
      * 
-     * @param health
-     * @param occurence
+     * @param health     the health of the brick
+     * @param occurrence the occurrence rate of the brick type
      */
-    BrickTypes(final int health, final int occurence) {
+    BrickTypes(final int health, final int occurrence) {
         this.health = health;
-        this.occurence = occurence;
+        this.occurrence = occurrence;
     }
 
     /**
+     * Gets the health of the brick.
      * 
-     * @return health of a brick
+     * @return the health of the brick
      */
     public int getHealth() {
         return this.health;
     }
 
     /**
-     * Choses a Health for the Brick
+     * Chooses a random health for the brick.
      * 
-     * @return a Health for the Brick
+     * @param rand the Random object to use for generating random numbers
+     * @return a random health value for the brick
      */
-    static public int getRandomHealth(Random rand) {
+    public static int getRandomHealth(Random rand) {
         ArrayList<BrickTypes> weightedList = new ArrayList<>();
         for (BrickTypes type : BrickTypes.values()) {
-            for (int i = 0; i < type.getOccurence(); i++) {
+            for (int i = 0; i < type.getOccurrence(); i++) {
                 weightedList.add(type);
             }
         }
@@ -58,10 +62,11 @@ public enum BrickTypes {
     }
 
     /**
+     * Gets the occurrence rate of the brick type.
      * 
-     * @return occurence of a brick type
+     * @return the occurrence rate of the brick type
      */
-    public int getOccurence() {
-        return this.occurence;
+    public int getOccurrence() {
+        return this.occurrence;
     }
 }
