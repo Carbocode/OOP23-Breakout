@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Bomb;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Class that checks for collisions.
@@ -24,10 +27,11 @@ public class CollisionManager {
     private Bar paddle;
     private final int BOMB_SIZE_RATIO = 5;
     private final int ENLARGE_SIZE = 100;
-    private final int MAX_BALLS= 15;
+    private final int MAX_BALLS= 10;
     private ScoreManager score;
     private Random rnd;
     private int gridSize = 100;
+    private ScheduledExecutorService scheduler;
 
     /**
      * Initializes CollisionManager.
@@ -42,6 +46,7 @@ public class CollisionManager {
         this.paddle = paddle;
         this.score = score;
         rnd = new Random();
+        scheduler = Executors.newScheduledThreadPool(1);
     }
 
     /**
@@ -82,9 +87,7 @@ public class CollisionManager {
                     if (rnd.nextInt(100) <= pu.getProbability()) {
                         switch (pu) {
                             case ENLARGE:
-                                // handle ENLARGE power-up
-                                paddle.setSize(new Dimension((int)paddle.getSize().getWidth()+ENLARGE_SIZE, 
-                                (int)paddle.getSize().getHeight()));
+                                handleEnlargePowerUp();
                                 break;
                             case BOMB:
                                 // handle BOMB power-up
@@ -104,6 +107,16 @@ public class CollisionManager {
             balls.addAll(newBalls);  // Add new balls after iteration
         }
         
+    }
+    private void handleEnlargePowerUp() {
+        Dimension originalSize = paddle.getSize();
+        paddle.setSize(new Dimension((int)paddle.getSize().getWidth() + ENLARGE_SIZE, 
+                                     (int)paddle.getSize().getHeight()));
+        
+        // Schedule a task to reverse the ENLARGE effect after 5 seconds
+        scheduler.schedule(() -> {
+            paddle.setSize(originalSize);
+        }, 5, TimeUnit.SECONDS);
     }
     private void bomb(GameEntity ball){
         
