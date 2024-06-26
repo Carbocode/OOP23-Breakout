@@ -229,7 +229,7 @@ public abstract class GameEntityImpl implements GameEntity {
             return false;
         }
 
-        GameEntity that = (GameEntityImpl) o;
+        final GameEntity that = (GameEntityImpl) o;
         return health == that.getHealth()
                 && Objects.equals(position, that.getPosition())
                 && Objects.equals(size, that.getSize())
