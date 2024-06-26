@@ -34,7 +34,7 @@ public class GameView extends JPanel {
     private Bar bar;
     private GameView game;
     private SoundManager sound = new SoundManagerImpl();
-    private ScoreManager scoreManager = new ScoreManagerImpl();
+    private int score;
     private final int scoreX = GameInfo.GAME_WIDTH - 30;
     private final int scoreY = GameInfo.GAME_HEIGHT - 25;
     private final int fontSizeScore = 30;
@@ -106,7 +106,7 @@ public class GameView extends JPanel {
 
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Monospaced", Font.BOLD, fontSizeScore));
-        g.drawString("" + scoreManager.getScore(), scoreX, scoreY);
+        g.drawString("" + score, scoreX, scoreY);
     }
 
     /**
@@ -118,11 +118,11 @@ public class GameView extends JPanel {
      * @param score
      */
     public void updateGameState(final Set<Ball> balls, final Set<Brick> bricks, final Bar bar,
-            final ScoreManager score) {
+            final int score) {
         this.balls = balls;
         this.bricks = bricks;
         this.bar = bar;
-        this.scoreManager = score;
+        this.score = score;
 
         if (balls.isEmpty()) {
             sound.playGameOverSound();
