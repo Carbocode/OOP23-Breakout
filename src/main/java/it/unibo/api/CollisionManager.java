@@ -32,6 +32,8 @@ public class CollisionManager {
     private Random rnd;
     private ScheduledExecutorService scheduler;
     private SoundManager sound;
+    private boolean greyCollision;
+    private int forcedDirection;
 
     /**
      * Initializes CollisionManager.
@@ -64,7 +66,7 @@ public class CollisionManager {
             if (!ball.isAlive()) {
                 continue;
             }
-            
+
             // Collision with bricks
             long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
@@ -79,11 +81,11 @@ public class CollisionManager {
                     collision = true;
                     if (!(brick.getHealth() == -1)) {
                         score.increment(points);
-                    }else{
+                    } else {
                         greyCollision = true;
                         if (brick.getPosition().x > ball.getPosition().x) {
                             forcedDirection = -1;
-                        }else{
+                        } else {
                             forcedDirection = 1;
                         }
                     }
@@ -114,13 +116,16 @@ public class CollisionManager {
                     if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
                         switch (pu) {
                             case ENLARGE:
+                                sound.playBonusSound();
                                 handleEnlargePowerUp();
                                 break;
                             case BOMB:
+                                sound.playBombSound();
                                 bomb(ball);
                                 break;
                             case DUPLI:
-                                newBalls.add(new Ball(ball));  // Collect new ball
+                                sound.playBonusSound();
+                                newBalls.add(new Ball(ball)); // Collect new ball
                                 PowerUp.DUPLI.use();
                                 break;
                             default:
