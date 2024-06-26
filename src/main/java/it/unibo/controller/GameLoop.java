@@ -22,9 +22,36 @@ import it.unibo.view.GameView;
  * Class that handles the main GameLoop.
  */
 public class GameLoop implements ActionListener {
+    /**
+     * PowerUP description enum.
+     */
+    public static enum PowerUp {
+        /**
+         * Bomb power up.
+         */
+        BOMB(3),
+        /**
+         * Duplication PowerUP.
+         */
+        DUPLI(10),
+        /**
+         * Paddle Enlargement.
+         */
+        ENLARGE(10);
+        private final double probability;
+        PowerUp(final double probability){
+            this.probability = probability;
+        }
+        /**
+         * 
+         * @return get how probable it is. 
+         */
+        public double getProbability() {
+            return this.probability;
+        }
+    }
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
     private static final double BRICK_PERCENT = 0.35;
-
     private CollisionManager manager;
     private BrickWall brickWall;
     private Set<Ball> balls;

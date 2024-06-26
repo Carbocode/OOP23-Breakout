@@ -5,9 +5,14 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Set;
 import java.util.Random;
-import it.unibo.controller.ScoreManagerImpl;
+import java.util.ArrayList;
+import java.util.List;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
+import it.unibo.controller.GameLoop.PowerUp;
 
 /**
  * Class that checks for collisions.
@@ -18,6 +23,7 @@ public class CollisionManager {
     private Bar paddle;
     private ScoreManager score;
     private Random rnd;
+    private int gridSize = 100;
 
     /**
      * Initializes CollisionManager.
@@ -38,7 +44,8 @@ public class CollisionManager {
      * Checks all objects for collision.
      */
     public final void checkAll() {
-        for (Ball ball : balls) {
+        List<Ball> newBalls = new ArrayList<Ball>();
+        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
             boolean collision = false;
             if (!ball.isAlive()) {
                 continue;
@@ -66,13 +73,27 @@ public class CollisionManager {
             }
             if (collision) {
                 ball.onCollision();
-                rnd.nextInt(100);
+                for (PowerUp pu : PowerUp.values()) {
+                    if (rnd.nextInt(100) <= pu.getProbability()) {
+                        switch (pu) {
+                            case ENLARGE:
+                                // handle ENLARGE power-up
+                                break;
+                            case BOMB:
+                                // handle BOMB power-up
+                                break;
+                            case DUPLI:
+                                newBalls.add(new Ball(ball));  // Collect new ball
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
-
         }
-
+        balls.addAll(newBalls);  // Add new balls after iteration
     }
-
     private boolean collides(final GameEntity a, final GameEntity b) {
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
