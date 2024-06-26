@@ -6,7 +6,8 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
-
+import it.unibo.api.SoundManager;
+import it.unibo.view.SoundManagerImpl;
 /**
  * Bar class that handle the movements and dynamics of the bar.
  */
@@ -31,6 +32,13 @@ public class Bar extends GameEntityImpl {
      */
     public Bar(final Point position, final Dimension size, final int health, final Color color) {
         super(position, size, health, color);
+    }
+
+    @Override
+    public final void onCollision() {
+        // play sound
+        final SoundManager sound = new SoundManagerImpl();
+        sound.playCollisionSound();
     }
 
     /**
@@ -105,9 +113,5 @@ public class Bar extends GameEntityImpl {
                 || e.getKeyCode() == KeyEvent.VK_RIGHT && this.direction == RIGHT_VALUE) {
             direction = STOP_VALUE;
         }
-    }
-
-    @Override
-    public void onCollision() {
     }
 }

@@ -1,5 +1,6 @@
 package it.unibo.api;
 
+
 import javax.swing.JList;
 
 /**
@@ -13,8 +14,7 @@ public interface Scoreboard {
 
     /**
      * @return a List<String> containing the top 10 players and score
-     *         e.g.: (format: "*position* *user* : *score*p" example: "1 ABC :
-     *         3814p")
+     * e.g.:  (format: "*position* *user* : *score*p" example: "1 ABC : 3814p")
      */
     JList<String> top10();
 
