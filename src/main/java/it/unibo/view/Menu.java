@@ -39,10 +39,9 @@ import java.util.logging.Logger;
 public class Menu extends JFrame {
     public static final long serialVersionUID = 4328743;
 
-    private final SoundManager sound = new SoundManagerImpl();
-    private final Measures measure = new Measures();
-    private final Logger log = Logger.getLogger(GameView.class.getName());
-    private Menu menuPrevious;
+    private transient final SoundManager sound = new SoundManagerImpl();
+    private transient final Measures measure = new Measures();
+    private transient final Logger log = Logger.getLogger(GameView.class.getName());
 
     // these are some constant measures
     private static final float FONTSIZE = 55.0f;
@@ -122,7 +121,7 @@ public class Menu extends JFrame {
                     public void windowClosing(final WindowEvent e) {
                         if (confirmExit()) {
                             dispose(); // close the window
-                            System.exit(0);
+                            Runtime.getRuntime().exit(0);
                         }
                     }
                 });
@@ -135,6 +134,7 @@ public class Menu extends JFrame {
             }
         });
 
+        final Menu menuPrevious = this;
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -150,7 +150,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 sound.playButtonSound();
-                System.exit(0);
+                Runtime.getRuntime().exit(0);
             }
         });
 

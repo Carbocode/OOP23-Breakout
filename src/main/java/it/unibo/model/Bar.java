@@ -8,10 +8,12 @@ import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.view.SoundManagerImpl;
+
 /**
  * Bar class that handle the movements and dynamics of the bar.
  */
 public class Bar extends GameEntityImpl {
+    public static final long serialVersionUID = 43287403;
 
     // (-1) left - (1) right - (0) do not move
     private static final int LEFT_VALUE = -1;
@@ -41,11 +43,11 @@ public class Bar extends GameEntityImpl {
         sound.playCollisionSound();
     }
 
-    public int getDirection(){
+    public int getDirection() {
         return this.direction;
     }
 
-    public void setDirection(final int d){
+    public void setDirection(final int d) {
         this.direction = d;
     }
 

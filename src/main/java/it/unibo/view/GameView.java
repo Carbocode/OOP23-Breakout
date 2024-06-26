@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-
 /**
  * This class implements the gameView, that listens to the keys for moving the
  * bar/paddle and create the components.
@@ -31,20 +30,20 @@ import java.util.logging.Logger;
  */
 public class GameView extends JPanel {
     public static final long serialVersionUID = 4328743;
-    private Set<Ball> balls;
-    private Set<Brick> bricks;
-    private Bar bar;
+    private transient Set<Ball> balls;
+    private transient Set<Brick> bricks;
+    private transient Bar bar;
     private GameView game;
-    private final SoundManager sound = new SoundManagerImpl();
+    private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
-    private final int infoX = GameInfo.GAME_WIDTH - 100;
-    private final int scoreY = GameInfo.GAME_HEIGHT - 25;
-    private final int bombY = scoreY - 30;
-    private final int dupliY = bombY - 30;
-    private final int enlargeY = dupliY - 30;
+    private static final int infoX = GameInfo.GAME_WIDTH - 100;
+    private static final int scoreY = GameInfo.GAME_HEIGHT - 25;
+    private static final int bombY = scoreY - 30;
+    private static final int dupliY = bombY - 30;
+    private static final int enlargeY = dupliY - 30;
     private static final int FONT_SIZE_SCORE = 23;
-    private Image backgroundImage;
-    private final Logger log;
+    private transient Image backgroundImage;
+    private final transient Logger log;
 
     /**
      * GameView constructor.
@@ -56,6 +55,7 @@ public class GameView extends JPanel {
         setFocusable(true);
         backgroundPanel();
         log = Logger.getLogger(GameView.class.getName());
+        game = this;
     }
 
     private final class TAdapter extends KeyAdapter {
@@ -146,7 +146,7 @@ public class GameView extends JPanel {
                     "Game Over",
                     JOptionPane.INFORMATION_MESSAGE);
             // close the window
-            System.exit(0);
+            Runtime.getRuntime().exit(0);
         }
         if (bricks.isEmpty()) {
             sound.playVictorySound();
@@ -155,7 +155,7 @@ public class GameView extends JPanel {
                     "YOU WIN",
                     JOptionPane.INFORMATION_MESSAGE);
             // close the window
-            System.exit(0);
+            Runtime.getRuntime().exit(0);
         }
     }
 }

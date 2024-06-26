@@ -11,6 +11,7 @@ import it.unibo.api.GameEntityImpl;
  * Brick class.
  */
 public class Brick extends GameEntityImpl {
+    public static final long serialVersionUID = 5328743;
     /**
      * Aspect Ratio.
      */

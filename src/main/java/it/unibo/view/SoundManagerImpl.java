@@ -18,6 +18,7 @@ import java.net.URL;
  * 
  */
 public class SoundManagerImpl implements SoundManager {
+    public static final long serialVersionUID = 432835743;
     private final Logger log = Logger.getLogger(GameView.class.getName());
 
     @Override

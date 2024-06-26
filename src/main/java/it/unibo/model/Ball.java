@@ -16,6 +16,7 @@ import java.util.Random;
  * and properties of the ball, including its movement and collision handling.
  */
 public final class Ball extends GameEntityImpl {
+    public static final long serialVersionUID = 438743;
     private Direction dir;
     private final Random rand = new Random();
     private static final Dimension BALL_DIMENSION = new Dimension(5, 5);

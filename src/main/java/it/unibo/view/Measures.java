@@ -9,6 +9,8 @@ import java.awt.GraphicsDevice;
  * 
  */
 public class Measures {
+    public static final long serialVersionUID = 432749099;
+
     /**
      * This method get the screen height.
      * 
