@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 import it.unibo.controller.GameLoop.PowerUp;
+import it.unibo.model.Bomb;
 
 /**
  * Class that checks for collisions.
@@ -21,6 +22,7 @@ public class CollisionManager {
     private BrickWall bricks;
     private Set<Ball> balls;
     private Bar paddle;
+    private final int BOMB_SIZE_RATIO = 5;
     private ScoreManager score;
     private Random rnd;
     private int gridSize = 100;
@@ -94,6 +96,24 @@ public class CollisionManager {
         }
         balls.addAll(newBalls);  // Add new balls after iteration
     }
+    private void bomb(GameEntity ball){
+        
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO, GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
+
+        for (GameEntity brick : bricks.getWall()) {
+            if (!brick.isAlive()) {
+                continue;
+            }
+            if (collides(bomb, brick)) {
+                // Sometimes the ball collides with multiple bricks at the same time.
+                // this calls its onCollision twice, thus having no effect
+                if (GameInfo.DEBUG_MODE) {
+                    System.out.println("Ball at  (" + ball.getPosition().toString()
+                             + ") collides with (" + brick.getPosition().toString() + ")");
+                }
+                brick.onCollision();
+            }
+        }
     private boolean collides(final GameEntity a, final GameEntity b) {
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();
