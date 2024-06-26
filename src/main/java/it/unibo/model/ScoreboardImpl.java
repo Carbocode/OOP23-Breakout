@@ -3,8 +3,6 @@ package it.unibo.model;
 import it.unibo.api.Scoreboard;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.net.URISyntaxException;
@@ -13,15 +11,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.IOException;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
 
+/**  `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
+*/
 public class ScoreboardImpl implements Scoreboard {
 
     private static final String SCOREBOARD_FILE = "scoreboard/Scoreboard.json";
 
     /**
      * This function opens and reads the JSON file and returns the JSON file converted into JSONArray.
+     * @return jsonArray
      */
     public JSONArray open() throws IOException {
         try {
@@ -45,7 +45,7 @@ public class ScoreboardImpl implements Scoreboard {
         }
     }
 
-    public JList<String> top10() {
+    public final JList<String> top10() {
         try {
             JSONArray jsonArray = open();
 
@@ -72,7 +72,12 @@ public class ScoreboardImpl implements Scoreboard {
         return null;
     }
 
-    public void add(String name, int points) {
+    /**
+     * The `add` method in the `ScoreboardImpl` class is responsible for adding a
+     * new entry to the
+     * scoreboard with the given name and points.
+     */
+    public void add(final String name, final int points) {
         boolean put = true;
         JSONArray inputArray = new JSONArray();
 
