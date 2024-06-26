@@ -19,7 +19,7 @@ public enum BrickColors {
      * 
      * @param color the color of the brick
      */
-    BrickColors(Color color) {
+    BrickColors(final Color color) {
         this.color = color;
     }
 
@@ -29,7 +29,7 @@ public enum BrickColors {
      * @param row the row index
      * @return the color corresponding to the row index
      */
-    public static Color getColor(int row) {
+    public static Color getColor(final int row) {
         BrickColors[] values = BrickColors.values();
         return values[row % values.length].color;
     }

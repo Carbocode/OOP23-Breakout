@@ -51,7 +51,7 @@ public enum BrickTypes {
      * @param rand the Random object to use for generating random numbers
      * @return a random health value for the brick
      */
-    public static int getRandomHealth(Random rand) {
+    public static int getRandomHealth(final Random rand) {
         ArrayList<BrickTypes> weightedList = new ArrayList<>();
         for (BrickTypes type : BrickTypes.values()) {
             for (int i = 0; i < type.getOccurrence(); i++) {
