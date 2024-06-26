@@ -24,11 +24,11 @@ public class CollisionManager {
     private final BrickWall bricks;
     private final Set<Ball> balls;
     private final Bar paddle;
-    private static int bombSizeRatio = 5;
+    private static final int BOMB_SIZE_RATIO = 5;
     private static int enlargeSize = 100;
     private static int maxBalls = 10;
     private final ScoreManager score;
-    private static int points = 200;
+    private static final int POINTS_INCREASE = 200;
     private final Random rnd;
     private final ScheduledExecutorService scheduler;
     private SoundManager sound;
@@ -57,7 +57,6 @@ public class CollisionManager {
     public final void checkAll() {
         final List<Ball> newBalls = new ArrayList<>();
         final long startTime = System.nanoTime();
-    
         for (final Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
             boolean collision = false;
             if (!ball.isAlive()) {
@@ -78,7 +77,7 @@ public class CollisionManager {
                     }
                     collision = true;
                     if (!(brick.getHealth() == -1)) {
-                        score.increment(points);
+                        score.increment(POINTS_INCREASE);
                     } else {
                         greyCollision = true;
                         if (brick.getPosition().x > ball.getPosition().x) {
@@ -92,7 +91,6 @@ public class CollisionManager {
             }
             long brickEndTime = System.nanoTime();
             debugPrint("Brick Collision", brickEndTime - brickStartTime);
-    
             // Collision with paddle
             long paddleStartTime = System.nanoTime();
             if (collides(ball, paddle)) {
@@ -160,8 +158,6 @@ public class CollisionManager {
         String output = String.format("%s took %d ms", name.toUpperCase(), milliseconds);
         if (milliseconds > 10) {
             System.out.println("\u001B[31m" + output + "\u001B[0m"); // ANSI escape code for red color
-        } else {
-            // System.out.println(output);
         }
     }
 
@@ -174,15 +170,15 @@ public class CollisionManager {
         // Schedule a task to reverse the ENLARGE effect after 5 seconds
         scheduler.schedule(() -> {
             paddle.setSize(originalSize);
-        }, 5, TimeUnit.SECONDS);
+        }, PowerUp.ENLARGE.getCDInSecs(), TimeUnit.SECONDS);
     }
 
     private void bomb(final GameEntity ball) {
         PowerUp.BOMB.use();
-        Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (bombSizeRatio * 2),
-        ball.getPosition().y - GameInfo.GAME_WIDTH / (bombSizeRatio * 2)),
-        new Dimension(GameInfo.GAME_WIDTH / bombSizeRatio,
-        GameInfo.GAME_WIDTH / bombSizeRatio));
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2),
+        ball.getPosition().y - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2)),
+        new Dimension(GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO,
+        GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO));
         for (GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
                 continue;

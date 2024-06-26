@@ -104,7 +104,7 @@ public final class Ball extends GameEntityImpl {
     }
 
     /**
-     * We directly tell the ball where to go in some cases
+     * We directly tell the ball where to go in some cases.
      * 
      * @param hitDirection the excepted bounce from the bar.
      */
