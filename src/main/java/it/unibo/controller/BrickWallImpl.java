@@ -15,7 +15,7 @@ public class BrickWallImpl implements BrickWall {
     /**
      * How many bricks?
      */
-    public static final int SCALAR = 10;
+    public static final int SCALAR = 7;
 
     private Set<Brick> wall;
     private int width;
