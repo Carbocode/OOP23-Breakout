@@ -64,6 +64,7 @@ public class CollisionManager {
                 continue;
             }
             boolean greyCollision = false;
+            int forcedDirection = 0;
             // Collision with bricks
             long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
@@ -80,6 +81,11 @@ public class CollisionManager {
                         score.increment(points);
                     }else{
                         greyCollision = true;
+                        if (brick.getPosition().x > ball.getPosition().x) {
+                            forcedDirection = -1;
+                        }else{
+                            forcedDirection = 1;
+                        }
                     }
                     brick.onCollision();
                 }
@@ -92,9 +98,9 @@ public class CollisionManager {
             if (collides(ball, paddle)) {
                 System.out.println("Paddle hit");
                 if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
-                    ball.barCollision(-1);
+                    ball.guidedCollision(-1);
                 } else {
-                    ball.barCollision(1);
+                    ball.guidedCollision(1);
                 }
             }
             long paddleEndTime = System.nanoTime();
@@ -103,7 +109,12 @@ public class CollisionManager {
             // Handle collisions
             if (collision) {
                 long powerUPStartTime = System.nanoTime();
-                ball.onCollision();
+                if (greyCollision){
+                    ball.guidedCollision(forcedDirection);
+                }else{
+                    ball.onCollision();
+                }
+
                 if(!greyCollision) {
                     for (PowerUp pu : PowerUp.values()) {
                         if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
