@@ -15,7 +15,10 @@ import it.unibo.model.BrickTypes;
 public class BrickFactory {
 
     private static long seed = System.currentTimeMillis();
-    private static final Random rand = new Random(BrickFactory.seed);
+    private static final Random RAND = new Random(BrickFactory.seed);
+
+    private BrickFactory() {
+    }
 
     /**
      * Creates a brick with defined health.
@@ -24,8 +27,8 @@ public class BrickFactory {
      * @param size     size of the brick
      * @return a random brick
      */
-    public static Brick createRandomBrick(Point position, Dimension size) {
-        int health = BrickTypes.getRandomHealth(BrickFactory.rand);
+    public static Brick createRandomBrick(final Point position, final Dimension size) {
+        int health = BrickTypes.getRandomHealth(BrickFactory.RAND);
 
         if (health < 0) {
             return createImmortalBrick(position, size);
@@ -40,9 +43,9 @@ public class BrickFactory {
      * 
      * @param seed the seed value
      */
-    public static void setSeed(long seed) {
+    public static void setSeed(final long seed) {
         BrickFactory.seed = seed;
-        BrickFactory.rand.setSeed(seed);
+        BrickFactory.RAND.setSeed(seed);
     }
 
     /**
@@ -61,11 +64,11 @@ public class BrickFactory {
      * @param size     size of the brick
      * @return an immortal brick
      */
-    public static Brick createImmortalBrick(Point position, Dimension size) {
+    public static Brick createImmortalBrick(final Point position, final Dimension size) {
         return new Brick(
                 position,
                 size,
                 BrickTypes.IMMORTAL.getHealth(),
-                new Color(128, 128, 128));
+                Color.GRAY);
     }
 }
