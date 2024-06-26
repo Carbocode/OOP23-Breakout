@@ -11,11 +11,7 @@ public final class BarExtender {
      * Barextender constructor.
      */
     private BarExtender() {
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        throw new UnsupportedOperationException();
     }
 
     /**

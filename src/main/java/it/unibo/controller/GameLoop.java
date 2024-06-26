@@ -152,7 +152,7 @@ public class GameLoop implements ActionListener {
     }
 
     private void updateBalls() {
-        for (var b : balls) {
+        for (final var b : balls) {
             b.update();
             // System.out.println(b.toString());
         }
