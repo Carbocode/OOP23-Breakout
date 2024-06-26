@@ -35,7 +35,7 @@ public class GameView extends JPanel {
     private GameView game;
     private SoundManager sound = new SoundManagerImpl();
     private int score;
-    private final int scoreX = GameInfo.GAME_WIDTH - 30;
+    private final int scoreX = GameInfo.GAME_WIDTH - 120;
     private final int scoreY = GameInfo.GAME_HEIGHT - 25;
     private final int fontSizeScore = 30;
     private Image backgroundImage;

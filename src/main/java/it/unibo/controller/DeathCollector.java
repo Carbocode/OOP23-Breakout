@@ -5,14 +5,26 @@ import java.util.Set;
 
 import it.unibo.api.GameEntity;
 
-public class DeathCollector {
-    public static void checkEntities(Set<? extends GameEntity> entities) {
+/**
+ * Class responsible for removing dead entities from a set.
+ */
+public final class DeathCollector {
+
+    private DeathCollector() {
+    }
+
+    /**
+     * Checks entities and removes those that are not alive.
+     * 
+     * @param entities the set of game entities to check
+     */
+    public static void checkEntities(final Set<? extends GameEntity> entities) {
         Iterator<? extends GameEntity> iterator = entities.iterator();
         while (iterator.hasNext()) {
             GameEntity entity = iterator.next();
             if (!entity.isAlive()) {
                 iterator.remove();
-                System.out.println("Entità eliminata " + entity.getClass());
+                System.out.println("Entity removed: " + entity.getClass());
             }
         }
     }

@@ -1,5 +1,6 @@
 package it.unibo.api;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -18,6 +19,7 @@ public class CollisionManager {
     private Bar paddle;
     private ScoreManager score;
     private Random rnd;
+    private final int points = 200;
 
     /**
      * Initializes CollisionManager.
@@ -26,7 +28,8 @@ public class CollisionManager {
      * @param brickWall
      * @param paddle
      */
-    public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle, final ScoreManager score) {
+    public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle,
+            final ScoreManager score) {
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
@@ -55,7 +58,9 @@ public class CollisionManager {
                                 + ") collides with (" + brick.getPosition().toString() + ")");
                     }
                     collision = true;
-                    score.increment(200);
+                    if (!(brick.getHealth() == -1)) {
+                        score.increment(points);
+                    }
                     brick.onCollision();
                 }
             }
