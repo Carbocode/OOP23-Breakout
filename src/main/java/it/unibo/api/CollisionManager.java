@@ -45,7 +45,7 @@ public class CollisionManager {
      */
     public final void checkAll() {
         List<Ball> newBalls = new ArrayList<Ball>();
-        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
+        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over, gives Error if not used
             boolean collision = false;
             if (!ball.isAlive()) {
                 continue;
