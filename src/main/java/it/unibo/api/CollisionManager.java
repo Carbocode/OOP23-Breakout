@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
-import java.util.LinkedList;
-import java.util.HashMap;
-import java.util.Map;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Bomb;
 import it.unibo.view.SoundManagerImpl;
@@ -67,7 +64,7 @@ public class CollisionManager {
             if (!ball.isAlive()) {
                 continue;
             }
-
+            
             // Collision with bricks
             long brickStartTime = System.nanoTime();
             for (GameEntity brick : bricks.getWall()) {
@@ -82,6 +79,13 @@ public class CollisionManager {
                     collision = true;
                     if (!(brick.getHealth() == -1)) {
                         score.increment(points);
+                    }else{
+                        greyCollision = true;
+                        if (brick.getPosition().x > ball.getPosition().x) {
+                            forcedDirection = -1;
+                        }else{
+                            forcedDirection = 1;
+                        }
                     }
                     brick.onCollision();
                 }
@@ -94,9 +98,9 @@ public class CollisionManager {
             if (collides(ball, paddle)) {
                 System.out.println("Paddle hit");
                 if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
-                    ball.barCollision(-1);
+                    ball.guidedCollision(-1);
                 } else {
-                    ball.barCollision(1);
+                    ball.guidedCollision(1);
                 }
             }
             long paddleEndTime = System.nanoTime();
@@ -110,16 +114,13 @@ public class CollisionManager {
                     if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
                         switch (pu) {
                             case ENLARGE:
-                                sound.playBonusSound();
                                 handleEnlargePowerUp();
                                 break;
                             case BOMB:
-                                sound.playBombSound();
                                 bomb(ball);
                                 break;
                             case DUPLI:
-                                sound.playBonusSound();
-                                newBalls.add(new Ball(ball)); // Collect new ball
+                                newBalls.add(new Ball(ball));  // Collect new ball
                                 PowerUp.DUPLI.use();
                                 break;
                             default:
