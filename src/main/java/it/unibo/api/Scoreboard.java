@@ -23,8 +23,7 @@ public interface Scoreboard {
     public JList<String> top10();
 
     /**
-     * @return void 
-     * add a player (as soon as the game ends) with his score into the right spot in the leaderboard
+     * add a player (as soon as the game ends) with his score into the right spot in the leaderboard.
      * @param name the name of the player
      * @param points the points made by the player during the game
      */
