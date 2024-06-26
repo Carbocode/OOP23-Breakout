@@ -49,40 +49,44 @@ public class BrickWallImpl implements BrickWall {
         this.toString();
     }
 
-    private int calculateBrickWidth(int gcd) {
+    private int calculateBrickWidth(final int gcd) {
         return gcd * SCALAR;
     }
 
-    private int calculateBrickHeight(int brickWidth) {
+    private int calculateBrickHeight(final int brickWidth) {
         return (int) (brickWidth / Brick.ASPECT_RATIO);
     }
 
-    private int calculateNumBricksRow(int brickWidth) {
+    private int calculateNumBricksRow(final int brickWidth) {
         return (int) Math.floor(this.width / brickWidth);
     }
 
-    private int calculateNumBricksColumn(int brickHeight) {
+    private int calculateNumBricksColumn(final int brickHeight) {
         return (int) Math.floor(this.height / brickHeight);
     }
 
-    private int calculateSideOffset(int brickWidth, int numBricksRow) {
+    private int calculateSideOffset(final int brickWidth, final int numBricksRow) {
         return (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
     }
 
-    private void addBricksToRow(int rowIndex, int brickWidth, int brickHeight, int numBricksRow) {
+    private void addBricksToRow(
+            final int rowIndex,
+            final int brickWidth,
+            final int brickHeight,
+            final int numBricksRow) {
         addImmortalBrick(new Point(0, rowIndex * brickHeight), new Dimension(sideOffset, brickHeight));
         IntStream.range(0, numBricksRow).forEach(j -> addRandomBrick(rowIndex, j, brickWidth, brickHeight));
         addImmortalBrick(new Point(this.width - this.sideOffset, rowIndex * brickHeight),
                 new Dimension(sideOffset, brickHeight));
     }
 
-    private void addImmortalBrick(Point position, Dimension size) {
+    private void addImmortalBrick(final Point position, final Dimension size) {
         if (sideOffset > 0) {
             wall.add(BrickFactory.createImmortalBrick(position, size));
         }
     }
 
-    private void addRandomBrick(int rowIndex, int colIndex, int brickWidth, int brickHeight) {
+    private void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         wall.add(BrickFactory.createRandomBrick(
                 new Point((colIndex * brickWidth) + this.sideOffset, rowIndex * brickHeight),
                 new Dimension(brickWidth, brickHeight)));

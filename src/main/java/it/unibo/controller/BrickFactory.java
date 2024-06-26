@@ -12,7 +12,7 @@ import it.unibo.model.BrickTypes;
 /**
  * Factory pattern that creates all kinds of brick the game has.
  */
-public class BrickFactory {
+public final class BrickFactory {
 
     private static long seed = System.currentTimeMillis();
     private static final Random RAND = new Random(BrickFactory.seed);
