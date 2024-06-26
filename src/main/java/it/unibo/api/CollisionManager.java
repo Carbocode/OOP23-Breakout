@@ -19,16 +19,16 @@ import java.util.concurrent.TimeUnit;
  * Class that checks for collisions.
  */
 public class CollisionManager {
-    private BrickWall bricks;
-    private Set<Ball> balls;
-    private Bar paddle;
-    private final int BOMB_SIZE_RATIO = 5;
-    private final int ENLARGE_SIZE = 100;
-    private final int MAX_BALLS= 10;
-    private ScoreManager score;
-    private final int points = 200;
-    private Random rnd;
-    private ScheduledExecutorService scheduler;
+    private final BrickWall bricks;
+    private final Set<Ball> balls;
+    private final Bar paddle;
+    private static int bombSizeRatio = 5;
+    private static int enlargeSize = 100;
+    private static int maxBalls= 10;
+    private final ScoreManager score;
+    private static int points = 200;
+    private final Random rnd;
+    private final ScheduledExecutorService scheduler;
 
     /**
      * Initializes CollisionManager.
@@ -52,10 +52,10 @@ public class CollisionManager {
      * Checks all objects for collision.
      */
     public final void checkAll() {
-        List<Ball> newBalls = new ArrayList<>();
-        long startTime = System.nanoTime();
+        final List<Ball> newBalls = new ArrayList<>();
+        final long startTime = System.nanoTime();
     
-        for (Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
+        for (final Ball ball : new ArrayList<>(balls)) {  // Create a copy to iterate over
             boolean collision = false;
             if (!ball.isAlive()) {
                 continue;
@@ -76,7 +76,7 @@ public class CollisionManager {
                     collision = true;
                     if (!(brick.getHealth() == -1)) {
                         score.increment(points);
-                    }else{
+                    } else {
                         greyCollision = true;
                         if (brick.getPosition().x > ball.getPosition().x) {
                             forcedDirection = -1;
@@ -140,7 +140,7 @@ public class CollisionManager {
     
         // Add new balls
         long addBallsStartTime = System.nanoTime();
-        if (balls.size() + newBalls.size() <= MAX_BALLS) {
+        if (balls.size() + newBalls.size() <= maxBalls) {
             balls.addAll(newBalls);
         }
         long addBallsEndTime = System.nanoTime();
@@ -164,7 +164,7 @@ public class CollisionManager {
     private void handleEnlargePowerUp() {
         PowerUp.ENLARGE.use();
         Dimension originalSize = paddle.getSize();
-        paddle.setSize(new Dimension((int)paddle.getSize().getWidth() + ENLARGE_SIZE, 
+        paddle.setSize(new Dimension((int)paddle.getSize().getWidth() + enlargeSize, 
                                      (int)paddle.getSize().getHeight()));
         
         // Schedule a task to reverse the ENLARGE effect after 5 seconds
@@ -174,10 +174,10 @@ public class CollisionManager {
     }
     private void bomb(GameEntity ball){
         PowerUp.BOMB.use();
-        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),
-        ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),
-        new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO,
-        GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(bombSizeRatio*2),
+        ball.getPosition().y-GameInfo.GAME_WIDTH/(bombSizeRatio*2)),
+        new Dimension(GameInfo.GAME_WIDTH/bombSizeRatio,
+        GameInfo.GAME_WIDTH/bombSizeRatio));
         for (GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
                 continue;
@@ -188,12 +188,12 @@ public class CollisionManager {
         }
     }
     private boolean collides(final GameEntity a, final GameEntity b) {
-        Point posA = a.getPosition();
-        Dimension sizeA = a.getSize();
-        Point posB = b.getPosition();
-        Dimension sizeB = b.getSize();
-        Rectangle aR = new Rectangle(posA, sizeA);
-        Rectangle bR = new Rectangle(posB, sizeB);
+        final Point posA = a.getPosition();
+        final Dimension sizeA = a.getSize();
+        final Point posB = b.getPosition();
+        final Dimension sizeB = b.getSize();
+        final Rectangle aR = new Rectangle(posA, sizeA);
+        final Rectangle bR = new Rectangle(posB, sizeB);
         return aR.intersects(bR);
     }
 }

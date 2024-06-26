@@ -4,8 +4,8 @@ package it.unibo.api;
  * The Direction class represents a direction with horizontal and vertical velocities.
  */
 public class Direction {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     /**
      * Constructs a new Direction object with specified horizontal and vertical velocities.
