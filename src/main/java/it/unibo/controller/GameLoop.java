@@ -29,7 +29,7 @@ public class GameLoop implements ActionListener {
         /**
          * Bomb power up.
          */
-        BOMB(5, 15000),
+        BOMB(15, 15000),
         /**
          * Duplication power up.
          */
@@ -37,10 +37,16 @@ public class GameLoop implements ActionListener {
         /**
          * Enlargement.
          */
-        ENLARGE(10, 5000); 
+<<<<<<< HEAD
+        ENLARGE(10, 5000);
+
+=======
+        ENLARGE(40, 5000); 
+>>>>>>> ee2e13c6763f581f6dbda7ea52dc985014849d32
         private final double probability;
         private final long cooldownMillis;
         private long lastUsedTime;
+
         /**
          * 
          * @param probability
@@ -49,8 +55,9 @@ public class GameLoop implements ActionListener {
         PowerUp(final double probability, final long cooldownMillis) {
             this.probability = probability;
             this.cooldownMillis = cooldownMillis;
-            this.lastUsedTime = 0;  // Initialize lastUsedTime to 0 (not used yet)
+            this.lastUsedTime = 0; // Initialize lastUsedTime to 0 (not used yet)
         }
+
         /**
          * 
          * @return Probability
@@ -58,6 +65,7 @@ public class GameLoop implements ActionListener {
         public double getProbability() {
             return probability;
         }
+
         /**
          * 
          * @return Cooldown of the power up.
@@ -65,6 +73,7 @@ public class GameLoop implements ActionListener {
         public long getCooldownMillis() {
             return cooldownMillis;
         }
+
         /**
          * 
          * @return remaining CD
@@ -75,6 +84,7 @@ public class GameLoop implements ActionListener {
             }
             return (int) (cooldownMillis - (System.currentTimeMillis() - lastUsedTime)) / 1000;
         }
+
         /**
          * 
          * @return is it on CD?
@@ -82,6 +92,7 @@ public class GameLoop implements ActionListener {
         public boolean isOnCooldown() {
             return System.currentTimeMillis() - lastUsedTime < cooldownMillis;
         }
+
         /**
          * ALWAYS USE WHEN ACTIVATING POWER UP.
          */
@@ -89,8 +100,9 @@ public class GameLoop implements ActionListener {
             lastUsedTime = System.currentTimeMillis();
         }
     }
+
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
-    private static final double BRICK_PERCENT = 0.35;
+    private static final double BRICK_PERCENT = 0.45;
     private CollisionManager manager;
     private BrickWall brickWall;
     private Set<Ball> balls;
