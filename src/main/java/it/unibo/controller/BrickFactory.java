@@ -24,7 +24,7 @@ public final class BrickFactory {
      * 
      * @param position position of the brick
      * @param size     size of the brick
-     * @param color
+     * @param color    color of the brick
      * @return a random brick
      */
     public static Brick createRandomBrick(final Point position, final Dimension size, final Color color) {
