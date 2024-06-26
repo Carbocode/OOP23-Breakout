@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -27,7 +26,7 @@ public class ScoreboardView extends JFrame {
         JList<String> stringList = new JList<>(scores);
         add(new JScrollPane(stringList), BorderLayout.CENTER);
 
-        JButton backButton = new JButton("<RETURN>");
+        JButton backButton = new JButton("< RETURN");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
