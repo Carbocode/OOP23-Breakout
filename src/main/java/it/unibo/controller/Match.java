@@ -11,13 +11,19 @@ import java.awt.Color;
 public final class Match {
 
     private static GameLoop gameLoop;
-
+    /**
+     * 
+     * @param gamePanel
+     */
     public static void init(final GameView gamePanel) {
         gameLoop = new GameLoop(gamePanel);
         gamePanel.setSize(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT);
         gamePanel.setBackground(Color.BLACK);
     }
-
+    /**
+     * 
+     * @return gameloop
+     */
     public static GameLoop getGameLoop() {
         return gameLoop;
     }
