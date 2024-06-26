@@ -23,6 +23,8 @@ public class CollisionManager {
     private Set<Ball> balls;
     private Bar paddle;
     private final int BOMB_SIZE_RATIO = 5;
+    private final int ENLARGE_SIZE = 100;
+    private final int MAX_BALLS= 15;
     private ScoreManager score;
     private Random rnd;
     private int gridSize = 100;
@@ -71,7 +73,8 @@ public class CollisionManager {
             // then we check with paddle
             if (collides(ball, paddle)) {
                 System.out.println("Paddle hit");
-                collision = true;
+                //collision = true;
+                ball.onCollision();
             }
             if (collision) {
                 ball.onCollision();
@@ -80,9 +83,12 @@ public class CollisionManager {
                         switch (pu) {
                             case ENLARGE:
                                 // handle ENLARGE power-up
+                                paddle.setSize(new Dimension((int)paddle.getSize().getWidth()+ENLARGE_SIZE, 
+                                (int)paddle.getSize().getHeight()));
                                 break;
                             case BOMB:
                                 // handle BOMB power-up
+                                bomb(ball);
                                 break;
                             case DUPLI:
                                 newBalls.add(new Ball(ball));  // Collect new ball
@@ -94,26 +100,26 @@ public class CollisionManager {
                 }
             }
         }
-        balls.addAll(newBalls);  // Add new balls after iteration
+        if(balls.size()+newBalls.size() <= MAX_BALLS) {
+            balls.addAll(newBalls);  // Add new balls after iteration
+        }
+        
     }
     private void bomb(GameEntity ball){
         
-        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO, GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
-
+        Bomb bomb = new Bomb(new Point(ball.getPosition().x-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2),
+        ball.getPosition().y-GameInfo.GAME_WIDTH/(BOMB_SIZE_RATIO*2)),
+        new Dimension(GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO,
+        GameInfo.GAME_WIDTH/BOMB_SIZE_RATIO));
         for (GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
                 continue;
             }
             if (collides(bomb, brick)) {
-                // Sometimes the ball collides with multiple bricks at the same time.
-                // this calls its onCollision twice, thus having no effect
-                if (GameInfo.DEBUG_MODE) {
-                    System.out.println("Ball at  (" + ball.getPosition().toString()
-                             + ") collides with (" + brick.getPosition().toString() + ")");
-                }
                 brick.onCollision();
             }
         }
+    }
     private boolean collides(final GameEntity a, final GameEntity b) {
         Point posA = a.getPosition();
         Dimension sizeA = a.getSize();

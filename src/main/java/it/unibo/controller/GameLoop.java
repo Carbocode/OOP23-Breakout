@@ -25,21 +25,21 @@ public class GameLoop implements ActionListener {
     /**
      * PowerUP description enum.
      */
-    public static enum PowerUp {
+    public enum PowerUp {
         /**
          * Bomb power up.
          */
-        BOMB(3),
+        BOMB(5),
         /**
          * Duplication PowerUP.
          */
-        DUPLI(10),
+        DUPLI(20),
         /**
          * Paddle Enlargement.
          */
         ENLARGE(10);
         private final double probability;
-        PowerUp(final double probability){
+        PowerUp(final double probability) {
             this.probability = probability;
         }
         /**
