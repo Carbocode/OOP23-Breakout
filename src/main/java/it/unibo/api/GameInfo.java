@@ -6,7 +6,7 @@ import java.awt.Dimension;
  * The GameInfo class contains static constants that define various
  * configurations and settings for the game.
  */
-public class GameInfo {
+public final class GameInfo {
     /**
      * The width of the game window.
      */
@@ -36,5 +36,8 @@ public class GameInfo {
      * The dimensions of the game bar (paddle).
      */
     public static final Dimension BAR_DIMENSION = new Dimension(200, 15);
+    private GameInfo() {
+        throw new UnsupportedOperationException();
+    }
 
 }

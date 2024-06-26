@@ -5,115 +5,206 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Objects;
 
+/**
+ * The abstract class GameEntityImpl implements the GameEntity interface.
+ * It provides a base implementation for common properties and methods that all game entities share.
+ */
 public abstract class GameEntityImpl implements GameEntity {
 
-    final public static int IMMORTAL_ENTITY_HEALTH = -1;
-    final public static int MIN_HEALTH = 1;
-    final public static int MAX_HEALTH = 2;
-    final public static Color DEFAULT_COLOR = new Color(70, 70, 70);
+    /**
+     * Constant for representing an immortal entity's health.
+     */
+    public static final int IMMORTAL_ENTITY_HEALTH = -1;
 
-    protected Point position;
-    protected Dimension size;
-    protected int health;
-    protected Color color;
+    /**
+     * Minimum health value for an entity.
+     */
+    public static final int MIN_HEALTH = 1;
 
-    public GameEntityImpl(final Point position, final Dimension size, int health, final Color color) {
+    /**
+     * Maximum health value for an entity.
+     */
+    public static final int MAX_HEALTH = 2;
+
+    /**
+     * Default color for the entity.
+     */
+    public static final Color DEFAULT_COLOR = new Color(70, 70, 70);
+
+    /**
+     * The position of the entity in the game world.
+     */
+    private Point position;
+
+    /**
+     * The size of the entity.
+     */
+    private Dimension size;
+
+    /**
+     * The health of the entity.
+     */
+    private int health;
+
+    /**
+     * The color of the entity.
+     */
+    private Color color;
+
+    /**
+     * Constructs a new GameEntityImpl object with the specified position, size, health, and color.
+     *
+     * @param position the position of the entity
+     * @param size the size of the entity
+     * @param health the health of the entity
+     * @param color the color of the entity
+     */
+    public GameEntityImpl(final Point position, final Dimension size, final int health, final Color color) {
         this.position = position;
         this.size = size;
         this.health = health;
-        this.color = color;
-    }
-
-    /*
-     * Game Entity Default Color is rgb(70, 70, 70)
-     * 
-     * @param position
-     * @param size
-     * @param health
-     */
-    public GameEntityImpl(final Point position, final Dimension size, int health) {
-        this.position = position;
-        this.size = size;
-        this.health = health;
-        this.color = new Color(DEFAULT_COLOR.getRGB());
-    }
-
-    /*
-     * Game Entity Default Health is IMMORTAL_ENTITY_HEALTH
-     * 
-     * @param position
-     * @param size
-     * @param color
-     */
-    public GameEntityImpl(final Point position, final Dimension size, final Color color) {
-        this.position = position;
-        this.size = size;
-        this.health = IMMORTAL_ENTITY_HEALTH;
         this.color = color;
     }
 
     /**
-     * Game Entity Default Health is IMMORTAL_ENTITY_HEALTH and Default Color is
-     * rgb(70, 70, 70)
-     * 
-     * @param position
-     * @param size
+     * Constructs a new GameEntityImpl object with the specified position, size, and
+     * health.
+     * The entity's color is set to the default color.
+     *
+     * @param position the position of the entity
+     * @param size     the size of the entity
+     * @param health   the health of the entity
      */
-    public GameEntityImpl(final Point position, final Dimension size) {
-        this.position = position;
-        this.size = size;
-        this.health = IMMORTAL_ENTITY_HEALTH;
-        this.color = new Color(70, 70, 70);
+    public GameEntityImpl(final Point position, final Dimension size, final int health) {
+        this(position, size, health, DEFAULT_COLOR);
     }
 
-    @Override
-    abstract public void onCollision();
+    /**
+     * Constructs a new GameEntityImpl object with the specified position, size, and
+     * color.
+     * The entity's health is set to immortal.
+     *
+     * @param position the position of the entity
+     * @param size     the size of the entity
+     * @param color    the color of the entity
+     */
+    public GameEntityImpl(final Point position, final Dimension size, final Color color) {
+        this(position, size, IMMORTAL_ENTITY_HEALTH, color);
+    }
 
+    /**
+     * Constructs a new GameEntityImpl object with the specified position and size.
+     * The entity's health is set to immortal and color is set to the default color.
+     *
+     * @param position the position of the entity
+     * @param size     the size of the entity
+     */
+    public GameEntityImpl(final Point position, final Dimension size) {
+        this(position, size, IMMORTAL_ENTITY_HEALTH, DEFAULT_COLOR);
+    }
+
+    /**
+     * Handles the collision event for the game entity.
+     * This method must be implemented by subclasses.
+     */
+    @Override
+    public abstract void onCollision();
+
+    /**
+     * Checks if the game entity is alive (health > 0).
+     *
+     * @return true if the entity is alive, false otherwise
+     */
     @Override
     public boolean isAlive() {
         return health > 0;
     }
 
+    /**
+     * Sets the position of the game entity.
+     *
+     * @param position the new position as a Point
+     */
     @Override
     public void setPosition(final Point position) {
         this.position = position;
     }
 
+    /**
+     * Sets the size of the game entity.
+     *
+     * @param size the new size as a Dimension
+     */
     @Override
     public void setSize(final Dimension size) {
         this.size = size;
     }
 
+    /**
+     * Sets the health of the game entity.
+     *
+     * @param health the new health as an integer
+     */
     @Override
-    public void setHealth(int health) {
+    public void setHealth(final int health) {
         this.health = health;
     }
 
+    /**
+     * Sets the color of the game entity.
+     *
+     * @param color the new color as a Color
+     */
     @Override
     public void setColor(final Color color) {
         this.color = color;
     }
 
+    /**
+     * Gets the position of the game entity.
+     *
+     * @return the current position as a Point
+     */
     @Override
     public Point getPosition() {
         return position;
     }
 
+    /**
+     * Gets the size of the game entity.
+     *
+     * @return the current size as a Dimension
+     */
     @Override
     public Dimension getSize() {
         return size;
     }
 
+    /**
+     * Gets the health of the game entity.
+     *
+     * @return the current health as an integer
+     */
     @Override
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Gets the color of the game entity.
+     *
+     * @return the current color as a Color
+     */
     @Override
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Returns a string representation of the game entity.
+     *
+     * @return a string representation of the game entity
+     */
     @Override
     public String toString() {
         return "position: " + getPosition()
@@ -122,26 +213,36 @@ public abstract class GameEntityImpl implements GameEntity {
                 + " color: " + getColor();
     }
 
+    /**
+     * Compares this game entity to the specified object. The result is true if and only if
+     * the argument is not null and is a GameEntity object that has the same position, size, health, and color as this object.
+     *
+     * @param o the object to compare this GameEntity against
+     * @return true if the given object represents a GameEntity equivalent to this game entity, false otherwise
+     */
     @Override
     public boolean equals(final Object o) {
-
-        if (this == o){
+        if (this == o) {
             return true;
-        } 
-        if (o == null || getClass() != o.getClass()){
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
         GameEntity that = (GameEntityImpl) o;
-        return health == that.getHealth() 
-        && Objects.equals(position, that.getPosition()) 
-        && Objects.equals(size, that.getSize()) 
-        && Objects.equals(color, that.getColor());
+        return health == that.getHealth()
+                && Objects.equals(position, that.getPosition())
+                && Objects.equals(size, that.getSize())
+                && Objects.equals(color, that.getColor());
     }
 
+    /**
+     * Returns a hash code value for the game entity.
+     *
+     * @return a hash code value for this game entity
+     */
     @Override
     public int hashCode() {
         return Objects.hash(position, size, health, color);
     }
-
 }

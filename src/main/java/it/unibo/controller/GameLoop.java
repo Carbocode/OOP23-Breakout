@@ -3,46 +3,57 @@ package it.unibo.controller;
 import it.unibo.api.BrickWall;
 import it.unibo.api.CollisionManager;
 import it.unibo.api.GameInfo;
+import it.unibo.api.ScoreManager;
 import it.unibo.api.SoundManager;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.view.SoundManagerImpl;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.Timer;
 import java.util.Set;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashSet;
-import it.unibo.view.*;
+import it.unibo.view.GameView;
 
+/**
+ * Class that handles the main GameLoop.
+ */
 public class GameLoop implements ActionListener {
     private static final long UPDATE_INTERVAL = 1000 / GameInfo.REFRESH_RATE;
+    private static final double BRICK_PERCENT = 0.35;
 
     private CollisionManager manager;
-    private SoundManager soundPlayer;
     private BrickWall brickWall;
     private Set<Ball> balls;
     private Bar paddle;
+    private SoundManager soundPlayer;
+    private ScoreManager score;
 
     private long lastUpdateTime;
     private Timer timer;
 
-    private GameView t;
+    private GameView ourView;
 
-    public GameLoop(GameView coso) {
+    /**
+     * Initializer.
+     * 
+     * @param view
+     */
+    public GameLoop(final GameView view) {
         soundPlayer = new SoundManagerImpl();
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.floor(GameInfo.GAME_HEIGHT * 0.35));
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.floor(GameInfo.GAME_HEIGHT * BRICK_PERCENT));
         balls = new HashSet<Ball>();
         balls.add(new Ball());
         brickWall.generateLayout();
         paddle = new Bar(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
-        GameInfo.BAR_DIMENSION, 0, new Color(0));
+                GameInfo.BAR_DIMENSION, 0, new Color(0));
         manager = new CollisionManager(balls, brickWall, paddle);
-        t = coso;
-        t.updateGameState(balls, brickWall.getWall(), paddle);
+        score = new ScoreManagerImpl();
+        ourView = view;
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
@@ -50,7 +61,7 @@ public class GameLoop implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public final void actionPerformed(final ActionEvent e) {
         long currentTime = System.nanoTime();
         long elapsedTime = currentTime - lastUpdateTime;
 
@@ -61,7 +72,7 @@ public class GameLoop implements ActionListener {
     }
 
     /**
-     * Updates the gamestate
+     * Updates the gamestate.
      */
     private void update() {
 
@@ -77,11 +88,16 @@ public class GameLoop implements ActionListener {
             // System.out.println(b.toString());
         }
         paddle.move();
-        t.repaint();
-        t.updateGameState(balls, brickWall.getWall(), paddle);
+        ourView.repaint();
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
     }
 
-    public void multiplyBall(Ball old) {
+    /**
+     * Ball duplication.
+     * 
+     * @param old
+     */
+    public final void multiplyBall(final Ball old) {
         balls.add(new Ball(old));
     }
 

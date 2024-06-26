@@ -25,11 +25,12 @@ import java.awt.GridLayout;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
- * This is the menu frame, where you can choose between the play, scoreboard, exit button.
- * if you click play it will open the game.
- * if you click scoreboard it will open a scoreboard with 
+ * This is the menu frame, where you can choose between the play, scoreboard,
+ * exit button.
  * 
  * @author Sohail Mama
  */
@@ -40,12 +41,17 @@ public class Menu extends JFrame {
     private JButton scoreboardButton;
     private JButton exitButton;
     private Font font;
-
     private SoundManager sound = new SoundManagerImpl();
     private Measures measure = new Measures();
+
+    // these are some constant measures
+    private static final float FONTSIZE = 55.0f;
+    private static final int BUTTONWIDTH = 100;
+    private static final int BUTTONHEIGHT = 50;
+
     /**
-     * Menu constructor.
-     * @author Sohail Mama
+     * The Menu constructor.
+     * 
      */
     public Menu() {
         setTitle("Breakout");
@@ -64,38 +70,39 @@ public class Menu extends JFrame {
         // creation of the panel of the menu
         mainPanel = new JPanel(new GridLayout(2, 1));
         titleLabel = new JLabel("BREAKOUT", SwingConstants.CENTER);
-        titleLabel.setFont(font.deriveFont(55.0f));
+        titleLabel.setFont(font.deriveFont(FONTSIZE));
 
         // these are the buttons of the menu with their panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         buttonPanel.setOpaque(false);
-        sound.playBackgroundSound();
+        sound.playMenuSound();
 
         playButton = new JButton("PLAY");
         playButton.setOpaque(true);
         playButton.setBorderPainted(false);
         playButton.setBackground(Color.ORANGE);
-        playButton.setPreferredSize(new Dimension(100, 50));
+        playButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         scoreboardButton = new JButton("SCOREBOARD");
         scoreboardButton.setOpaque(true);
         scoreboardButton.setBorderPainted(false);
         scoreboardButton.setBackground(Color.ORANGE);
-        scoreboardButton.setPreferredSize(new Dimension(100, 50));
+        scoreboardButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         exitButton = new JButton("EXIT");
         exitButton.setOpaque(true);
         exitButton.setBorderPainted(false);
         exitButton.setBackground(Color.ORANGE);
-        exitButton.setPreferredSize(new Dimension(100, 50));
+        exitButton.setPreferredSize(new Dimension(BUTTONWIDTH, BUTTONHEIGHT));
 
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
-                        "Se leggi sto tutorial sei forte!",
+                        "I mattoncini grigi sono indistruttibili ma tutto il resto invece si\nSFOGA LA TUA RABBIA",
                         "Tutorial",
                         JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel = new GameView();
@@ -104,6 +111,21 @@ public class Menu extends JFrame {
                 Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
+                game.setResizable(false);
+                sound.playButtonSound();
+                sound.playGameSound();
+                sound.playBackgroundSound();
+                game.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(final WindowEvent e) {
+                        System.out.println("Chiusura della finestra");
+
+                        if (confirmExit()) {
+                            dispose(); // close the window
+                            System.exit(0);
+                        }
+                    }
+                });
 
                 // it close the other window
                 JComponent comp = (JComponent) e.getSource();
@@ -116,6 +138,7 @@ public class Menu extends JFrame {
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 // TO DO
             }
         });
@@ -123,6 +146,7 @@ public class Menu extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                sound.playButtonSound();
                 System.exit(0);
             }
         });
@@ -138,6 +162,13 @@ public class Menu extends JFrame {
         mainPanel.setVisible(true);
         setFocusable(true);
         setVisible(true);
+    }
+
+    private boolean confirmExit() {
+        // show a pop up that ask you if you are sure that you want to leave
+        int option = javax.swing.JOptionPane.showConfirmDialog(this, "Sei sicuro di voler uscire?", "Conferma Uscita",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+        return option == javax.swing.JOptionPane.YES_OPTION;
     }
 
 }

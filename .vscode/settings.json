@@ -1,6 +1,10 @@
 {
+<<<<<<< HEAD
   "java.compile.nullAnalysis.mode": "automatic",
   "java.debug.settings.onBuildFailureProceed": true,
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.checkstyle.configuration": "${workspaceFolder}\\build\\javaqa\\checkstyle.xml"
+  "java.checkstyle.configuration": "${workspaceFolder}/build/javaqa/checkstyle.xml"
+=======
+  "java.compile.nullAnalysis.mode": "automatic"
+>>>>>>> origin/ScoreManager-feature
 }

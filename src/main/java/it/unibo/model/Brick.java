@@ -7,10 +7,24 @@ import java.util.Objects;
 
 import it.unibo.api.GameEntityImpl;
 
+/**
+ * Brick class.
+ * 
+ */
 public class Brick extends GameEntityImpl {
-
+    /**
+     * Aspect Ratio.
+     */
     public static final double ASPECT_RATIO = 7.0 / 3;
 
+    /**
+     * Constructor.
+     * 
+     * @param position
+     * @param size
+     * @param health
+     * @param color
+     */
     public Brick(final Point position, final Dimension size, final int health, final Color color) {
         super(position, size, health, color);
     }
@@ -71,6 +85,6 @@ public class Brick extends GameEntityImpl {
 
     @Override
     public final String toString() {
-        return "(" + position.x + ";" + position.y + ")";
+        return "(" + getPosition().x + ";" + getPosition().y + ")";
     }
 }

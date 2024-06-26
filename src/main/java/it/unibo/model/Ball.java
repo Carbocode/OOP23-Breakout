@@ -3,6 +3,8 @@ package it.unibo.model;
 import it.unibo.api.Direction;
 import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
+import it.unibo.api.SoundManager;
+import it.unibo.view.SoundManagerImpl;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -16,15 +18,16 @@ import java.util.Random;
 public final class Ball extends GameEntityImpl {
     private Direction dir;
     private Random rand = new Random();
-    final Dimension BALL_DIMENSION = new Dimension(5,5);
+    private static final Dimension BALL_DIMENSION = new Dimension(5, 5);
+    private static final Point START_POINT = new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50);
+    private SoundManager sound = new SoundManagerImpl();
 
     /**
      * Constructs a new Ball object at the default starting position
      * with a default direction.
      */
     public Ball() {
-        super(new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50),
-        new Dimension(5, 5), 1);
+        super(START_POINT, BALL_DIMENSION, 1);
         this.dir = new Direction(-1, -1);
     }
 
@@ -56,6 +59,7 @@ public final class Ball extends GameEntityImpl {
      */
     public void update() {
         boolean acceptable = true;
+        Point position = getPosition();
         Point candidate = new Point(position.x + dir.getHorizontalVelocity() * GameInfo.BALL_SPEED,
                 position.y + dir.getVerticalVelocity() * GameInfo.BALL_SPEED);
         // Reverse direction if out of horizontal bounds
@@ -73,7 +77,7 @@ public final class Ball extends GameEntityImpl {
             super.setHealth(super.getHealth() - 1);
         }
         if (acceptable) {
-            position = candidate;
+            setPosition(candidate);
         }
     }
 
@@ -91,27 +95,8 @@ public final class Ball extends GameEntityImpl {
      */
     @Override
     public void onCollision() {
+        sound.playCollisionSound();
         dir = new Direction(rand.nextInt(3) - 1, -dir.getVerticalVelocity());
-    }
-
-    /**
-     * Gets the current position of the Ball.
-     *
-     * @return the current position
-     */
-    @Override
-    public Point getPosition() {
-        return this.position;
-    }
-
-    /**
-     * Gets the current size of the Ball.
-     *
-     * @return the current size
-     */
-    @Override
-    public Dimension getSize() {
-        return size;
     }
 
     /**
