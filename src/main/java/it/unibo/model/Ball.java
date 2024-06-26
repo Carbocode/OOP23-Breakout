@@ -17,10 +17,10 @@ import java.util.Random;
  */
 public final class Ball extends GameEntityImpl {
     private Direction dir;
-    private Random rand = new Random();
+    private final Random rand = new Random();
     private static final Dimension BALL_DIMENSION = new Dimension(5, 5);
     private static final Point START_POINT = new Point(GameInfo.GAME_WIDTH / 2, GameInfo.GAME_HEIGHT - 50);
-    private SoundManager sound = new SoundManagerImpl();
+    private final SoundManager sound = new SoundManagerImpl();
 
     /**
      * Constructs a new Ball object at the default starting position
@@ -61,8 +61,8 @@ public final class Ball extends GameEntityImpl {
      */
     public void update() {
         boolean acceptable = true;
-        Point position = getPosition();
-        Point candidate = new Point(position.x + dir.getHorizontalVelocity() * GameInfo.BALL_SPEED,
+        final Point position = getPosition();
+        final Point candidate = new Point(position.x + dir.getHorizontalVelocity() * GameInfo.BALL_SPEED,
                 position.y + dir.getVerticalVelocity() * GameInfo.BALL_SPEED);
         // Reverse direction if out of horizontal bounds
         if (candidate.getX() <= 0 || candidate.getX() >= GameInfo.GAME_WIDTH) {
@@ -85,14 +85,6 @@ public final class Ball extends GameEntityImpl {
         }
     }
 
-    /**
-     * Checks if the Ball is still alive (health > 0).
-     *
-     * @return true if the Ball is alive, false otherwise
-     */
-    public boolean isAlive() {
-        return super.isAlive();
-    }
 
     /**
      * Handles the collision event by changing the Ball's direction.
@@ -111,25 +103,5 @@ public final class Ball extends GameEntityImpl {
     public void guidedCollision(final int hitDirection) {
         sound.playCollisionSound();
         dir = new Direction(hitDirection, -dir.getVerticalVelocity());
-    }
-
-    /**
-     * Gets the current health of the Ball.
-     *
-     * @return the current health
-     */
-    @Override
-    public int getHealth() {
-        return super.getHealth();
-    }
-
-    /**
-     * Sets the health of the Ball.
-     *
-     * @param health the new health value
-     */
-    @Override
-    public void setHealth(final int health) {
-        super.setHealth(health);
     }
 }

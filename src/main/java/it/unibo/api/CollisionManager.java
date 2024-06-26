@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
+import it.unibo.model.BarExtender;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Bomb;
 import it.unibo.view.SoundManagerImpl;
@@ -16,6 +17,7 @@ import it.unibo.view.SoundManagerImpl;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * Class that checks for collisions.
@@ -31,7 +33,8 @@ public class CollisionManager {
     private static final int POINTS_INCREASE = 200;
     private final Random rnd;
     private final ScheduledExecutorService scheduler;
-    private SoundManager sound;
+    private final SoundManager sound;
+    private final Logger log;
     /**
      * Initializes CollisionManager.
      * 
@@ -49,6 +52,7 @@ public class CollisionManager {
         rnd = new Random();
         scheduler = Executors.newScheduledThreadPool(1);
         sound = new SoundManagerImpl();
+        log = Logger.getLogger(CollisionManager.class.getName());
     }
 
     /**
@@ -65,18 +69,14 @@ public class CollisionManager {
             boolean greyCollision = false;
             int forcedDirection = 0;
             // Collision with bricks
-            long brickStartTime = System.nanoTime();
-            for (GameEntity brick : bricks.getWall()) {
+            final long brickStartTime = System.nanoTime();
+            for (final GameEntity brick : bricks.getWall()) {
                 if (!brick.isAlive()) {
                     continue;
                 }
                 if (collides(ball, brick)) {
-                    if (GameInfo.DEBUG_MODE) {
-                        System.out.println("Ball at  (" + ball.getPosition().toString()
-                                + ") collides with (" + brick.getPosition().toString() + ")");
-                    }
                     collision = true;
-                    if (!(brick.getHealth() == -1)) {
+                    if (brick.getHealth() != -1) {
                         score.increment(POINTS_INCREASE);
                     } else {
                         greyCollision = true;
@@ -89,23 +89,23 @@ public class CollisionManager {
                     brick.onCollision();
                 }
             }
-            long brickEndTime = System.nanoTime();
+            final long brickEndTime = System.nanoTime();
             debugPrint("Brick Collision", brickEndTime - brickStartTime);
             // Collision with paddle
-            long paddleStartTime = System.nanoTime();
+            final long paddleStartTime = System.nanoTime();
             if (collides(ball, paddle)) {
-                System.out.println("Paddle hit");
+                log.info("Paddle hit");
                 if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
                     ball.guidedCollision(-1);
                 } else {
                     ball.guidedCollision(1);
                 }
             }
-            long paddleEndTime = System.nanoTime();
+            final long paddleEndTime = System.nanoTime();
             debugPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
             // Handle collisions
             if (collision) {
-                long powerUPStartTime = System.nanoTime();
+                final long powerUPStartTime = System.nanoTime();
                 if (greyCollision) {
                     ball.guidedCollision(forcedDirection);
                 } else {
@@ -113,7 +113,7 @@ public class CollisionManager {
                 }
 
                 if (!greyCollision) {
-                    for (PowerUp pu : PowerUp.values()) {
+                    for (final PowerUp pu : PowerUp.values()) {
                         if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
                             switch (pu) {
                                 case ENLARGE:
@@ -135,38 +135,36 @@ public class CollisionManager {
                         }
                     }
                 }
-                long powerUpEndTime = System.nanoTime();
+                final long powerUpEndTime = System.nanoTime();
                 debugPrint("Power Up Handling", powerUpEndTime - powerUPStartTime);
             }
         }
 
         // Add new balls
-        long addBallsStartTime = System.nanoTime();
+        final long addBallsStartTime = System.nanoTime();
         if (balls.size() + newBalls.size() <= maxBalls) {
             balls.addAll(newBalls);
         }
-        long addBallsEndTime = System.nanoTime();
+        final long addBallsEndTime = System.nanoTime();
         debugPrint("Add Balls ", addBallsEndTime - addBallsStartTime);
-        long endTime = System.nanoTime();
+        final long endTime = System.nanoTime();
         debugPrint("TOTAL", endTime - startTime);
     }
     private void debugPrint(final String name, final long difference) {
         if (!GameInfo.DEBUG_MODE) {
             return;
         }
-        long milliseconds = TimeUnit.NANOSECONDS.toMillis(difference);
-        String output = String.format("%s took %d ms", name.toUpperCase(), milliseconds);
+        final long milliseconds = TimeUnit.NANOSECONDS.toMillis(difference);
+        final String output = String.format("%s took %d ms", name, milliseconds);
         if (milliseconds > 10) {
-            System.out.println("\u001B[31m" + output + "\u001B[0m"); // ANSI escape code for red color
+            log.warning("\u001B[31m" + output + "\u001B[0m"); // ANSI escape code for red color
         }
     }
 
     private void handleEnlargePowerUp() {
         PowerUp.ENLARGE.use();
-        Dimension originalSize = paddle.getSize();
-        paddle.setSize(new Dimension((int) paddle.getSize().getWidth() + enlargeSize,
-                (int) paddle.getSize().getHeight()));
-
+        final Dimension originalSize = paddle.getSize();
+        BarExtender.extendBar(paddle);
         // Schedule a task to reverse the ENLARGE effect after 5 seconds
         scheduler.schedule(() -> {
             paddle.setSize(originalSize);
@@ -175,11 +173,11 @@ public class CollisionManager {
 
     private void bomb(final GameEntity ball) {
         PowerUp.BOMB.use();
-        Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2),
+        final Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2),
         ball.getPosition().y - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2)),
         new Dimension(GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO,
         GameInfo.GAME_WIDTH / BOMB_SIZE_RATIO));
-        for (GameEntity brick : bricks.getWall()) {
+        for (final GameEntity brick : bricks.getWall()) {
             if (!brick.isAlive()) {
                 continue;
             }
