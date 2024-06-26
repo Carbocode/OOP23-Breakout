@@ -90,13 +90,23 @@ public class BrickWallImpl implements BrickWall {
                 new Point(this.width - this.sideOffset, rowIndex * brickHeight),
                 new Dimension(sideOffset, brickHeight));
     }
-
+    /**
+     * 
+     * @param position
+     * @param size
+     */
     public void addImmortalBrick(final Point position, final Dimension size) {
         if (sideOffset > 0) {
             wall.add(BrickFactory.createImmortalBrick(position, size));
         }
     }
-
+    /**
+     * 
+     * @param rowIndex
+     * @param colIndex
+     * @param brickWidth
+     * @param brickHeight
+     */
     public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         wall.add(BrickFactory.createRandomBrick(
                 new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),
