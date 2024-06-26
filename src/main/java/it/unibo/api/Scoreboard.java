@@ -1,6 +1,5 @@
 package it.unibo.api;
 
-import java.util.List;
 
 import javax.swing.JList;
 

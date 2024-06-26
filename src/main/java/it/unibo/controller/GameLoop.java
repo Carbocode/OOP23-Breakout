@@ -37,7 +37,8 @@ public class GameLoop implements ActionListener {
         /**
          * Enlargement.
          */
-        ENLARGE(10, 5000); 
+        ENLARGE(10, 5000);
+
         private final double probability;
         private final long cooldownMillis;
         private long lastUsedTime;
