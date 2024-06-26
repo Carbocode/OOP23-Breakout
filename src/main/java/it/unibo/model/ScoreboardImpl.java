@@ -19,7 +19,7 @@ import java.io.BufferedWriter;
 */
 public class ScoreboardImpl implements Scoreboard {
     private static final Logger LOGGER = Logger.getLogger(ScoreboardImpl.class.getName());
-    private static final String SCOREBOARD_FILE = "scoreboard/Scoreboard.json";
+    private static String SCOREBOARD_FILE = "scoreboard/Scoreboard.json";
     private static final String POINT_KEY = "points";
 
     /**
@@ -134,5 +134,9 @@ public class ScoreboardImpl implements Scoreboard {
         } catch (IOException | URISyntaxException e) {
             LOGGER.log(Level.SEVERE, "Exception occurred", e);
         }
+    }
+
+    public void setScoreboardFileForTest(String filePath) {
+        SCOREBOARD_FILE = filePath;
     }
 }

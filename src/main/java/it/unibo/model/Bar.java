@@ -41,6 +41,14 @@ public class Bar extends GameEntityImpl {
         sound.playCollisionSound();
     }
 
+    public int getDirection(){
+        return this.direction;
+    }
+
+    public void setDirection(final int d){
+        this.direction = d;
+    }
+
     /**
      * This function move the bar every game cycle depending on the button currently
      * being pressed.
