@@ -9,6 +9,9 @@ import java.awt.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for Brick.
+ */
 public class BrickTest {
 
     private Brick brick;

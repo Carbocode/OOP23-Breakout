@@ -13,6 +13,9 @@ import it.unibo.model.Brick;
 import it.unibo.model.BrickColors;
 import it.unibo.model.BrickTypes;
 
+/**
+ * Test class for BrickFactory.
+ */
 public class BrickFactoryTest {
 
     /**

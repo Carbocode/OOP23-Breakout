@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.api.GameEntityImpl;
 
+/**
+ * Test class for BrickTypes.
+ */
 public class BrickTypesTest {
 
     /**

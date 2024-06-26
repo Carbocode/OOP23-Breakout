@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.Brick;
 
+/**
+ * Test class for BrickWallImpl.
+ */
 public class BrickWallImplTest {
 
     private BrickWallImpl brickWall;
