@@ -41,4 +41,14 @@ public interface SoundManager {
          * this method plays the win sound.
          */
         void playVictorySound();
+
+        /**
+         * this method plays the bomb sound.
+         */
+        void playBombSound();
+
+        /**
+         * this method plays the bomb sound.
+         */
+        void playBonusSound();
 }

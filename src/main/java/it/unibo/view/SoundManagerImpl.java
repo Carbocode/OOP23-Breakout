@@ -24,6 +24,7 @@ public class SoundManagerImpl implements SoundManager {
     private Clip gameClip;
     private Clip gameoverClip;
     private Clip victoryClip;
+    private Clip bombClip;
 
     @Override
     public final void playBackgroundSound() {
@@ -118,6 +119,34 @@ public class SoundManagerImpl implements SoundManager {
             victoryClip.open(audioInputStream);
             // Riproduci il suono
             victoryClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void playBombSound() {
+        try {
+            final URL indFile = getClass().getClassLoader().getResource("sounds/bomb.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
+            bombClip = AudioSystem.getClip();
+            bombClip.open(audioInputStream);
+            // Riproduci il suono
+            bombClip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void playBonusSound() {
+        try {
+            final URL indFile = getClass().getClassLoader().getResource("sounds/bonus.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
+            bombClip = AudioSystem.getClip();
+            bombClip.open(audioInputStream);
+            // Riproduci il suono
+            bombClip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
