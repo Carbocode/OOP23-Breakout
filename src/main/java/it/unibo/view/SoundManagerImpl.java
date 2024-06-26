@@ -125,7 +125,7 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playBombSound() {
+    public final void playBombSound() {
         try {
             final URL indFile = getClass().getClassLoader().getResource("sounds/bomb.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);
@@ -139,7 +139,7 @@ public class SoundManagerImpl implements SoundManager {
     }
 
     @Override
-    public void playBonusSound() {
+    public final void playBonusSound() {
         try {
             final URL indFile = getClass().getClassLoader().getResource("sounds/bonus.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(indFile);

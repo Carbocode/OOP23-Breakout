@@ -8,7 +8,6 @@ import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.view.SoundManagerImpl;
-import it.unibo.model.ScoreboardImpl;
 /**
  * Bar class that handle the movements and dynamics of the bar.
  */
@@ -37,7 +36,7 @@ public class Bar extends GameEntityImpl {
     }
 
     @Override
-    public void onCollision() {
+    public final void onCollision() {
         // play sound
         sound = new SoundManagerImpl();
         sound.playCollisionSound();
@@ -86,7 +85,6 @@ public class Bar extends GameEntityImpl {
      * @param e button pressed
      */
     public final void buttonPressed(final KeyEvent e) {
-        
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_LEFT:
@@ -101,7 +99,6 @@ public class Bar extends GameEntityImpl {
 
             default:
                 // do nothing
-
         }
     }
 
@@ -119,5 +116,4 @@ public class Bar extends GameEntityImpl {
             direction = STOP_VALUE;
         }
     }
-
 }

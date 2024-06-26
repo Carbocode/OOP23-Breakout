@@ -44,7 +44,9 @@ public class ScoreboardImpl implements Scoreboard {
             throw new IOException("Invalid URI", e);
         }
     }
-
+    /**
+     * @return JList<String> list of top 10 playes based on score. 
+     */
     public final JList<String> top10() {
         try {
             JSONArray jsonArray = open();
@@ -76,6 +78,8 @@ public class ScoreboardImpl implements Scoreboard {
      * The `add` method in the `ScoreboardImpl` class is responsible for adding a
      * new entry to the
      * scoreboard with the given name and points.
+     * @param name
+     * @param points
      */
     public void add(final String name, final int points) {
         boolean put = true;
