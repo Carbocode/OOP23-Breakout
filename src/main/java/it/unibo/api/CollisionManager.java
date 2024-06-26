@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Set;
-
+import java.util.Random;
 import it.unibo.controller.ScoreManagerImpl;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
@@ -17,6 +17,7 @@ public class CollisionManager {
     private Set<Ball> balls;
     private Bar paddle;
     private ScoreManager score;
+    private Random rnd;
 
     /**
      * Initializes CollisionManager.
@@ -25,12 +26,12 @@ public class CollisionManager {
      * @param brickWall
      * @param paddle
      */
-    public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle) {
+    public CollisionManager(final Set<Ball> balls, final BrickWall brickWall, final Bar paddle, final ScoreManager score) {
         this.balls = balls;
         this.bricks = brickWall;
         this.paddle = paddle;
-        this.score = new ScoreManagerImpl();
-
+        this.score = score;
+        rnd = new Random();
     }
 
     /**
@@ -61,10 +62,15 @@ public class CollisionManager {
             // then we check with paddle
             if (collides(ball, paddle)) {
                 System.out.println("Paddle hit");
-                collision = true;
+                if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
+                    ball.barCollision(-1);
+                } else {
+                    ball.barCollision(1);
+                }
             }
             if (collision) {
                 ball.onCollision();
+                rnd.nextInt(100);
             }
 
         }

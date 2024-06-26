@@ -50,10 +50,10 @@ public class GameLoop implements ActionListener {
         brickWall.generateLayout();
         paddle = new Bar(new Point((GameInfo.GAME_WIDTH / 2) - 100, GameInfo.GAME_HEIGHT),
                 GameInfo.BAR_DIMENSION, 0, new Color(0));
-        manager = new CollisionManager(balls, brickWall, paddle);
         score = new ScoreManagerImpl();
+        manager = new CollisionManager(balls, brickWall, paddle, score);
         ourView = view;
-        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, 0);
 
         lastUpdateTime = System.nanoTime();
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
@@ -89,7 +89,7 @@ public class GameLoop implements ActionListener {
         }
         paddle.move();
         ourView.repaint();
-        ourView.updateGameState(balls, brickWall.getWall(), paddle, score);
+        ourView.updateGameState(balls, brickWall.getWall(), paddle, score.getScore());
     }
 
     /**
