@@ -113,7 +113,7 @@ public class GameView extends JPanel {
         g.drawString(score + "pts", infoX, scoreY);
         g.setColor(Color.RED);
         g.drawString(PowerUp.BOMB.getCDInSecs() + "S Bomb", infoX, bombY);
-        g.setColor(Color.CYAN);
+        g.setColor(Color.BLUE);
         g.drawString(PowerUp.DUPLI.getCDInSecs() + "S Dup", infoX, dupliY);
         g.setColor(Color.GREEN);
         g.drawString(PowerUp.ENLARGE.getCDInSecs() + "S Enl", infoX, enlargeY);

@@ -104,11 +104,11 @@ public final class Ball extends GameEntityImpl {
     }
 
     /**
-     * We directly tell the ball where to go in some cases
+     * Handles the collision with bar event by changing the Ball's direction.
      * 
      * @param hitDirection the excepted bounce from the bar.
      */
-    public void guidedCollision(final int hitDirection) {
+    public void barCollision(final int hitDirection) {
         sound.playCollisionSound();
         dir = new Direction(hitDirection, -dir.getVerticalVelocity());
     }
