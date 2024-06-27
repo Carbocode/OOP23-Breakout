@@ -15,23 +15,26 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.io.BufferedWriter;
 
-/**  `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
-*/
+/**
+ * `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
+ */
 public class ScoreboardImpl implements Scoreboard {
     private static final Logger LOGGER = Logger.getLogger(ScoreboardImpl.class.getName());
-    private static String SCOREBOARD_FILE = "scoreboard/Scoreboard.json";
+    private static String SCOREBOARDFILE = "scoreboard/Scoreboard.json";
     private static final String POINT_KEY = "points";
 
     /**
-     * This function opens and reads the JSON file and returns the JSON file converted into JSONArray.
+     * This function opens and reads the JSON file and returns the JSON file
+     * converted into JSONArray.
+     * 
      * @return jsonArray
      */
     public JSONArray open() throws IOException {
         try {
             // Get the URL of the JSON file
-            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARD_FILE);
+            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARDFILE);
             if (indFile == null) {
-                throw new IOException("File not found: " + SCOREBOARD_FILE);
+                throw new IOException("File not found: " + SCOREBOARDFILE);
             }
 
             // Read the content of the JSON file and convert it to a string
@@ -46,8 +49,9 @@ public class ScoreboardImpl implements Scoreboard {
         }
         return null;
     }
+
     /**
-     * @return JList<String> list of top 10 playes based on score. 
+     * @return JList<String> list of top 10 playes based on score.
      */
     @Override
     public final JList<String> top10() {
@@ -80,6 +84,7 @@ public class ScoreboardImpl implements Scoreboard {
      * The `add` method in the `ScoreboardImpl` class is responsible for adding a
      * new entry to the
      * scoreboard with the given name and points.
+     * 
      * @param name
      * @param pval
      */
@@ -123,9 +128,9 @@ public class ScoreboardImpl implements Scoreboard {
 
         // Save the output JSONArray to a JSON file
         try {
-            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARD_FILE);
+            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARDFILE);
             if (indFile == null) {
-                throw new IOException("File not found: " + SCOREBOARD_FILE);
+                throw new IOException("File not found: " + SCOREBOARDFILE);
             }
             final Path filePath = Paths.get(indFile.toURI());
             try (BufferedWriter fileWriter = Files.newBufferedWriter(filePath)) {
@@ -136,7 +141,7 @@ public class ScoreboardImpl implements Scoreboard {
         }
     }
 
-    public void setScoreboardFileForTest(String filePath) {
-        SCOREBOARD_FILE = filePath;
+    public void setScoreboardFileForTest(final String filePath) {
+        SCOREBOARDFILE = filePath;
     }
 }

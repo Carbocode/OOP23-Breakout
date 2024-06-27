@@ -39,9 +39,9 @@ import java.util.logging.Logger;
 public class Menu extends JFrame {
     public static final long serialVersionUID = 4328743;
 
-    private transient final SoundManager sound = new SoundManagerImpl();
-    private transient final Measures measure = new Measures();
-    private transient final Logger log = Logger.getLogger(GameView.class.getName());
+    private final transient SoundManager sound = new SoundManagerImpl();
+    private final transient Measures measure = new Measures();
+    private final transient Logger log = Logger.getLogger(GameView.class.getName());
 
     // these are some constant measures
     private static final float FONTSIZE = 55.0f;
@@ -172,6 +172,15 @@ public class Menu extends JFrame {
         final int option = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler uscire?", "Conferma Uscita",
                 JOptionPane.YES_NO_OPTION);
         return option == JOptionPane.YES_OPTION;
+    }
+
+    /**
+     * this method return the measures of the game.
+     * 
+     * @return measure
+     */
+    public Measures getMeasure() {
+        return measure;
     }
 
 }

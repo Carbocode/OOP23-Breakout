@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
 import it.unibo.controller.GameLoop.PowerUp;
@@ -33,14 +34,14 @@ public class GameView extends JPanel {
     private transient Set<Ball> balls;
     private transient Set<Brick> bricks;
     private transient Bar bar;
-    private GameView game;
+    private final GameView game = this;
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
-    private static final int infoX = GameInfo.GAME_WIDTH - 100;
-    private static final int scoreY = GameInfo.GAME_HEIGHT - 25;
-    private static final int bombY = scoreY - 30;
-    private static final int dupliY = bombY - 30;
-    private static final int enlargeY = dupliY - 30;
+    private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
+    private static final int SCORE_Y = GameInfo.GAME_HEIGHT - 25;
+    private static final int BOMB_Y = SCORE_Y - 30;
+    private static final int DUPLI_Y = BOMB_Y - 30;
+    private static final int ENLARGE_Y = DUPLI_Y - 30;
     private static final int FONT_SIZE_SCORE = 23;
     private transient Image backgroundImage;
     private final transient Logger log;
@@ -55,7 +56,6 @@ public class GameView extends JPanel {
         setFocusable(true);
         backgroundPanel();
         log = Logger.getLogger(GameView.class.getName());
-        game = this;
     }
 
     private final class TAdapter extends KeyAdapter {
@@ -114,13 +114,13 @@ public class GameView extends JPanel {
 
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Monospaced", Font.BOLD, FONT_SIZE_SCORE));
-        g.drawString(score + "pts", infoX, scoreY);
+        g.drawString(score + "pts", INFO_X, SCORE_Y);
         g.setColor(Color.RED);
-        g.drawString(PowerUp.BOMB.getCDInSecs() + "S Bomb", infoX, bombY);
+        g.drawString(PowerUp.BOMB.getCDInSecs() + "S Bomb", INFO_X, BOMB_Y);
         g.setColor(Color.CYAN);
-        g.drawString(PowerUp.DUPLI.getCDInSecs() + "S Dup", infoX, dupliY);
+        g.drawString(PowerUp.DUPLI.getCDInSecs() + "S Dup", INFO_X, DUPLI_Y);
         g.setColor(Color.GREEN);
-        g.drawString(PowerUp.ENLARGE.getCDInSecs() + "S Enl", infoX, enlargeY);
+        g.drawString(PowerUp.ENLARGE.getCDInSecs() + "S Enl", INFO_X, ENLARGE_Y);
 
     }
 
@@ -132,6 +132,7 @@ public class GameView extends JPanel {
      * @param bar
      * @param score
      */
+    @SuppressFBWarnings
     public void updateGameState(final Set<Ball> balls, final Set<Brick> bricks, final Bar bar,
             final int score) {
         this.balls = balls;
@@ -157,5 +158,41 @@ public class GameView extends JPanel {
             // close the window
             Runtime.getRuntime().exit(0);
         }
+    }
+
+    /**
+     * this method return the balls of the game.
+     * 
+     * @return balls
+     */
+    public Set<Ball> getBalls() {
+        return balls;
+    }
+
+    /**
+     * this method return the bricks of the game.
+     * 
+     * @return bricks
+     */
+    public Set<Brick> getBricks() {
+        return bricks;
+    }
+
+    /**
+     * this method return the bar of the game.
+     * 
+     * @return bar
+     */
+    public Bar getBar() {
+        return bar;
+    }
+
+    /**
+     * this method return the score of the game.
+     * 
+     * @return score
+     */
+    public int getScore() {
+        return score;
     }
 }

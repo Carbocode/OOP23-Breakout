@@ -23,4 +23,12 @@ public final class BarExtender {
         bar.setWidth(bar.getSize().width + INCREASE_AMOUNT);
     }
 
+    /**
+     * This method returns the increase amount.
+     * 
+     * @return INCREASE_AMOUNT
+     */
+    public static int getIncreaseAmount() {
+        return INCREASE_AMOUNT;
+    }
 }

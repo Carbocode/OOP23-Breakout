@@ -43,10 +43,20 @@ public class Bar extends GameEntityImpl {
         sound.playCollisionSound();
     }
 
+    /**
+     * This function simulate the key press.
+     * 
+     * @return direction
+     */
     public int getDirection() {
         return this.direction;
     }
 
+    /**
+     * This function set the direction of the bar.
+     * 
+     * @param d
+     */
     public void setDirection(final int d) {
         this.direction = d;
     }
