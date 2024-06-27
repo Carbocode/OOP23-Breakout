@@ -19,10 +19,14 @@ public class BarExtenderTest {
     @Test
     public void testExtendBar() {
         // Create a Bar instance
-        Point position = new Point(100, 200);
-        Dimension size = new Dimension(80, 10);
-        int health = 100;
-        Color color = Color.RED;
+        final int n1 = 100;
+        final int n2 = 200;
+        final int n3 = 80;
+        final int n4 = 10;
+        final Point position = new Point(n1, n2);
+        final Dimension size = new Dimension(n3, n4);
+        final int health = n1;
+        final Color color = Color.RED;
         final Bar bar = new Bar(position, size, health, color);
 
         // Get the initial width of the bar

@@ -33,13 +33,14 @@ public class ScoreManagerImplTest {
      */
     @Test
     public void testIncrement() {
-        int points = 100;
-        scoreManager.increment(points);
-        assertEquals(points, scoreManager.getScore());
+        final int points1 = 100;
+        scoreManager.increment(points1);
+        assertEquals(points1, scoreManager.getScore());
 
-        points = 50;
-        scoreManager.increment(points);
-        assertEquals(150, scoreManager.getScore());
+        final int points2 = 50;
+        final int totalPoints = 150;
+        scoreManager.increment(points2);
+        assertEquals(totalPoints, scoreManager.getScore());
     }
 
     /**
@@ -48,11 +49,13 @@ public class ScoreManagerImplTest {
     @Test
     public void testGetScore() {
         assertEquals(0, scoreManager.getScore());
+        final int points1 = 50;
+        scoreManager.increment(points1);
+        assertEquals(points1, scoreManager.getScore());
 
-        scoreManager.increment(100);
-        assertEquals(100, scoreManager.getScore());
-
-        scoreManager.increment(50);
-        assertEquals(150, scoreManager.getScore());
+        final int points2 = 50;
+        final int totalPoints2 = 100;
+        scoreManager.increment(points2);
+        assertEquals(totalPoints2, scoreManager.getScore());
     }
 }
