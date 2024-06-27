@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import it.unibo.model.Bar;
 import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Color;
