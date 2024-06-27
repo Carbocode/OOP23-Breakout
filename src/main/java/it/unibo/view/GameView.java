@@ -166,7 +166,7 @@ public class GameView extends JPanel {
      * @return balls
      */
     public Set<Ball> getBalls() {
-        return balls;
+        return this.balls;
     }
 
     /**
@@ -175,7 +175,7 @@ public class GameView extends JPanel {
      * @return bricks
      */
     public Set<Brick> getBricks() {
-        return bricks;
+        return this.bricks;
     }
 
     /**
@@ -184,7 +184,7 @@ public class GameView extends JPanel {
      * @return bar
      */
     public Bar getBar() {
-        return bar;
+        return this.bar;
     }
 
     /**
@@ -193,6 +193,6 @@ public class GameView extends JPanel {
      * @return score
      */
     public int getScore() {
-        return score;
+        return this.score;
     }
 }
