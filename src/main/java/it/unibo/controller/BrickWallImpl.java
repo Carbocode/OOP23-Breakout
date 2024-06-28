@@ -2,6 +2,9 @@ package it.unibo.controller;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -170,7 +173,7 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public final Set<Brick> getWall() {
-        return wall;
+        return new LinkedHashSet<Brick>(this.wall);
     }
 
     @Override
