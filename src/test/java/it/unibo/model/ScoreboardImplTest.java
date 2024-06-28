@@ -108,7 +108,6 @@ class ScoreboardImplTest {
 
         // Initialize the scoreboard implementation
         scoreboard = new ScoreboardImpl();
-        
         // Add a new entry with a high score
         scoreboard.add("NewPlayer", TEST_VALUE15);
 
