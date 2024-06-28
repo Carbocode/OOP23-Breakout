@@ -22,7 +22,10 @@ import java.util.logging.Logger;
 public class CollisionManager {
     private static final int BOMB_SIZE_RATIO = 5;
     private static int maxBalls = 10;
-    private static final int POINTS_INCREASE = 200;
+    /**
+     * points increase for a brick hit.
+     */
+    public static final int POINTS_INCREASE = 200;
     private final Random rnd;
     private final SoundManager sound;
     private final Logger log;
