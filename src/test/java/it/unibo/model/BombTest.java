@@ -31,7 +31,6 @@ class BombTest {
     void setUp() {
         position = new Point(POSITION_X, POSITION_Y);
         size = new Dimension(SIZE_WIDTH, SIZE_HEIGHT);
-        bomb = new Bomb(position, size);
     }
 
     /**
@@ -39,6 +38,7 @@ class BombTest {
      */
     @Test
     void testConstructor() {
+        bomb = new Bomb(position, size);
         assertNotNull(bomb);
         assertEquals(position, bomb.getPosition());
         assertEquals(size, bomb.getSize());
@@ -49,7 +49,8 @@ class BombTest {
      */
     @Test
     public void testOnCollision() {
-        // Test che il metodo non cambi lo stato dell'oggetto
+        bomb = new Bomb(position, size);
+
         Point initialPosition = bomb.getPosition();
         Dimension initialSize = bomb.getSize();
 
