@@ -7,6 +7,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
@@ -38,7 +39,8 @@ public class ScoreboardImpl implements Scoreboard {
             }
 
             // Read the content of the JSON file and convert it to a string
-            final String jsonContent = new String(Files.readAllBytes(Paths.get(indFile.toURI())));
+            final byte[] jsonBytes = Files.readAllBytes(Paths.get(indFile.toURI()));
+            final String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
 
             // Convert the JSON string into a JSONArray
             return new JSONArray(jsonContent);
@@ -140,11 +142,12 @@ public class ScoreboardImpl implements Scoreboard {
             LOGGER.log(Level.SEVERE, "Exception occurred", e);
         }
     }
+
     /**
      * 
      * @param filePath
      */
-    public void setScoreboardFileForTest(final String filePath) {
+    public static void setScoreboardFileForTest(final String filePath) {
         scoreboardFile = filePath;
     }
 }

@@ -51,8 +51,6 @@ public class BrickWallImpl implements BrickWall {
         IntStream
                 .range(0, numBricksColumn)
                 .forEach(i -> addBricksToRow(i, brickWidth, brickHeight, numBricksRow));
-
-        this.toString();
     }
 
     private int getBrickWidth(final int gcd) {
@@ -64,16 +62,17 @@ public class BrickWallImpl implements BrickWall {
     }
 
     private int getNumBricksRow(final int brickWidth) {
-        return (int) Math.floor(this.width / brickWidth);
+        return (int) Math.floor((double) this.width / brickWidth);
     }
 
     private int getNumBricksColumn(final int brickHeight) {
-        return (int) Math.floor(this.height / brickHeight);
+        return (int) Math.floor((double) this.height / brickHeight);
     }
 
     private int getSideOffset(final int brickWidth, final int numBricksRow) {
-        return (int) Math.floor((this.width - (brickWidth * numBricksRow)) / 2);
+        return (int) Math.floor(((double) this.width - (brickWidth * numBricksRow)) / 2);
     }
+
 
     private void addBricksToRow(
             final int rowIndex,
@@ -102,7 +101,7 @@ public class BrickWallImpl implements BrickWall {
      * @param size     the size of the brick
      */
     public void addImmortalBrick(final Point position, final Dimension size) {
-        if (sideOffset > 0) {
+        if (sideOffset > 0 && wall != null) {
             wall.add(BrickFactory.createImmortalBrick(position, size));
         }
     }
@@ -119,11 +118,14 @@ public class BrickWallImpl implements BrickWall {
      * @param brickHeight the height of the brick
      */
     public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
-        wall.add(BrickFactory.createRandomBrick(
+        if (wall != null) {
+            wall.add(BrickFactory.createRandomBrick(
                 new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),
                 new Dimension(brickWidth, brickHeight),
                 BrickColors.getColor(rowIndex)));
+        }
     }
+
 
     private static int getGcd(final int x, final int y) {
         int a = x;
@@ -178,6 +180,9 @@ public class BrickWallImpl implements BrickWall {
 
     @Override
     public final String toString() {
-        return wall.toString();
+        if (wall == null) {
+            return "wall is not initialized"; // Handle null case gracefully
+        }
+        return wall.toString(); // Return the string representation of wall
     }
 }
