@@ -129,6 +129,7 @@ public abstract class GameEntityImpl implements GameEntity {
     public void setPosition(final Point position) {
         this.position = new Point(position);
     }
+
     /**
      * Changes its size.
      */
@@ -136,7 +137,6 @@ public abstract class GameEntityImpl implements GameEntity {
     public void setSize(final Dimension size) {
         this.size = new Dimension(size);
     }
-
 
     /**
      * Sets the health of the game entity.
