@@ -15,14 +15,14 @@ import it.unibo.api.GameInfo;
 /**
  * JUnit test class for the ScoreboardView class.
  */
-public class ScoreboardViewTest {
+class ScoreboardViewTest {
 
     private ScoreboardView scoreboardView;
 
     /**
      * Set up the test environment before each test case.
      */
-    public ScoreboardViewTest() {
+    ScoreboardViewTest() {
         scoreboardView = new ScoreboardView(new Menu());
     }
 
@@ -30,7 +30,7 @@ public class ScoreboardViewTest {
      * Test the constructor of the ScoreboardView class.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(scoreboardView);
         assertEquals("SCOREBOARD", scoreboardView.getTitle());
         assertEquals(GameInfo.GAME_WIDTH, scoreboardView.getWidth());
@@ -42,7 +42,7 @@ public class ScoreboardViewTest {
      * Test the components of the ScoreboardView class.
      */
     @Test
-    public void testComponents() {
+    void testComponents() {
         final Component centerComponent = scoreboardView.getContentPane().getComponent(0);
         assertNotNull(centerComponent);
 

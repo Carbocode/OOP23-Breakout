@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * JUnit tests for the {@link Ball} class.
  */
-public class BallTest {
+class BallTest {
 
     private static final int DEFAULT_HEALTH = 1;
     private static final int BALL_WIDTH = 5;
@@ -32,7 +32,7 @@ public class BallTest {
      * Sets up a new {@link Ball} object before each test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         ball = new Ball();
     }
 
@@ -41,7 +41,7 @@ public class BallTest {
      * Verifies that the ball is initialized with correct attributes.
      */
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         Point startPoint = new Point(START_POSITION_X, START_POSITION_Y);
         assertEquals(startPoint, ball.getPosition(), "Initial position should match start point");
         assertEquals(BALL_WIDTH, ball.getSize().width, "Ball width should be " + BALL_WIDTH);
@@ -51,10 +51,11 @@ public class BallTest {
 
     /**
      * Tests the {@link Ball#update()} method for movement and collision handling.
-     * Verifies the behavior when the ball moves out of bounds or falls out of the game area.
+     * Verifies the behavior when the ball moves out of bounds or falls out of the
+     * game area.
      */
     @Test
-    public void testUpdateOutOfBounds() {
+    void testUpdateOutOfBounds() {
         // Move ball out of bounds to the right
         ball.setPosition(new Point(OUT_OF_BOUNDS_RIGHT, 0));
         ball.update();
@@ -62,7 +63,7 @@ public class BallTest {
                 "Horizontal velocity should be reversed");
 
         // Move ball out of bounds to the top
-        ball.setPosition(new Point(0, OUT_OF_BOUNDS_TOP)); 
+        ball.setPosition(new Point(0, OUT_OF_BOUNDS_TOP));
         ball.onCollision();
         var oldVert = ball.getDirection().getVerticalVelocity();
         ball.update();
@@ -80,7 +81,7 @@ public class BallTest {
      * Verifies that the ball's direction changes after collision.
      */
     @Test
-    public void testOnCollision() {
+    void testOnCollision() {
         // Test collision handling by changing direction
         Point originalPosition = ball.getPosition();
         ball.onCollision();
@@ -89,11 +90,13 @@ public class BallTest {
     }
 
     /**
-     * Tests the {@link Ball#guidedCollision(int)} method for guided collision behavior.
-     * Verifies that the ball's direction changes as expected based on the input direction.
+     * Tests the {@link Ball#guidedCollision(int)} method for guided collision
+     * behavior.
+     * Verifies that the ball's direction changes as expected based on the input
+     * direction.
      */
     @Test
-    public void testGuidedCollision() {
+    void testGuidedCollision() {
         // Test guided collision behavior
         ball.guidedCollision(GUIDED_COLLISION_DIRECTION);
         assertEquals(GUIDED_COLLISION_DIRECTION, ball.getDirection().getHorizontalVelocity(),

@@ -13,7 +13,7 @@ import org.junit.Test;
 /**
  * JUnit test class for the SoundManagerImpl class.
  */
-public class SoundManagerImplTest {
+class SoundManagerImplTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -26,7 +26,7 @@ public class SoundManagerImplTest {
      * Set up the test environment before each test case.
      */
     @Before
-    public void setUp() {
+    void setUp() {
         System.setOut(new PrintStream(outContent, true, StandardCharsets.UTF_8));
         soundManager = new SoundManagerImpl();
     }
@@ -35,7 +35,7 @@ public class SoundManagerImplTest {
      * Restore the original output stream after each test case.
      */
     @After
-    public void restoreStreams() {
+    void restoreStreams() {
         System.setOut(originalOut);
     }
 
@@ -43,7 +43,7 @@ public class SoundManagerImplTest {
      * Test the playBackgroundSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayBackgroundSound() {
+    void testPlayBackgroundSound() {
         soundManager.playBackgroundSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -54,7 +54,7 @@ public class SoundManagerImplTest {
      * Test the playGameOverSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayGameOverSound() {
+    void testPlayGameOverSound() {
         soundManager.playGameOverSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -65,7 +65,7 @@ public class SoundManagerImplTest {
      * Test the playCollisionSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayCollisionSound() {
+    void testPlayCollisionSound() {
         soundManager.playCollisionSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -76,7 +76,7 @@ public class SoundManagerImplTest {
      * Test the playGameSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayGameSound() {
+    void testPlayGameSound() {
         soundManager.playGameSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -87,7 +87,7 @@ public class SoundManagerImplTest {
      * Test the playButtonSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayButtonSound() {
+    void testPlayButtonSound() {
         soundManager.playButtonSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -98,7 +98,7 @@ public class SoundManagerImplTest {
      * Test the playMenuSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayMenuSound() {
+    void testPlayMenuSound() {
         soundManager.playMenuSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -109,7 +109,7 @@ public class SoundManagerImplTest {
      * Test the playVictorySound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayVictorySound() {
+    void testPlayVictorySound() {
         soundManager.playVictorySound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -120,7 +120,7 @@ public class SoundManagerImplTest {
      * Test the playBombSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayBombSound() {
+    void testPlayBombSound() {
         soundManager.playBombSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
@@ -131,7 +131,7 @@ public class SoundManagerImplTest {
      * Test the playBonusSound method of the SoundManagerImpl class.
      */
     @Test
-    public void testPlayBonusSound() {
+    void testPlayBonusSound() {
         soundManager.playBonusSound();
         final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)

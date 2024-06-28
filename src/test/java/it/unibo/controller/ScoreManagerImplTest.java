@@ -7,14 +7,14 @@ import org.junit.Test;
 /**
  * JUnit test class for the ScoreManagerImpl class.
  */
-public class ScoreManagerImplTest {
+ class ScoreManagerImplTest {
 
     private ScoreManagerImpl scoreManager;
 
     /**
      * Set up the test environment before each test case.
      */
-    public ScoreManagerImplTest() {
+     ScoreManagerImplTest() {
         scoreManager = new ScoreManagerImpl();
     }
 
@@ -22,7 +22,7 @@ public class ScoreManagerImplTest {
      * Test the constructor of the ScoreManagerImpl class.
      */
     @Test
-    public void testConstructor() {
+     void testConstructor() {
         assertEquals(0, scoreManager.getScore());
     }
 
@@ -30,7 +30,7 @@ public class ScoreManagerImplTest {
      * Test the increment method of the ScoreManagerImpl class.
      */
     @Test
-    public void testIncrement() {
+     void testIncrement() {
         final int points1 = 100;
         scoreManager.increment(points1);
         assertEquals(points1, scoreManager.getScore());
@@ -45,7 +45,7 @@ public class ScoreManagerImplTest {
      * Test the getScore method of the ScoreManagerImpl class.
      */
     @Test
-    public void testGetScore() {
+     void testGetScore() {
         assertEquals(0, scoreManager.getScore());
         final int points1 = 50;
         scoreManager.increment(points1);

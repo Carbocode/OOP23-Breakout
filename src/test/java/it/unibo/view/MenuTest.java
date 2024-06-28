@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * JUnit test class for the Menu class.
  */
-public class MenuTest {
+class MenuTest {
 
     private Menu menu;
     private static final float FONTTESTSIZE = 55.0f;
@@ -23,7 +23,7 @@ public class MenuTest {
     /**
      * MenuTest constructor.
      */
-    public MenuTest() {
+    MenuTest() {
         menu = new Menu();
     }
 
@@ -31,7 +31,7 @@ public class MenuTest {
      * Test the constructor of the Menu class.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(menu);
         assertEquals("Breakout", menu.getTitle());
         assertEquals(new Dimension(menu.getMeasure().getGameAreaWidth(), menu.getMeasure().getGameAreaHeight()),
@@ -42,7 +42,7 @@ public class MenuTest {
      * Test the components of the Menu class.
      */
     @Test
-    public void testComponents() {
+    void testComponents() {
         final JPanel mainPanel = (JPanel) menu.getContentPane().getComponent(0);
         assertNotNull(mainPanel);
 
