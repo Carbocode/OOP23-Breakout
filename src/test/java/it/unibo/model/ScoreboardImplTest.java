@@ -28,6 +28,8 @@ class ScoreboardImplTest {
     private static final int TEST_VALUE11 = 11;
     private static final int TEST_VALUE12 = 12;
     private static final int TEST_VALUE15 = 15;
+    private static final String NAME = "name";
+    private static final String POINTS = "points";
 
     /**
      * before each test set a temporary file path only used for testing purpouse
@@ -42,16 +44,16 @@ class ScoreboardImplTest {
         ScoreboardImpl.setScoreboardFileForTest(TEST_SCOREBOARD_FILE);
 
         // Create a sample JSON array to be used as the initial scoreboard
-        JSONArray initialData = new JSONArray();
+        final JSONArray initialData = new JSONArray();
         for (int i = 0; i < 10; i++) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", "Player" + i);
-            jsonObject.put("points", 10 - i);
+            final JSONObject jsonObject = new JSONObject();
+            jsonObject.put(NAME, "Player" + i);
+            jsonObject.put(POINTS, 10 - i);
             initialData.put(jsonObject);
         }
 
         // Write the sample data to the test file
-        Path path = Paths.get(getClass().getClassLoader().getResource(TEST_SCOREBOARD_FILE).toURI());
+        final Path path = Paths.get(getClass().getClassLoader().getResource(TEST_SCOREBOARD_FILE).toURI());
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(initialData.toString(2));
         }
@@ -68,13 +70,13 @@ class ScoreboardImplTest {
         // Initialize the scoreboard implementation
         scoreboard = new ScoreboardImpl();
 
-        JSONArray jsonArray = new JSONArray(scoreboard.open());
+        final JSONArray jsonArray = new JSONArray(scoreboard.open());
         assertNotNull(jsonArray);
         assertEquals(10, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            assertEquals("Player" + i, jsonObject.getString("name"));
-            assertEquals(10 - i, jsonObject.getInt("points"));
+            final JSONObject jsonObject = jsonArray.getJSONObject(i);
+            assertEquals("Player" + i, jsonObject.getString(NAME));
+            assertEquals(10 - i, jsonObject.getInt(POINTS));
         }
     }
 
@@ -87,12 +89,12 @@ class ScoreboardImplTest {
         // Initialize the scoreboard implementation
         scoreboard = new ScoreboardImpl();
 
-        JList<String> top10List = scoreboard.top10();
+        final JList<String> top10List = scoreboard.top10();
 
         assertNotNull(top10List);
         assertEquals(10, top10List.getModel().getSize());
         for (int i = 0; i < top10List.getModel().getSize(); i++) {
-            String entry = top10List.getModel().getElementAt(i);
+            final String entry = top10List.getModel().getElementAt(i);
             assertTrue(entry.contains("Player" + i));
             assertTrue(entry.contains("Points: " + (10 - i)));
         }
@@ -115,9 +117,9 @@ class ScoreboardImplTest {
         JSONArray jsonArray = new JSONArray(scoreboard.open());
         assertNotNull(jsonArray);
         assertEquals(TEST_VALUE11, jsonArray.length());
-        JSONObject newEntry = jsonArray.getJSONObject(0);
-        assertEquals("NewPlayer", newEntry.getString("name"));
-        assertEquals(TEST_VALUE15, newEntry.getInt("points"));
+        final JSONObject newEntry = jsonArray.getJSONObject(0);
+        assertEquals("NewPlayer", newEntry.getString(NAME));
+        assertEquals(TEST_VALUE15, newEntry.getInt(POINTS));
 
         // Add a new entry with a low score
         scoreboard.add("LowPlayer", 0);
@@ -126,8 +128,8 @@ class ScoreboardImplTest {
         jsonArray = scoreboard.open();
         assertNotNull(jsonArray);
         assertEquals(TEST_VALUE12, jsonArray.length());
-        JSONObject lowEntry = jsonArray.getJSONObject(TEST_VALUE12 - 1);
-        assertEquals("LowPlayer", lowEntry.getString("name"));
-        assertEquals(0, lowEntry.getInt("points"));
+        final JSONObject lowEntry = jsonArray.getJSONObject(TEST_VALUE12 - 1);
+        assertEquals("LowPlayer", lowEntry.getString(NAME));
+        assertEquals(0, lowEntry.getInt(POINTS));
     }
 }

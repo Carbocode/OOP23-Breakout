@@ -37,10 +37,10 @@ class BarTest {
      */
     @BeforeEach
     final void setUp() {
-        Point position = new Point(TEST_X_POSITION, TEST_Y_POSITION);
-        Dimension size = new Dimension(TEST_WIDTH, TEST_HEIGHT);
-        int health = 100;
-        Color color = Color.RED;
+        final Point position = new Point(TEST_X_POSITION, TEST_Y_POSITION);
+        final Dimension size = new Dimension(TEST_WIDTH, TEST_HEIGHT);
+        final int health = 100;
+        final Color color = Color.RED;
         bar = new Bar(position, size, health, color);
     }
 
@@ -51,7 +51,8 @@ class BarTest {
     void testMoveLeft() {
         simulateKeyPress(KeyEvent.VK_LEFT);
         bar.move();
-        Point expectedPosition = new Point((int) (TEST_MOVE_X - TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH), TEST_MOVE_Y);
+        final Point expectedPosition = new Point((int) (TEST_MOVE_X - TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH),
+                TEST_MOVE_Y);
         assertEquals(expectedPosition, bar.getPosition());
     }
 
@@ -62,7 +63,8 @@ class BarTest {
     void testMoveRight() {
         simulateKeyPress(KeyEvent.VK_RIGHT);
         bar.move();
-        Point expectedPosition = new Point((int) (TEST_MOVE_X + TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH), TEST_MOVE_Y);
+        final Point expectedPosition = new Point((int) (TEST_MOVE_X + TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH),
+                TEST_MOVE_Y);
         assertEquals(expectedPosition, bar.getPosition());
     }
 
@@ -126,14 +128,16 @@ class BarTest {
 
     // Metodo ausiliario per simulare la pressione di un tasto
     private void simulateKeyPress(final int keyCode) {
-        KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, keyCode,
+        final KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,
+                keyCode,
                 'Z');
         bar.buttonPressed(keyEvent);
     }
 
     // Metodo ausiliario per simulare il rilascio di un tasto
     private void simulateKeyRelease(final int keyCode) {
-        KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, keyCode,
+        final KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0,
+                keyCode,
                 'Z');
         bar.buttonReleased(keyEvent);
     }

@@ -48,11 +48,11 @@ class BombTest {
      * test on collision (actually do nothing).
      */
     @Test
-    public void testOnCollision() {
+    void testOnCollision() {
         bomb = new Bomb(position, size);
 
-        Point initialPosition = bomb.getPosition();
-        Dimension initialSize = bomb.getSize();
+        final Point initialPosition = bomb.getPosition();
+        final Dimension initialSize = bomb.getSize();
 
         bomb.onCollision();
 
