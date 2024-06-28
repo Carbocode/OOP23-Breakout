@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-
 /**
  * Class that handles the main GameLoop.
  */
@@ -115,14 +114,13 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
 
     private List<View> ourViews;
 
-
     /**
      * Initializer.
      * 
      */
     public GameLoop() {
         final Timer timer;
-        double brickHeightD = GameInfo.GAME_HEIGHT * BRICK_PERCENT;
+        final double brickHeightD = GameInfo.GAME_HEIGHT * BRICK_PERCENT;
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.round(brickHeightD));
 
         balls = new HashSet<>();
@@ -138,6 +136,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         timer = new Timer(1000 / GameInfo.REFRESH_RATE, this);
         timer.start();
     }
+
     /**
      * 
      * @param gw
@@ -145,6 +144,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public void addView(final View gw) {
         ourViews.add(gw);
     }
+
     @Override
     public final void actionPerformed(final ActionEvent e) {
         final long currentTime = System.nanoTime();
@@ -173,7 +173,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
             // System.out.println(b.toString());
         }
         paddle.move();
-        for (View w : ourViews) {
+        for (final View w : ourViews) {
             w.updateGameState(getScore());
         }
     }
@@ -186,6 +186,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public final void multiplyBall(final Ball old) {
         balls.add(new Ball(old));
     }
+
     /**
      * this method returns the balls of the game.
      * 
@@ -215,6 +216,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public Bar getBar() {
         return new Bar(paddle.getPosition(), paddle.getSize(), paddle.getHealth(), paddle.getColor());
     }
+
     /**
      * 
      * @return ScoreManager
@@ -223,6 +225,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public int getScore() {
         return this.score.getScore();
     }
+
     /**
      * 
      * @param amount
@@ -231,20 +234,24 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public void increaseScore(final int amount) {
         this.score.increment(amount);
     }
+
     /**
      * 
      */
+    @Override
     public final void extendPaddle() {
         BarExtender.extendBar(paddle);
     }
+
     /**
-     * @param newBalls 
+     * @param newBalls
      * 
      */
     @Override
     public void addBalls(final List<Ball> newBalls) {
         balls.addAll(newBalls);
     }
+
     /**
      * 
      * @param e
@@ -262,6 +269,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public void handleKeyPress(final KeyEvent e) {
         paddle.buttonPressed(e);
     }
+
     /**
      * 
      * @return Access only game loop.
@@ -274,13 +282,16 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
 
     private class GameLoopAccessorImpl implements GameLoopAccessor {
         private final GameLoop gameLoop;
+
         GameLoopAccessorImpl(final GameLoop gameLoop) {
             this.gameLoop = gameLoop;
         }
+
         @Override
         public void addBalls(final List<Ball> newBalls) {
             balls.addAll(newBalls);
         }
+
         @Override
         public Set<Ball> getBalls() {
             return gameLoop.getBalls(); // Accessing original method from GameLoop
@@ -310,16 +321,20 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         public void handleKeyPress(final KeyEvent e) {
             gameLoop.handleKeyPress(e); // Accessing original method from GameLoop
         }
-         /**
+
+        /**
          * 
          * @param amount
          */
+        @Override
         public final void increaseScore(final int amount) {
             gameLoop.increaseScore(amount);
         }
+
         /**
          * 
          */
+        @Override
         public final void extendPaddle() {
             gameLoop.extendPaddle();
         }

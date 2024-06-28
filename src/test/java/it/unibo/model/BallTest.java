@@ -107,7 +107,7 @@ class BallTest {
      */
     @Test
     void testDuplication() {
-        Ball b2 = new Ball(ball);
+        final Ball b2 = new Ball(ball);
         assertEquals(-b2.getDirection().getHorizontalVelocity(), ball.getDirection().getHorizontalVelocity());
     }
 }
