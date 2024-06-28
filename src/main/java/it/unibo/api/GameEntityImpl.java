@@ -62,8 +62,8 @@ public abstract class GameEntityImpl implements GameEntity {
      * @param color    the color of the entity
      */
     public GameEntityImpl(final Point position, final Dimension size, final int health, final Color color) {
-        this.position = position;
-        this.size = size;
+        this.position = new Point(position);
+        this.size = new Dimension(size);
         this.health = health;
         this.color = color;
     }
@@ -123,24 +123,20 @@ public abstract class GameEntityImpl implements GameEntity {
     }
 
     /**
-     * Sets the position of the game entity.
-     *
-     * @param position the new position as a Point
+     * Sets a new position.
      */
     @Override
     public void setPosition(final Point position) {
-        this.position = position;
+        this.position = new Point(position);
     }
-
     /**
-     * Sets the size of the game entity.
-     *
-     * @param size the new size as a Dimension
+     * Changes its size.
      */
     @Override
     public void setSize(final Dimension size) {
-        this.size = size;
+        this.size = new Dimension(size);
     }
+
 
     /**
      * Sets the health of the game entity.
@@ -169,7 +165,7 @@ public abstract class GameEntityImpl implements GameEntity {
      */
     @Override
     public Point getPosition() {
-        return position;
+        return new Point(position);
     }
 
     /**
@@ -179,7 +175,7 @@ public abstract class GameEntityImpl implements GameEntity {
      */
     @Override
     public Dimension getSize() {
-        return size;
+        return new Dimension(size);
     }
 
     /**
