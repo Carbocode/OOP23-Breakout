@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * test for scoreboard class.
  */
-public class ScoreboardImplTest {
+class ScoreboardImplTest {
 
     private static final String TEST_SCOREBOARD_FILE = "scoreboard/ScoreboardTest.json";
     private ScoreboardImpl scoreboard;
@@ -30,13 +30,14 @@ public class ScoreboardImplTest {
     private static final int TEST_VALUE15 = 15;
 
     /**
-     * before each test set a temporary file path only used for testing purpouse 
+     * before each test set a temporary file path only used for testing purpouse
      * and create json file content.
+     * 
      * @throws IOException
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
     @BeforeEach
-    public void setUp() throws IOException, URISyntaxException {
+    void setUp() throws IOException, URISyntaxException {
         // Set the test file path for the scoreboard
         ScoreboardImpl.setScoreboardFileForTest(TEST_SCOREBOARD_FILE);
 
@@ -61,10 +62,11 @@ public class ScoreboardImplTest {
 
     /**
      * test json scoreboard custom opening.
+     * 
      * @throws IOException
      */
     @Test
-    public void testOpen() throws IOException {
+    void testOpen() throws IOException {
         JSONArray jsonArray = scoreboard.open();
         assertNotNull(jsonArray);
         assertEquals(10, jsonArray.length());
@@ -79,7 +81,7 @@ public class ScoreboardImplTest {
      * test top 10 scoreboard method.
      */
     @Test
-    public void testTop10() {
+    void testTop10() {
         JList<String> top10List = scoreboard.top10();
         assertNotNull(top10List);
         assertEquals(10, top10List.getModel().getSize());
@@ -92,10 +94,11 @@ public class ScoreboardImplTest {
 
     /**
      * test add method.
+     * 
      * @throws IOException
      */
     @Test
-    public void testAdd() throws IOException {
+    void testAdd() throws IOException {
         // Add a new entry with a high score
         scoreboard.add("NewPlayer", TEST_VALUE15);
 

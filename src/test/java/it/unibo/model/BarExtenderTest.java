@@ -11,13 +11,13 @@ import java.awt.Color;
 /**
  * JUnit test class for the BarExtender class.
  */
-public class BarExtenderTest {
+ class BarExtenderTest {
 
     /**
      * Test the extendBar method of the BarExtender class.
      */
     @Test
-    public void testExtendBar() {
+     void testExtendBar() {
         // Create a Bar instance
         final int n1 = 100;
         final int n2 = 200;

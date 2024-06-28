@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 /**
  * Class able to test Bar features.
  */
-public class BarTest {
+class BarTest {
 
     private Bar bar;
 
@@ -36,7 +36,7 @@ public class BarTest {
      * setup for each task.
      */
     @BeforeEach
-    public final void setUp() {
+    final void setUp() {
         Point position = new Point(TEST_X_POSITION, TEST_Y_POSITION);
         Dimension size = new Dimension(TEST_WIDTH, TEST_HEIGHT);
         int health = 100;
@@ -48,7 +48,7 @@ public class BarTest {
      * test left movement.
      */
     @Test
-    public void testMoveLeft() {
+    void testMoveLeft() {
         simulateKeyPress(KeyEvent.VK_LEFT);
         bar.move();
         Point expectedPosition = new Point((int) (TEST_MOVE_X - TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH), TEST_MOVE_Y);
@@ -59,7 +59,7 @@ public class BarTest {
      * test right movement.
      */
     @Test
-    public void testMoveRight() {
+    void testMoveRight() {
         simulateKeyPress(KeyEvent.VK_RIGHT);
         bar.move();
         Point expectedPosition = new Point((int) (TEST_MOVE_X + TEST_MOVE_AMOUNT * GameInfo.GAME_WIDTH), TEST_MOVE_Y);
@@ -70,7 +70,7 @@ public class BarTest {
      * test move out of game bounds.
      */
     @Test
-    public void testMoveOutOfBounds() {
+    void testMoveOutOfBounds() {
         bar.setPosition(new Point(TEST_OUT_OF_BOUND_X, TEST_OUT_OF_BOUND_Y));
         simulateKeyPress(KeyEvent.VK_LEFT);
         bar.move();
@@ -81,7 +81,7 @@ public class BarTest {
      * test width setter.
      */
     @Test
-    public void testSetWidth() {
+    void testSetWidth() {
         bar.setWidth(100);
         assertEquals(new Dimension(100, 10), bar.getSize());
     }
@@ -90,7 +90,7 @@ public class BarTest {
      * test butto press left.
      */
     @Test
-    public void testButtonPressedLeft() {
+    void testButtonPressedLeft() {
         simulateKeyPress(KeyEvent.VK_LEFT);
         assertEquals(-1, bar.getDirection());
     }
@@ -99,7 +99,7 @@ public class BarTest {
      * test butto press right.
      */
     @Test
-    public void testButtonPressedRight() {
+    void testButtonPressedRight() {
         simulateKeyPress(KeyEvent.VK_RIGHT);
         assertEquals(1, bar.getDirection());
     }
@@ -108,7 +108,7 @@ public class BarTest {
      * test button release left.
      */
     @Test
-    public void testButtonReleasedLeft() {
+    void testButtonReleasedLeft() {
         bar.setDirection(-1);
         simulateKeyRelease(KeyEvent.VK_LEFT);
         assertEquals(0, bar.getDirection());
@@ -118,7 +118,7 @@ public class BarTest {
      * test butto released right.
      */
     @Test
-    public void testButtonReleasedRight() {
+    void testButtonReleasedRight() {
         bar.setDirection(1);
         simulateKeyRelease(KeyEvent.VK_RIGHT);
         assertEquals(0, bar.getDirection());
@@ -133,7 +133,8 @@ public class BarTest {
 
     // Metodo ausiliario per simulare il rilascio di un tasto
     private void simulateKeyRelease(final int keyCode) {
-        KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, keyCode, 'Z');
+        KeyEvent keyEvent = new KeyEvent(new JPanel(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, keyCode,
+                'Z');
         bar.buttonReleased(keyEvent);
     }
 }
