@@ -122,8 +122,9 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
      */
     public GameLoop() {
         final Timer timer;
-        int brickHeight = (int) Math.floor(GameInfo.GAME_HEIGHT * BRICK_PERCENT);
-        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, brickHeight);
+        double brickHeightD = GameInfo.GAME_HEIGHT * BRICK_PERCENT;
+        brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) Math.round(brickHeightD));
+
         balls = new HashSet<>();
         balls.add(new Ball());
         brickWall.generateLayout();
