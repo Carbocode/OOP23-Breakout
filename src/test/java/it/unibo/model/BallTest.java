@@ -42,7 +42,7 @@ class BallTest {
      */
     @Test
     void testDefaultConstructor() {
-        Point startPoint = new Point(START_POSITION_X, START_POSITION_Y);
+        final Point startPoint = new Point(START_POSITION_X, START_POSITION_Y);
         assertEquals(startPoint, ball.getPosition(), "Initial position should match start point");
         assertEquals(BALL_WIDTH, ball.getSize().width, "Ball width should be " + BALL_WIDTH);
         assertEquals(BALL_HEIGHT, ball.getSize().height, "Ball height should be " + BALL_HEIGHT);
@@ -65,7 +65,7 @@ class BallTest {
         // Move ball out of bounds to the top
         ball.setPosition(new Point(0, OUT_OF_BOUNDS_TOP));
         ball.onCollision();
-        var oldVert = ball.getDirection().getVerticalVelocity();
+        final var oldVert = ball.getDirection().getVerticalVelocity();
         ball.update();
         assertEquals(oldVert, -ball.getDirection().getVerticalVelocity(),
                 "Vertical velocity should be reversed");
@@ -83,7 +83,7 @@ class BallTest {
     @Test
     void testOnCollision() {
         // Test collision handling by changing direction
-        Point originalPosition = ball.getPosition();
+        final Point originalPosition = ball.getPosition();
         ball.onCollision();
         ball.update();
         assertNotEquals(originalPosition, ball.getPosition(), "Position should change after collision");
