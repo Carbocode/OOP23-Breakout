@@ -2,9 +2,6 @@ package it.unibo.controller;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -73,7 +70,6 @@ public class BrickWallImpl implements BrickWall {
         return (int) Math.floor(((double) this.width - (brickWidth * numBricksRow)) / 2);
     }
 
-
     private void addBricksToRow(
             final int rowIndex,
             final int brickWidth,
@@ -120,12 +116,11 @@ public class BrickWallImpl implements BrickWall {
     public void addRandomBrick(final int rowIndex, final int colIndex, final int brickWidth, final int brickHeight) {
         if (wall != null) {
             wall.add(BrickFactory.createRandomBrick(
-                new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),
-                new Dimension(brickWidth, brickHeight),
-                BrickColors.getColor(rowIndex)));
+                    new Point(colIndex * brickWidth + this.sideOffset, rowIndex * brickHeight),
+                    new Dimension(brickWidth, brickHeight),
+                    BrickColors.getColor(rowIndex)));
         }
     }
-
 
     private static int getGcd(final int x, final int y) {
         int a = x;
