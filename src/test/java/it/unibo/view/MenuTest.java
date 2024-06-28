@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -22,10 +21,9 @@ public class MenuTest {
     private static final float FONTTESTSIZE = 55.0f;
 
     /**
-     * Set up the test environment before each test case.
+     * MenuTest constructor.
      */
-    @Before
-    public void setUp() {
+    public MenuTest() {
         menu = new Menu();
     }
 

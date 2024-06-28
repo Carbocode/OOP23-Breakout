@@ -8,7 +8,6 @@ import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import it.unibo.api.GameInfo;
@@ -23,8 +22,7 @@ public class ScoreboardViewTest {
     /**
      * Set up the test environment before each test case.
      */
-    @Before
-    public void setUp() {
+    public ScoreboardViewTest() {
         scoreboardView = new ScoreboardView(new Menu());
     }
 

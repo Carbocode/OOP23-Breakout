@@ -64,8 +64,8 @@ class BrickWallImplTest {
         final int gcd = 20;
         final int brickWidth = gcd * BrickWallImpl.SCALAR;
         final int brickHeight = (int) (brickWidth / Brick.ASPECT_RATIO);
-        final int numBricksRow = (int) Math.floor((double) WIDTH / brickWidth);
-        final int numBricksColumn = (int) Math.floor((double) HEIGHT / brickHeight);
+        final int numBricksRow = WIDTH / brickWidth;
+        final int numBricksColumn = HEIGHT / brickHeight;
 
         // Adding the immortal bricks at the sides
         final int sideBricks = 2 * numBricksColumn;

@@ -2,7 +2,6 @@ package it.unibo.controller;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -15,8 +14,7 @@ public class ScoreManagerImplTest {
     /**
      * Set up the test environment before each test case.
      */
-    @Before
-    public void setUp() {
+    public ScoreManagerImplTest() {
         scoreManager = new ScoreManagerImpl();
     }
 
