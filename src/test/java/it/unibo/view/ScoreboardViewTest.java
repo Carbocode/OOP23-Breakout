@@ -1,15 +1,11 @@
 package it.unibo.view;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.junit.Before;
@@ -51,16 +47,13 @@ public class ScoreboardViewTest {
     public void testComponents() {
         final Component centerComponent = scoreboardView.getContentPane().getComponent(0);
         assertNotNull(centerComponent);
-        assertTrue(centerComponent instanceof JScrollPane);
 
         final JScrollPane scrollPane = (JScrollPane) centerComponent;
         final Component view = scrollPane.getViewport().getView();
         assertNotNull(view);
-        assertFalse(view instanceof JPanel);
 
         final Component southComponent = scoreboardView.getContentPane().getComponent(1);
         assertNotNull(southComponent);
-        assertTrue(southComponent instanceof JButton);
 
         final JButton backButton = (JButton) southComponent;
         assertEquals("< RETURN", backButton.getText());

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class SoundManagerImplTest {
      */
     @Before
     public void setUp() {
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(outContent, true, StandardCharsets.UTF_8));
         soundManager = new SoundManagerImpl();
     }
 
@@ -44,7 +45,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayBackgroundSound() {
         soundManager.playBackgroundSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -55,7 +56,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayGameOverSound() {
         soundManager.playGameOverSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -66,7 +67,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayCollisionSound() {
         soundManager.playCollisionSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -77,7 +78,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayGameSound() {
         soundManager.playGameSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -88,7 +89,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayButtonSound() {
         soundManager.playButtonSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -99,7 +100,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayMenuSound() {
         soundManager.playMenuSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -110,7 +111,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayVictorySound() {
         soundManager.playVictorySound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -121,7 +122,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayBombSound() {
         soundManager.playBombSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
@@ -132,7 +133,7 @@ public class SoundManagerImplTest {
     @Test
     public void testPlayBonusSound() {
         soundManager.playBonusSound();
-        final String logOutput = outContent.toString();
+        final String logOutput = outContent.toString(StandardCharsets.UTF_8);
         assertFalse(logOutput.contains(UAFE) || logOutput.contains(IOE)
                 || logOutput.contains(LU));
     }
