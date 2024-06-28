@@ -3,9 +3,9 @@ package it.unibo.view;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.Point;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +16,7 @@ import it.unibo.api.GameInfo;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.model.Brick;
-import it.unibo.model.BrickColors;
+
 
 /**
  * JUnit test class for the GameView class.

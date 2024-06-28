@@ -49,10 +49,10 @@ public final class Ball extends GameEntityImpl {
      *
      * @return the current direction
      */
-    private Direction getDirection() {
+    public Direction getDirection() {
         sound.playCollisionSound();
 
-        return dir;
+        return new Direction(dir.getHorizontalVelocity(), dir.getVerticalVelocity());
     }
 
     /**
