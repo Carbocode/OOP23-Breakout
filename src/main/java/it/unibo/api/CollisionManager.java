@@ -146,13 +146,18 @@ public class CollisionManager {
             log.warning("\u001B[31m" + output + "\u001B[0m"); // ANSI escape code for red color
         }
     }
-
-    private void handleEnlargePowerUp() {
+    /**
+     * ONLY ACCESS FOR TEST.
+     */
+    protected void handleEnlargePowerUp() {
         PowerUp.ENLARGE.use();
         master.extendPaddle();
     }
-
-    private void bomb(final GameEntity ball) {
+    /**
+     * ONLY ACCESS FOR TEST.
+     * @param ball
+     */
+    protected void bomb(final GameEntity ball) {
         PowerUp.BOMB.use();
         final Bomb bomb = new Bomb(new Point(ball.getPosition().x - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2),
                 ball.getPosition().y - GameInfo.GAME_WIDTH / (BOMB_SIZE_RATIO * 2)),
