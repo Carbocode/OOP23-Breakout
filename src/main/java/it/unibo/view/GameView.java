@@ -4,15 +4,15 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.api.GameInfo;
+import it.unibo.api.GameLoopAccessor;
 import it.unibo.api.SoundManager;
+import it.unibo.api.View;
+import it.unibo.controller.Match;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
 import it.unibo.model.Bar;
-
-import java.util.Set;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,12 +29,9 @@ import java.util.logging.Logger;
  * bar/paddle and create the components.
  * 
  */
-public class GameView extends JPanel {
+public class GameView extends JPanel implements View {
     public static final long serialVersionUID = 4328743;
-    private transient Set<Ball> balls;
-    private transient Set<Brick> bricks;
-    private transient Bar bar;
-    private final GameView game = this;
+    private final transient GameLoopAccessor gl;
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
     private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
@@ -48,7 +45,6 @@ public class GameView extends JPanel {
 
     /**
      * GameView constructor.
-     * 
      */
     public GameView() {
         setPreferredSize(new Dimension(GameInfo.GAME_WIDTH, GameInfo.GAME_HEIGHT));
@@ -56,20 +52,19 @@ public class GameView extends JPanel {
         setFocusable(true);
         backgroundPanel();
         log = Logger.getLogger(GameView.class.getName());
+        gl = Match.getGameLoop();
     }
 
     private final class TAdapter extends KeyAdapter {
 
         @Override
         public void keyReleased(final KeyEvent e) {
-
-            bar.buttonReleased(e);
+            gl.handleKeyRelease(e);
         }
 
         @Override
         public void keyPressed(final KeyEvent e) {
-
-            bar.buttonPressed(e);
+            gl.handleKeyPress(e);
         }
     }
 
@@ -93,13 +88,13 @@ public class GameView extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         g.setColor(Color.RED);
-        for (final Ball ball : balls) {
+        for (final Ball ball : gl.getBalls()) {
             g.fillOval((int) ball.getPosition().getX(), (int) ball.getPosition().getY(),
                     (int) ball.getSize().getWidth(), (int) ball.getSize().getHeight());
 
         }
 
-        for (final Brick brick : bricks) {
+        for (final Brick brick : gl.getBricks()) {
             g.setColor(brick.getColor());
             if (brick.isAlive()) {
                 g.fillRect((int) brick.getPosition().getX(), (int) brick.getPosition().getY(),
@@ -108,6 +103,7 @@ public class GameView extends JPanel {
 
         }
         g.setColor(Color.MAGENTA);
+        Bar bar = gl.getBar();
         g.fillRect((int) (bar.getPosition().getX()),
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
@@ -126,32 +122,25 @@ public class GameView extends JPanel {
 
     /**
      * this method update the game state.
-     * 
-     * @param balls
-     * @param bricks
-     * @param bar
-     * @param score
+     * @param score current score
      */
-    @SuppressFBWarnings
-    public void updateGameState(final Set<Ball> balls, final Set<Brick> bricks, final Bar bar,
-            final int score) {
-        this.balls = balls;
-        this.bricks = bricks;
-        this.bar = bar;
+    @Override
+    public void updateGameState(final int score) {
+        this.repaint();
         this.score = score;
 
-        if (balls.isEmpty()) {
+        if (gl.getBalls().isEmpty()) {
             sound.playGameOverSound();
-            JOptionPane.showMessageDialog(game,
+            JOptionPane.showMessageDialog(this,
                     "HAI PERSO\nma d'altronde uomini forti destini forti\nuomini deboli destini deboli",
                     "Game Over",
                     JOptionPane.INFORMATION_MESSAGE);
             // close the window
             Runtime.getRuntime().exit(0);
         }
-        if (bricks.isEmpty()) {
+        if (gl.getBricks().isEmpty()) {
             sound.playVictorySound();
-            JOptionPane.showMessageDialog(game,
+            JOptionPane.showMessageDialog(this,
                     "HAI VINTO\n SEI UN FENOMENO!!",
                     "YOU WIN",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -160,39 +149,4 @@ public class GameView extends JPanel {
         }
     }
 
-    /**
-     * this method return the balls of the game.
-     * 
-     * @return balls
-     */
-    public Set<Ball> getBalls() {
-        return this.balls;
-    }
-
-    /**
-     * this method return the bricks of the game.
-     * 
-     * @return bricks
-     */
-    public Set<Brick> getBricks() {
-        return this.bricks;
-    }
-
-    /**
-     * this method return the bar of the game.
-     * 
-     * @return bar
-     */
-    public Bar getBar() {
-        return this.bar;
-    }
-
-    /**
-     * this method return the score of the game.
-     * 
-     * @return score
-     */
-    public int getScore() {
-        return this.score;
-    }
 }

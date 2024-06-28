@@ -107,9 +107,10 @@ public class Menu extends JFrame {
                         "Tutorial",
                         JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel;
+                Match.init();
                 gamePanel = new GameView();
+                Match.addGameView(gamePanel);
                 game.add(gamePanel);
-                Match.init(gamePanel);
                 game.pack();
                 game.setVisible(true);
                 game.setResizable(false);

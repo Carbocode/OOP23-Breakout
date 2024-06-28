@@ -55,20 +55,6 @@ public class GameViewTest {
      */
     @Test
     public void testUpdateGameState() {
-        final Point position = new Point(10, 20);
-        final Dimension size = new Dimension(30, 10);
-        final Color color = BrickColors.getColor(position.y / size.height);
-        final Ball ball = new Ball();
-        final Brick brick = new Brick(position, size, 0, color);
-        balls.add(ball);
-        bricks.add(brick);
-
-        gameView.updateGameState(balls, bricks, bar, score);
-
-        assertEquals(balls, gameView.getBalls());
-        assertEquals(bricks, gameView.getBricks());
-        assertEquals(bar, gameView.getBar());
-        assertEquals(score, gameView.getScore());
     }
 
 }

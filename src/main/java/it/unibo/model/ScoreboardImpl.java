@@ -20,7 +20,7 @@ import java.io.BufferedWriter;
  */
 public class ScoreboardImpl implements Scoreboard {
     private static final Logger LOGGER = Logger.getLogger(ScoreboardImpl.class.getName());
-    private static String SCOREBOARDFILE = "scoreboard/Scoreboard.json";
+    private static String scoreboardFile = "scoreboard/Scoreboard.json";
     private static final String POINT_KEY = "points";
 
     /**
@@ -32,9 +32,9 @@ public class ScoreboardImpl implements Scoreboard {
     public JSONArray open() throws IOException {
         try {
             // Get the URL of the JSON file
-            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARDFILE);
+            final URL indFile = getClass().getClassLoader().getResource(scoreboardFile);
             if (indFile == null) {
-                throw new IOException("File not found: " + SCOREBOARDFILE);
+                throw new IOException("File not found: " + scoreboardFile);
             }
 
             // Read the content of the JSON file and convert it to a string
@@ -128,9 +128,9 @@ public class ScoreboardImpl implements Scoreboard {
 
         // Save the output JSONArray to a JSON file
         try {
-            final URL indFile = getClass().getClassLoader().getResource(SCOREBOARDFILE);
+            final URL indFile = getClass().getClassLoader().getResource(scoreboardFile);
             if (indFile == null) {
-                throw new IOException("File not found: " + SCOREBOARDFILE);
+                throw new IOException("File not found: " + scoreboardFile);
             }
             final Path filePath = Paths.get(indFile.toURI());
             try (BufferedWriter fileWriter = Files.newBufferedWriter(filePath)) {
@@ -140,8 +140,11 @@ public class ScoreboardImpl implements Scoreboard {
             LOGGER.log(Level.SEVERE, "Exception occurred", e);
         }
     }
-
+    /**
+     * 
+     * @param filePath
+     */
     public void setScoreboardFileForTest(final String filePath) {
-        SCOREBOARDFILE = filePath;
+        scoreboardFile = filePath;
     }
 }
