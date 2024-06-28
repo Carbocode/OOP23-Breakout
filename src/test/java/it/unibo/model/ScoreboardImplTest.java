@@ -30,10 +30,11 @@ class ScoreboardImplTest {
     private static final int TEST_VALUE15 = 15;
 
     /**
-     * before each test set a temporary file path only used for testing purpouse 
+     * before each test set a temporary file path only used for testing purpouse
      * and create json file content.
+     * 
      * @throws IOException
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
@@ -58,6 +59,7 @@ class ScoreboardImplTest {
 
     /**
      * test json scoreboard custom opening.
+     * 
      * @throws IOException
      */
     @Test
@@ -98,6 +100,7 @@ class ScoreboardImplTest {
 
     /**
      * test add method.
+     * 
      * @throws IOException
      */
     @Test

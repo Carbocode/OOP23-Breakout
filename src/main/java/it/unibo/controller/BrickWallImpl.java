@@ -67,7 +67,7 @@ public class BrickWallImpl implements BrickWall {
     }
 
     private int getSideOffset(final int brickWidth, final int numBricksRow) {
-        return (int) Math.floor(((double) this.width - (brickWidth * numBricksRow)) / 2);
+        return (int) Math.floor(((double) this.width - brickWidth * numBricksRow) / 2);
     }
 
     private void addBricksToRow(
