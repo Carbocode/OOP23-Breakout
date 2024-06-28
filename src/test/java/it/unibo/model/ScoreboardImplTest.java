@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * test for scoreboard class.
  */
-public class ScoreboardImplTest {
+class ScoreboardImplTest {
 
     private static final String TEST_SCOREBOARD_FILE = "scoreboard/ScoreboardTest.json";
     private ScoreboardImpl scoreboard;
@@ -36,7 +36,7 @@ public class ScoreboardImplTest {
      * @throws URISyntaxException 
      */
     @BeforeEach
-    public void setUp() throws IOException, URISyntaxException {
+    void setUp() throws IOException, URISyntaxException {
         // Set the test file path for the scoreboard
         ScoreboardImpl.setScoreboardFileForTest(TEST_SCOREBOARD_FILE);
 
@@ -54,9 +54,6 @@ public class ScoreboardImplTest {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(initialData.toString(2));
         }
-
-        // Initialize the scoreboard implementation
-        scoreboard = new ScoreboardImpl();
     }
 
     /**
@@ -64,8 +61,12 @@ public class ScoreboardImplTest {
      * @throws IOException
      */
     @Test
-    public void testOpen() throws IOException {
-        JSONArray jsonArray = scoreboard.open();
+    void testOpen() throws IOException {
+
+        // Initialize the scoreboard implementation
+        scoreboard = new ScoreboardImpl();
+
+        JSONArray jsonArray = new JSONArray(scoreboard.open());
         assertNotNull(jsonArray);
         assertEquals(10, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -79,8 +80,13 @@ public class ScoreboardImplTest {
      * test top 10 scoreboard method.
      */
     @Test
-    public void testTop10() {
+    void testTop10() {
+
+        // Initialize the scoreboard implementation
+        scoreboard = new ScoreboardImpl();
+
         JList<String> top10List = scoreboard.top10();
+
         assertNotNull(top10List);
         assertEquals(10, top10List.getModel().getSize());
         for (int i = 0; i < top10List.getModel().getSize(); i++) {
@@ -95,12 +101,16 @@ public class ScoreboardImplTest {
      * @throws IOException
      */
     @Test
-    public void testAdd() throws IOException {
+    void testAdd() throws IOException {
+
+        // Initialize the scoreboard implementation
+        scoreboard = new ScoreboardImpl();
+        
         // Add a new entry with a high score
         scoreboard.add("NewPlayer", TEST_VALUE15);
 
         // Verify the new entry is added in the correct position
-        JSONArray jsonArray = scoreboard.open();
+        JSONArray jsonArray = new JSONArray(scoreboard.open());
         assertNotNull(jsonArray);
         assertEquals(TEST_VALUE11, jsonArray.length());
         JSONObject newEntry = jsonArray.getJSONObject(0);
