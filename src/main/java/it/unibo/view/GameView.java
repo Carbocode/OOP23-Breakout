@@ -102,7 +102,7 @@ public class GameView extends JPanel implements View {
 
         }
         g.setColor(Color.MAGENTA);
-        Bar bar = gl.getBar();
+        final Bar bar = gl.getBar();
         g.fillRect((int) (bar.getPosition().getX()),
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
