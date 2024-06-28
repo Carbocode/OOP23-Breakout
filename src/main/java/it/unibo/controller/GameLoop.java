@@ -113,7 +113,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
 
     private long lastUpdateTime;
 
-    private ArrayList<View> ourViews;
+    private List<View> ourViews;
 
 
     /**
@@ -227,19 +227,21 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
      * 
      * @param amount
      */
+    @Override
     public void increaseScore(final int amount) {
         this.score.increment(amount);
     }
     /**
      * 
      */
-    public void extendPaddle() {
+    public final void extendPaddle() {
         BarExtender.extendBar(paddle);
     }
     /**
      * @param newBalls 
      * 
      */
+    @Override
     public void addBalls(final List<Ball> newBalls) {
         balls.addAll(newBalls);
     }
@@ -312,13 +314,13 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
          * 
          * @param amount
          */
-        public void increaseScore(final int amount) {
+        public final void increaseScore(final int amount) {
             gameLoop.increaseScore(amount);
         }
         /**
          * 
          */
-        public void extendPaddle() {
+        public final void extendPaddle() {
             gameLoop.extendPaddle();
         }
     }

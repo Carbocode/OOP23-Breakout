@@ -102,4 +102,12 @@ class BallTest {
         assertEquals(GUIDED_COLLISION_DIRECTION, ball.getDirection().getHorizontalVelocity(),
                 "Horizontal velocity should change to " + GUIDED_COLLISION_DIRECTION);
     }
+    /**
+     * Test for duplication Power Up.
+     */
+    @Test
+    void testDuplication() {
+        Ball b2 = new Ball(ball);
+        assertEquals(-b2.getDirection().getHorizontalVelocity(), ball.getDirection().getHorizontalVelocity());
+    }
 }
