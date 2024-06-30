@@ -103,7 +103,13 @@ public class Menu extends JFrame {
                 final JFrame game = new JFrame();
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
-                        "I mattoncini grigi sono indistruttibili ma tutto il resto invece si\nSFOGA LA TUA RABBIA",
+                        "Breakout Rules: Destroy all bricks using the ball without letting it fall off the screen.\n"
+                        + "Power-Ups:\n"
+                        + "1) Paddle Enlargement: Paddle becomes larger for a few seconds.\n" 
+                        + "2) Ball Duplication: Creates two balls.\n" 
+                        + "3) Bomb: Creates an explosion damaging nearby bricks.\n"
+                        + "Remember grey bricks are indestructable and some bricks requires 2 hits to get destroyed\n"
+                        + "HAVE FUN!",
                         "Tutorial",
                         JOptionPane.INFORMATION_MESSAGE);
                 GameView gamePanel;
