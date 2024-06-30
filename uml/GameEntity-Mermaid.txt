@@ -1,0 +1,65 @@
+classDiagram    
+    class GameEntity {        
+        <<interface>>        
+        +Point getPosition()        
+        +Dimension getSize()        
+        +int getHealth()        
+        +Color getColor()        
+        +void onCollision()        
+        +boolean isAlive()        
+        +void setPosition(Point position)        
+        +void setSize(Dimension size)        
+        +void setHealth(int health)        
+        +void setColor(Color color)    
+    }        
+
+    class GameEntityImpl {        
+        <<abstract>>        
+        -Point position        
+        -Dimension size        
+        -int health        
+        -Color color        
+        #static int IMMORTAL_ENTITY_HEALTH        
+        #static int MIN_HEALTH        
+        #static int MAX_HEALTH        
+        #static Color DEFAULT_COLOR        
+        +String toString()        
+        +boolean equals(Object o)        
+        +int hashCode()    
+    }    
+    GameEntityImpl --|> GameEntity : implements 
+
+    class Ball {        
+        -Direction dir        
+        -Random rand        
+        -SoundManager sound        
+        #static long serialVersionUID        
+        #static Dimension BALL_DIMENSION        
+        #static Point START_POINT        
+        +Direction getDirection()        
+        +void update()        
+        +void guidedCollision(int hitDirection)    
+    }    
+    Ball ..|> GameEntityImpl : extends  
+
+    class Bar {        
+        -int direction        
+        #static long serialVersionUID        
+        #static int LEFT_VALUE        
+        #static int RIGHT_VALUE        
+        #static int STOP_VALUE        
+        #static float MOVE_VALUE        
+        +int getDirection()        
+        +void setDirection(int d)        
+        +void move()        
+        +void setWidth(int newwidth)        
+        +void buttonPressed(KeyEvent e)        
+        +void buttonReleased(KeyEvent e)    
+    }    
+    Bar ..|> GameEntityImpl : extends   
+
+    class Brick {        
+        #static long serialVersionUID        
+        #static double ASPECT_RATIO    
+    }    
+    Brick ..|> GameEntityImpl : extends
