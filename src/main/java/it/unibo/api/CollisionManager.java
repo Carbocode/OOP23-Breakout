@@ -32,6 +32,16 @@ public class CollisionManager {
     private final GameLoopAccessor master;
 
     /**
+     * parameter for paddle / ball hit position.
+     */
+    private static final int NUMBER_OF_SECTIONS = 7;
+    private static final int FAST = -3;
+    private static final int MEDIUM = -2;
+    private static final int SLOW = -1;
+    private static final int SLOW_SECTOR_RIGHT = 5;
+    private static final int MEDIUM_SECTOR_RIGHT = 6;
+
+    /**
      * 
      * @param master
      */
@@ -83,10 +93,34 @@ public class CollisionManager {
             final Bar paddle = master.getBar();
             if (collides(ball, paddle)) {
                 log.info("Paddle hit");
-                if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
-                    ball.guidedCollision(-1);
+
+                float ballX = ball.getPosition().x;
+                float paddleX = paddle.getPosition().x;
+                float paddleWidth = paddle.getSize().width;
+                float sectionWidth = paddleWidth / NUMBER_OF_SECTIONS;
+                int collisionFactor = 0; //value for center hit
+
+                if (ballX < paddleX + (sectionWidth * 3)) {
+                    collisionFactor = -1; // Default collision factor for the left half
+                    if (ballX < paddleX + sectionWidth) {
+                        ball.guidedCollision(collisionFactor, FAST);
+                    } else if (ballX < paddleX + sectionWidth * 2) {
+                        ball.guidedCollision(collisionFactor, MEDIUM);
+                    } else {
+                        ball.guidedCollision(collisionFactor, SLOW);
+                    }
+                } else if (ballX > paddleX + (sectionWidth * 4)) {
+                    collisionFactor = 1; // Default collision factor for the right half
+                    if (ballX < paddleX + sectionWidth * SLOW_SECTOR_RIGHT) {
+                        ball.guidedCollision(collisionFactor, SLOW);
+                    } else if (ballX < paddleX + sectionWidth * MEDIUM_SECTOR_RIGHT) {
+                        ball.guidedCollision(collisionFactor, MEDIUM);
+                    } else {
+                        ball.guidedCollision(collisionFactor, FAST);
+                    }
                 } else {
-                    ball.guidedCollision(1);
+                    //center of the paddle
+                    ball.guidedCollision(collisionFactor, MEDIUM);
                 }
             }
             final long paddleEndTime = System.nanoTime();
@@ -95,7 +129,7 @@ public class CollisionManager {
             if (collision) {
                 final long powerUPStartTime = System.nanoTime();
                 if (greyCollision) {
-                    ball.guidedCollision(forcedDirection);
+                    ball.guidedCollision(forcedDirection, -ball.getDirection().getVerticalVelocity());
                 } else {
                     ball.onCollision();
                 }
