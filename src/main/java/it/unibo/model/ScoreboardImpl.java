@@ -33,7 +33,7 @@ public class ScoreboardImpl implements Scoreboard {
      * @return JSONArray containing the scores
      * @throws IOException if an I/O error occurs
      */
-    private JSONArray readScoreboardFile() throws IOException {
+    public JSONArray readScoreboardFile() throws IOException {
         try {
             final URL fileUrl = getClass().getClassLoader().getResource(scoreboardFile);
             if (fileUrl == null) {
