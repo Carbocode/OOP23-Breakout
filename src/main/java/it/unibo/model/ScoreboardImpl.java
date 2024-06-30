@@ -5,16 +5,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
 import java.nio.file.Path;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,12 +40,22 @@ public class ScoreboardImpl implements Scoreboard {
      */
     public JSONArray readScoreboardFile() throws IOException {
         try {
-            final URL fileUrl = getClass().getClassLoader().getResource(scoreboardFile);
-            if (fileUrl == null) {
-                throw new IOException("File not found: " + scoreboardFile);
-            }
+            URI uri = getClass().getClassLoader().getResource(scoreboardFile).toURI();
 
-            final byte[] jsonBytes = Files.readAllBytes(Paths.get(fileUrl.toURI()));
+            if ("jar".equals(uri.getScheme())) {
+                for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {
+                    if (provider.getScheme().equalsIgnoreCase("jar")) {
+                        try {
+                            provider.getFileSystem(uri);
+                        } catch (FileSystemNotFoundException e) {
+                            // in this case we need to initialize it first:
+                            provider.newFileSystem(uri, Collections.emptyMap());
+                        }
+                    }
+                }
+            }
+            Path source = Paths.get(uri);
+            final byte[] jsonBytes = Files.readAllBytes(source);
             final String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
 
             return new JSONArray(jsonContent);
