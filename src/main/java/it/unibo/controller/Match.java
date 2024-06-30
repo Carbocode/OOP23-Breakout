@@ -32,7 +32,10 @@ public final class Match {
      * 
      */
     public static void init() {
-        gameLoop = new GameLoop();
+        if (gameLoop == null) {
+            gameLoop = new GameLoop();
+        }
+
     }
     /**
      * this method returns the game loop.
@@ -40,7 +43,11 @@ public final class Match {
      * @return gameloop
      */
     public static GameLoopAccessor getGameLoop() {
-        return gameLoop.getAccessor();
+        if (gameLoop != null) {
+            return gameLoop.getAccessor();
+        } else {
+            throw new UnsupportedOperationException("Init before accessing");
+        }
     }
 
     private Match() {
