@@ -100,3 +100,5 @@ classDiagram
         +static void checkEntities(Set~GameEntity~ entities)
     }
      GameLoop ..|> DeathCollector
+     DeathCollector ..|> Brick
+     DeathCollector ..|> Ball
