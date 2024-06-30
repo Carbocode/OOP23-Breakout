@@ -26,6 +26,28 @@ public class Bar extends GameEntityImpl {
 
     private int direction;
 
+    // Map to store key pressed actions, associating each key code with a lambda function
+    private static final Map<Integer, Consumer<Bar>> KEY_PRESSED_ACTIONS = Map.of(
+        KeyEvent.VK_LEFT, bar -> bar.setDirection(LEFT_VALUE),
+        KeyEvent.VK_RIGHT, bar -> bar.setDirection(RIGHT_VALUE)
+    );
+
+    // Map to store key released actions, associating each key code with a lambda function
+    private static final Map<Integer, Consumer<Bar>> KEY_RELEASED_ACTIONS = Map.of(
+        KeyEvent.VK_LEFT, bar -> {
+            // If left arrow key is released and the direction is currently left, stop the bar
+            if (bar.direction == LEFT_VALUE) {
+                bar.setDirection(STOP_VALUE);
+            }
+        },
+        KeyEvent.VK_RIGHT, bar -> {
+            // If right arrow key is released and the direction is currently right, stop the bar
+            if (bar.direction == RIGHT_VALUE) {
+                bar.setDirection(STOP_VALUE);
+            }
+        }
+    );
+
     /**
      * Standard constructor.
      * 
@@ -96,28 +118,6 @@ public class Bar extends GameEntityImpl {
     public final void setWidth(final int newwidth) {
         setSize(new Dimension(newwidth, getSize().height));
     }
-
-    // Map to store key pressed actions, associating each key code with a lambda function
-    private static final Map<Integer, Consumer<Bar>> KEY_PRESSED_ACTIONS = Map.of(
-        KeyEvent.VK_LEFT, bar -> bar.setDirection(LEFT_VALUE),
-        KeyEvent.VK_RIGHT, bar -> bar.setDirection(RIGHT_VALUE)
-    );
-
-    // Map to store key released actions, associating each key code with a lambda function
-    private static final Map<Integer, Consumer<Bar>> KEY_RELEASED_ACTIONS = Map.of(
-        KeyEvent.VK_LEFT, bar -> {
-            // If left arrow key is released and the direction is currently left, stop the bar
-            if (bar.direction == LEFT_VALUE) {
-                bar.setDirection(STOP_VALUE);
-            }
-        },
-        KeyEvent.VK_RIGHT, bar -> {
-            // If right arrow key is released and the direction is currently right, stop the bar
-            if (bar.direction == RIGHT_VALUE) {
-                bar.setDirection(STOP_VALUE);
-            }
-        }
-    );
 
     /**
      * This method is used to detect a button pressed by the user.

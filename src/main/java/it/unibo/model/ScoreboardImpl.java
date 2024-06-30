@@ -110,13 +110,13 @@ public class ScoreboardImpl implements Scoreboard {
     @Override
     public void add(final String name, final int points) {
         try {
-            JSONArray scoreboard = readScoreboardFile();
+            final JSONArray scoreboard = readScoreboardFile();
 
             List<JSONObject> sortedScoreboard = IntStream.range(0, scoreboard.length())
                     .mapToObj(scoreboard::getJSONObject)
                     .collect(Collectors.toList());
 
-            JSONObject newScore = new JSONObject();
+            final JSONObject newScore = new JSONObject();
             newScore.put("name", name);
             newScore.put(POINT_KEY, points);
 
@@ -127,7 +127,7 @@ public class ScoreboardImpl implements Scoreboard {
                     .sorted((a, b) -> Integer.compare(b.getInt(POINT_KEY), a.getInt(POINT_KEY)))
                     .collect(Collectors.toList());
 
-            JSONArray updatedScoreboard = new JSONArray(sortedScoreboard);
+            final JSONArray updatedScoreboard = new JSONArray(sortedScoreboard);
 
             writeScoreboardFile(updatedScoreboard);
         } catch (IOException e) {
