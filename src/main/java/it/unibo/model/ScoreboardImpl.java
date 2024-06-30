@@ -8,7 +8,6 @@ import javax.swing.JList;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
@@ -31,6 +30,7 @@ public class ScoreboardImpl implements Scoreboard {
     private static final Logger LOGGER = Logger.getLogger(ScoreboardImpl.class.getName());
     private static String scoreboardFile = "scoreboard/Scoreboard.json";
     private static final String POINT_KEY = "points";
+    private static final String JAR = "jar";
 
     /**
      * Reads the JSON file and returns its contents as a JSONArray.
@@ -40,11 +40,21 @@ public class ScoreboardImpl implements Scoreboard {
      */
     public JSONArray readScoreboardFile() throws IOException {
         try {
-            URI uri = getClass().getClassLoader().getResource(scoreboardFile).toURI();
+            final byte[] jsonBytes = Files.readAllBytes(getPath());
+            final String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
 
-            if ("jar".equals(uri.getScheme())) {
-                for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {
-                    if (provider.getScheme().equalsIgnoreCase("jar")) {
+            return new JSONArray(jsonContent);
+        } catch (IOException e) {
+            throw new IOException("Invalid URI for the file: " + scoreboardFile, e);
+        }
+    }
+    private Path getPath() throws IOException {
+        try {
+            final URI uri = getClass().getClassLoader().getResource(scoreboardFile).toURI();
+
+            if (JAR.equals(uri.getScheme())) {
+                for (final FileSystemProvider provider: FileSystemProvider.installedProviders()) {
+                    if (JAR.equalsIgnoreCase(provider.getScheme())) {
                         try {
                             provider.getFileSystem(uri);
                         } catch (FileSystemNotFoundException e) {
@@ -54,16 +64,11 @@ public class ScoreboardImpl implements Scoreboard {
                     }
                 }
             }
-            Path source = Paths.get(uri);
-            final byte[] jsonBytes = Files.readAllBytes(source);
-            final String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
-
-            return new JSONArray(jsonContent);
+            return Paths.get(uri);
         } catch (URISyntaxException e) {
             throw new IOException("Invalid URI for the file: " + scoreboardFile, e);
         }
     }
-
     /**
      * Writes the given JSONArray to the JSON file.
      * 
@@ -72,15 +77,10 @@ public class ScoreboardImpl implements Scoreboard {
      */
     private void writeScoreboardFile(final JSONArray jsonArray) throws IOException {
         try {
-            final URL fileUrl = getClass().getClassLoader().getResource(scoreboardFile);
-            if (fileUrl == null) {
-                throw new IOException("File not found: " + scoreboardFile);
-            }
-            final Path filePath = Paths.get(fileUrl.toURI());
-            try (BufferedWriter fileWriter = Files.newBufferedWriter(filePath)) {
+            try (BufferedWriter fileWriter = Files.newBufferedWriter(getPath())) {
                 fileWriter.write(jsonArray.toString(2)); // Indent with 2 spaces for better readability
             }
-        } catch (URISyntaxException e) {
+        } catch (IOException e) {
             throw new IOException("Invalid URI for the file: " + scoreboardFile, e);
         }
     }
