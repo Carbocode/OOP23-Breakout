@@ -1,0 +1,46 @@
+classDiagram 
+    direction LR
+    class Client{
+
+    }
+    Client  --o GameLoopAccessor : requests
+    Client  --o Match : Inits
+    class Match {
+        <<Service>>
+        +init()
+        +getGameLoop()
+        +addGameView()
+    }
+    Match --o GameLoopAccessor : Gives Access to
+    class GameLoopAccessor {
+        <<Interface>>
+        void update()
+        +void multiplyBall(Ball old)
+        +Set~Ball~ getBalls()
+        +Set~Brick~ getBricks()
+        +Bar getBar()
+        +int getScore()
+        +void increaseScore(int amount)
+        +void extendPaddle()
+        +void addBalls(List~Ball~ newBalls)
+        +void handleKeyRelease(KeyEvent e)
+        +void handleKeyPress(KeyEvent e)
+    }
+    GameLoopAccessor <|-- GameLoop : implements
+    class GameLoop {
+        +void addView(View gw)
+        +void actionPerformed(ActionEvent e)
+        +void update()
+        +void multiplyBall(Ball old)
+        +Set~Ball~ getBalls()
+        +Set~Brick~ getBricks()
+        +Bar getBar()
+        +int getScore()
+        +void increaseScore(int amount)
+        +void extendPaddle()
+        +void addBalls(List~Ball~ newBalls)
+        +void handleKeyRelease(KeyEvent e)
+        +void handleKeyPress(KeyEvent e)
+        +GameLoopAccessor getAccessor()
+    }
+    
