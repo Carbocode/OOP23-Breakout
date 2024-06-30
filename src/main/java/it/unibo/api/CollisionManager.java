@@ -75,7 +75,7 @@ public class CollisionManager {
                         master.increaseScore(POINTS_INCREASE);
                     } else {
                         greyCollision = true;
-                        handleBallBrickCollision(ball, brick);
+                        handleGreyCollision(ball, brick);
                     }
                     brick.onCollision();
                 }
@@ -116,33 +116,27 @@ public class CollisionManager {
             final long paddleEndTime = System.nanoTime();
             debugPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
             // Handle collisions
-            if (collision) {
+            if (collision && !greyCollision) {
                 final long powerUPStartTime = System.nanoTime();
-                if (!greyCollision) {
-                    ball.onCollision();
-                }
-
-
-                if (!greyCollision) {
-                    for (final PowerUp pu : PowerUp.values()) {
-                        if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
-                            switch (pu) {
-                                case ENLARGE:
-                                    sound.playBonusSound();
-                                    handleEnlargePowerUp();
-                                    break;
-                                case BOMB:
-                                    sound.playBombSound();
-                                    bomb(ball);
-                                    break;
-                                case DUPLI:
-                                    sound.playBonusSound();
-                                    newBalls.add(new Ball(ball)); // Collect new ball
-                                    PowerUp.DUPLI.use();
-                                    break;
-                                default:
-                                    break;
-                            }
+                ball.onCollision();
+                for (final PowerUp pu : PowerUp.values()) {
+                    if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
+                        switch (pu) {
+                            case ENLARGE:
+                                sound.playBonusSound();
+                                handleEnlargePowerUp();
+                                break;
+                            case BOMB:
+                                sound.playBombSound();
+                                bomb(ball);
+                                break;
+                            case DUPLI:
+                                sound.playBonusSound();
+                                newBalls.add(new Ball(ball)); // Collect new ball
+                                PowerUp.DUPLI.use();
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }
@@ -161,7 +155,7 @@ public class CollisionManager {
         final long endTime = System.nanoTime();
         debugPrint("TOTAL", endTime - startTime);
     }
-    private void handleBallBrickCollision(final Ball ball, final GameEntity brick) {
+    private void handleGreyCollision(final Ball ball, final GameEntity brick) {
         Rectangle ballRect = new Rectangle(ball.getPosition(), ball.getSize());
         Rectangle brickRect = new Rectangle(brick.getPosition(), brick.getSize());
 
