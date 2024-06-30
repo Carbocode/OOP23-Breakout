@@ -51,7 +51,7 @@ public class ScoreboardView extends JFrame {
         final ScoreboardImpl scoreboard = new ScoreboardImpl();
 
         // Create a title label
-        JLabel titleLabel = new JLabel("TOP 10", SwingConstants.CENTER);
+        final JLabel titleLabel = new JLabel("TOP 10", SwingConstants.CENTER);
 
         // setting of an external font
         InputStream fontStream;
@@ -66,14 +66,14 @@ public class ScoreboardView extends JFrame {
         titleLabel.setBorder(new EmptyBorder(10, 0, 10, 0)); // Add padding to top and bottom
 
         // Get the top 10 scores as a JList
-        JList<String> topScoresList = scoreboard.top10();
+        final JList<String> topScoresList = scoreboard.top10();
         // Set the font size and center alignment for the list
         topScoresList.setFont(new Font("Arial", Font.BOLD, FONTSIZE2)); // Adjust font size as needed
-        DefaultListCellRenderer renderer = (DefaultListCellRenderer) topScoresList.getCellRenderer();
+        final DefaultListCellRenderer renderer = (DefaultListCellRenderer) topScoresList.getCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Create a panel to hold the title and the list
-        JPanel panel = new JPanel(new BorderLayout());
+        final JPanel panel = new JPanel(new BorderLayout());
         panel.add(titleLabel, BorderLayout.NORTH);
         panel.add(new JScrollPane(topScoresList), BorderLayout.CENTER);
         panel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Add padding around the edges
@@ -96,7 +96,7 @@ public class ScoreboardView extends JFrame {
         });
 
         // Add the back button to a panel at the bottom
-        JPanel buttonPanel = new JPanel();
+        final JPanel buttonPanel = new JPanel();
         buttonPanel.add(backButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }

@@ -12,6 +12,7 @@ import it.unibo.controller.Match;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
+import it.unibo.model.ScoreboardImpl;
 import it.unibo.model.Bar;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,6 +33,7 @@ import java.util.logging.Logger;
 public class GameView extends JPanel implements View {
     public static final long serialVersionUID = 4328743;
     private final transient GameLoopAccessor gl;
+    private final transient ScoreboardImpl sb = new ScoreboardImpl();
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
     private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
@@ -130,19 +132,32 @@ public class GameView extends JPanel implements View {
 
         if (gl.getBalls().isEmpty()) {
             sound.playGameOverSound();
-            JOptionPane.showMessageDialog(this,
-                    "HAI PERSO\nma d'altronde uomini forti destini forti\nuomini deboli destini deboli",
-                    "Game Over",
-                    JOptionPane.INFORMATION_MESSAGE);
+
+            String input;
+            do {
+                // Prompt for a 3-character string input
+                input = JOptionPane.showInputDialog(null,
+            "Mi dispiace ma hai perso :(\ninserisci il tuo nome (massimo 3 caratteri solo maiuscoli)",
+                "HAI PERSO!",
+                JOptionPane.QUESTION_MESSAGE);
+            } while (!input.matches("^[A-Z]{3}$"));
+
+            sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }
         if (gl.getBricks().isEmpty()) {
             sound.playVictorySound();
-            JOptionPane.showMessageDialog(this,
-                    "HAI VINTO\n SEI UN FENOMENO!!",
-                    "YOU WIN",
-                    JOptionPane.INFORMATION_MESSAGE);
+            String input;
+            do {
+                // Prompt for a 3-character string input
+                input = JOptionPane.showInputDialog(null,
+            "CONGRATULAZIONI HAI VINTO!!\ninserisci il tuo nome (massimo 3 caratteri solo maiuscoli)",
+                "HAI VINTO!",
+                JOptionPane.QUESTION_MESSAGE);
+            } while (!input.matches("^[A-Z]{3}$"));
+
+            sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }
