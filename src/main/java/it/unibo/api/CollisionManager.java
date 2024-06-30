@@ -75,11 +75,7 @@ public class CollisionManager {
                         master.increaseScore(POINTS_INCREASE);
                     } else {
                         greyCollision = true;
-                        if (brick.getPosition().x > ball.getPosition().x) {
-                            forcedDirection = -1;
-                        } else {
-                            forcedDirection = 1;
-                        }
+                        handleBallBrickCollision(ball, brick);
                     }
                     brick.onCollision();
                 }
@@ -122,11 +118,10 @@ public class CollisionManager {
             // Handle collisions
             if (collision) {
                 final long powerUPStartTime = System.nanoTime();
-                if (greyCollision) {
-                    ball.guidedCollision(forcedDirection, -ball.getDirection().getVerticalVelocity());
-                } else {
+                if (!greyCollision) {
                     ball.onCollision();
                 }
+
 
                 if (!greyCollision) {
                     for (final PowerUp pu : PowerUp.values()) {
@@ -166,7 +161,35 @@ public class CollisionManager {
         final long endTime = System.nanoTime();
         debugPrint("TOTAL", endTime - startTime);
     }
+    private void handleBallBrickCollision(final Ball ball, final GameEntity brick) {
+        Rectangle ballRect = new Rectangle(ball.getPosition(), ball.getSize());
+        Rectangle brickRect = new Rectangle(brick.getPosition(), brick.getSize());
 
+        // Calculate penetration depth in each direction
+        int penetrationLeft = ballRect.x + ballRect.width - brickRect.x;
+        int penetrationRight = brickRect.x + brickRect.width - ballRect.x;
+        int penetrationTop = ballRect.y + ballRect.height - brickRect.y;
+        int penetrationBottom = brickRect.y + brickRect.height - ballRect.y;
+
+        // Find the smallest penetration depth to determine the direction of the collision
+        int minPenetration = Math.min(Math.min(penetrationLeft, penetrationRight), Math.min(penetrationTop, penetrationBottom));
+
+        // Adjust ball position and direction based on the collision side
+        if (minPenetration == penetrationLeft) {
+            ball.setPosition(new Point(brickRect.x - ballRect.width, ball.getPosition().y));
+            //force reverse horizontal
+            ball.guidedCollision(-ball.getDirection().getHorizontalVelocity(), ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationRight) {
+            ball.setPosition(new Point(brickRect.x + brickRect.width, ball.getPosition().y));
+            ball.guidedCollision(-ball.getDirection().getHorizontalVelocity(), ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationTop) {
+            ball.setPosition(new Point(ball.getPosition().x, brickRect.y - ballRect.height));
+            ball.guidedCollision(rnd.nextInt(3) - 1, -ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationBottom) {
+            ball.setPosition(new Point(ball.getPosition().x, brickRect.y + brickRect.height));
+            ball.guidedCollision(rnd.nextInt(3) - 1, -ball.getDirection().getVerticalVelocity());
+        }
+    }
     private void debugPrint(final String name, final long difference) {
         if (!GameInfo.DEBUG_MODE) {
             return;
