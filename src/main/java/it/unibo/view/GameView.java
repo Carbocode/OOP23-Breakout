@@ -130,6 +130,7 @@ public class GameView extends JPanel implements View {
         this.repaint();
         this.score = score;
 
+        //if in the game area there are no more balls the player lost
         if (gl.getBalls().isEmpty()) {
             sound.playGameOverSound();
 
@@ -137,26 +138,30 @@ public class GameView extends JPanel implements View {
             do {
                 // Prompt for a 3-character string input
                 input = JOptionPane.showInputDialog(null,
-            "Mi dispiace ma hai perso :(\ninserisci il tuo nome (massimo 3 caratteri solo maiuscoli)",
-                "HAI PERSO!",
+                "YOU LOST! :(\ninsert your name (3 characters only uppercase [A-Z])",
+                "YOU LOST!",
                 JOptionPane.QUESTION_MESSAGE);
             } while (!input.matches("^[A-Z]{3}$"));
 
+            //add to scoreboard
             sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }
+
+        //if game area has no more bricks tha player completed the challenge -> won
         if (gl.getBricks().isEmpty()) {
             sound.playVictorySound();
             String input;
             do {
                 // Prompt for a 3-character string input
                 input = JOptionPane.showInputDialog(null,
-            "CONGRATULAZIONI HAI VINTO!!\ninserisci il tuo nome (massimo 3 caratteri solo maiuscoli)",
-                "HAI VINTO!",
+            "Congratulation YOU WON!!\ninsert your name (3 characters only uppercase [A-Z])",
+                "YOU WON!",
                 JOptionPane.QUESTION_MESSAGE);
             } while (!input.matches("^[A-Z]{3}$"));
 
+            //add to scoreboard
             sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
