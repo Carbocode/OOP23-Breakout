@@ -34,12 +34,10 @@ public class CollisionManager {
     /**
      * parameter for paddle / ball hit position.
      */
-    private static final int NUMBER_OF_SECTIONS = 7;
-    private static final int FAST = -3;
+    private static final int NUMBER_OF_SECTIONS = 5;
     private static final int MEDIUM = -2;
     private static final int SLOW = -1;
-    private static final int SLOW_SECTOR_RIGHT = 5;
-    private static final int MEDIUM_SECTOR_RIGHT = 6;
+    private static final int SLOW_SECTOR_RIGHT = 4;
 
     /**
      * 
@@ -100,23 +98,19 @@ public class CollisionManager {
                 float sectionWidth = paddleWidth / NUMBER_OF_SECTIONS;
                 int collisionFactor = 0; //value for center hit
 
-                if (ballX < paddleX + (sectionWidth * 3)) {
+                if (ballX < paddleX + (sectionWidth * 2)) {
                     collisionFactor = -1; // Default collision factor for the left half
                     if (ballX < paddleX + sectionWidth) {
-                        ball.guidedCollision(collisionFactor, FAST);
-                    } else if (ballX < paddleX + sectionWidth * 2) {
-                        ball.guidedCollision(collisionFactor, MEDIUM);
-                    } else {
                         ball.guidedCollision(collisionFactor, SLOW);
+                    } else {
+                        ball.guidedCollision(collisionFactor, MEDIUM);
                     }
-                } else if (ballX > paddleX + (sectionWidth * 4)) {
+                } else if (ballX > paddleX + (sectionWidth * 3)) {
                     collisionFactor = 1; // Default collision factor for the right half
                     if (ballX < paddleX + sectionWidth * SLOW_SECTOR_RIGHT) {
-                        ball.guidedCollision(collisionFactor, SLOW);
-                    } else if (ballX < paddleX + sectionWidth * MEDIUM_SECTOR_RIGHT) {
                         ball.guidedCollision(collisionFactor, MEDIUM);
                     } else {
-                        ball.guidedCollision(collisionFactor, FAST);
+                        ball.guidedCollision(collisionFactor, SLOW);
                     }
                 } else {
                     //center of the paddle
