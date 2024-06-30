@@ -1,12 +1,12 @@
 [
-    {"name": "WIZ", "points": 8000},
-    {"name": "RUZ", "points": 7400},
-    {"name": "RUS", "points": 7000},
-    {"name": "DEF", "points": 6600},
-    {"name": "BIN", "points": 6000},
-    {"name": "LOL", "points": 5800},
-    {"name": "SAS", "points": 5400},
-    {"name": "XYZ", "points": 5000},
-    {"name": "TIR", "points": 4400},
-    {"name": "MNO", "points": 4000}
+    {"name": "WIZ", "points": 74000},
+    {"name": "RUZ", "points": 63600},
+    {"name": "RUS", "points": 63400},
+    {"name": "DEF", "points": 52000},
+    {"name": "BIN", "points": 51800},
+    {"name": "LOL", "points": 51200},
+    {"name": "SAS", "points": 50000},
+    {"name": "XYZ", "points": 49600},
+    {"name": "TIR", "points": 48000},
+    {"name": "MNO", "points": 44000}
 ]
