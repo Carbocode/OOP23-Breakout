@@ -19,16 +19,6 @@ public interface BrickWall {
     void resetLayout();
 
     /**
-     * Shifts the level layout.
-     */
-    void shiftLayout();
-
-    /**
-     * Removes dead bricks from the level.
-     */
-    void removeDeathBricks();
-
-    /**
      * Sets the height of the level.
      * 
      * @param height the height of the level

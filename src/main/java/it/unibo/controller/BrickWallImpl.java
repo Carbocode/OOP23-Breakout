@@ -139,16 +139,6 @@ public class BrickWallImpl implements BrickWall {
     }
 
     @Override
-    public final void shiftLayout() {
-        throw new UnsupportedOperationException("Unimplemented method 'shiftLayout'");
-    }
-
-    @Override
-    public final void removeDeathBricks() {
-        throw new UnsupportedOperationException("Unimplemented method 'removeDeathBricks'");
-    }
-
-    @Override
     public final void setHeight(final int height) {
         this.height = height;
     }
