@@ -104,11 +104,13 @@ public class Menu extends JFrame {
                 // show a popup tutorial
                 JOptionPane.showMessageDialog(game,
                         "Breakout Rules: Destroy all bricks using the ball without letting it fall off the screen.\n"
+                        + "At least one ball must remain in game, if you lose your last ball you lose the game\n"
+                        + "Remember grey bricks are indestructable and some bricks requires 2 hits to get destroyed\n"
+                        + "Each brick destructions give you some points, the more you break the more you score!\n\n"
                         + "Power-Ups:\n"
                         + "1) Paddle Enlargement: Paddle becomes larger for a few seconds.\n" 
-                        + "2) Ball Duplication: Creates two balls.\n" 
-                        + "3) Bomb: Creates an explosion damaging nearby bricks.\n"
-                        + "Remember grey bricks are indestructable and some bricks requires 2 hits to get destroyed\n"
+                        + "2) Ball Duplication: Split the ball into two balls.\n" 
+                        + "3) Bomb: Creates an explosion destroying or damaging nearby bricks.\n"
                         + "HAVE FUN!",
                         "Tutorial",
                         JOptionPane.INFORMATION_MESSAGE);

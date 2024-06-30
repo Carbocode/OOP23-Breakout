@@ -141,7 +141,7 @@ public class GameView extends JPanel implements View {
                 "YOU LOST! :(\ninsert your name (3 characters only uppercase [A-Z])",
                 "YOU LOST!",
                 JOptionPane.QUESTION_MESSAGE);
-            } while (!input.matches("^[A-Z]{3}$"));
+            } while (input == null || !input.matches("^[A-Z]{3}$"));
 
             //add to scoreboard
             sb.add(input, score);
@@ -159,7 +159,7 @@ public class GameView extends JPanel implements View {
             "Congratulation YOU WON!!\ninsert your name (3 characters only uppercase [A-Z])",
                 "YOU WON!",
                 JOptionPane.QUESTION_MESSAGE);
-            } while (!input.matches("^[A-Z]{3}$"));
+            } while (input == null || !input.matches("^[A-Z]{3}$"));
 
             //add to scoreboard
             sb.add(input, score);
