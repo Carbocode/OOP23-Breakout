@@ -144,7 +144,7 @@ public class ScoreboardImpl implements Scoreboard {
     }
 
     /**
-     * 
+     * used only for testing purpouses, in order to do not damage real game resouces.
      * @param filePath
      */
     public static void setScoreboardFileForTest(final String filePath) {
