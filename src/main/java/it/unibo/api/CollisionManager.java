@@ -96,20 +96,20 @@ public class CollisionManager {
                 if (ballX < paddleX + (sectionWidth * 2)) {
                     collisionFactor = -1; // Default collision factor for the left half
                     if (ballX < paddleX + sectionWidth) {
-                        ball.guidedCollision(collisionFactor, SLOW);
+                        ball.guidedCollision(collisionFactor * -MEDIUM, SLOW);
                     } else {
-                        ball.guidedCollision(collisionFactor, MEDIUM);
+                        ball.guidedCollision(collisionFactor * -SLOW, SLOW);
                     }
                 } else if (ballX > paddleX + (sectionWidth * 3)) {
                     collisionFactor = 1; // Default collision factor for the right half
                     if (ballX < paddleX + sectionWidth * SLOW_SECTOR_RIGHT) {
-                        ball.guidedCollision(collisionFactor, MEDIUM);
+                        ball.guidedCollision(collisionFactor * -SLOW, SLOW);
                     } else {
-                        ball.guidedCollision(collisionFactor, SLOW);
+                        ball.guidedCollision(collisionFactor * -MEDIUM, SLOW);
                     }
                 } else {
                     //center of the paddle
-                    ball.guidedCollision(collisionFactor, MEDIUM);
+                    ball.guidedCollision(collisionFactor, SLOW);
                 }
             }
             final long paddleEndTime = System.nanoTime();

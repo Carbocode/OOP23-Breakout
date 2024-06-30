@@ -108,6 +108,7 @@ public class Menu extends JFrame {
                         + "Remember grey bricks are indestructable and some bricks requires 2 hits to get destroyed\n"
                         + "Each brick destructions give you some points, the more you break the more you score!\n\n"
                         + "Use left and right arrow to move the paddle around\n"
+                        + "Depending on which side of the paddle you use to hit the ball the ball will get a differente bounce\n"
                         + "Power-Ups:\n"
                         + "1) Paddle Enlargement: Paddle becomes larger for a few seconds.\n" 
                         + "2) Ball Duplication: Split the ball into two balls.\n" 
