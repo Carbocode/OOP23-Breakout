@@ -150,7 +150,7 @@ public class GameView extends JPanel implements View {
         }
 
         //if game area has no more bricks tha player completed the challenge -> won
-        if (gl.getBricks().isEmpty()) {
+        if (!gl.getBricks().stream().anyMatch(b -> b.getHealth() != -1 && b.isAlive())) {
             sound.playVictorySound();
             String input;
             do {
