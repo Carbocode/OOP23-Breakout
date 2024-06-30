@@ -32,6 +32,14 @@ public class CollisionManager {
     private final GameLoopAccessor master;
 
     /**
+     * parameter for paddle / ball hit position.
+     */
+    private static final int NUMBER_OF_SECTIONS = 5;
+    private static final int MEDIUM = -2;
+    private static final int SLOW = -1;
+    private static final int SLOW_SECTOR_RIGHT = 4;
+
+    /**
      * 
      * @param master
      */
@@ -54,7 +62,6 @@ public class CollisionManager {
                 continue;
             }
             boolean greyCollision = false;
-            int forcedDirection = 0;
             // Collision with bricks
             final long brickStartTime = System.nanoTime();
             for (final GameEntity brick : master.getBricks()) {
@@ -67,11 +74,7 @@ public class CollisionManager {
                         master.increaseScore(POINTS_INCREASE);
                     } else {
                         greyCollision = true;
-                        if (brick.getPosition().x > ball.getPosition().x) {
-                            forcedDirection = -1;
-                        } else {
-                            forcedDirection = 1;
-                        }
+                        handleGreyCollision(ball, brick);
                     }
                     brick.onCollision();
                 }
@@ -83,43 +86,56 @@ public class CollisionManager {
             final Bar paddle = master.getBar();
             if (collides(ball, paddle)) {
                 log.info("Paddle hit");
-                if (ball.getPosition().x < paddle.getPosition().x + (paddle.getSize().width / 2)) {
-                    ball.guidedCollision(-1);
+
+                final float ballX = ball.getPosition().x;
+                final float paddleX = paddle.getPosition().x;
+                final float paddleWidth = paddle.getSize().width;
+                final float sectionWidth = paddleWidth / NUMBER_OF_SECTIONS;
+                int collisionFactor = 0; //value for center hit
+
+                if (ballX < paddleX + (sectionWidth * 2)) {
+                    collisionFactor = -1; // Default collision factor for the left half
+                    if (ballX < paddleX + sectionWidth) {
+                        ball.guidedCollision(collisionFactor, SLOW);
+                    } else {
+                        ball.guidedCollision(collisionFactor, MEDIUM);
+                    }
+                } else if (ballX > paddleX + (sectionWidth * 3)) {
+                    collisionFactor = 1; // Default collision factor for the right half
+                    if (ballX < paddleX + sectionWidth * SLOW_SECTOR_RIGHT) {
+                        ball.guidedCollision(collisionFactor, MEDIUM);
+                    } else {
+                        ball.guidedCollision(collisionFactor, SLOW);
+                    }
                 } else {
-                    ball.guidedCollision(1);
+                    //center of the paddle
+                    ball.guidedCollision(collisionFactor, MEDIUM);
                 }
             }
             final long paddleEndTime = System.nanoTime();
             debugPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
             // Handle collisions
-            if (collision) {
+            if (collision && !greyCollision) {
                 final long powerUPStartTime = System.nanoTime();
-                if (greyCollision) {
-                    ball.guidedCollision(forcedDirection);
-                } else {
-                    ball.onCollision();
-                }
-
-                if (!greyCollision) {
-                    for (final PowerUp pu : PowerUp.values()) {
-                        if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
-                            switch (pu) {
-                                case ENLARGE:
-                                    sound.playBonusSound();
-                                    handleEnlargePowerUp();
-                                    break;
-                                case BOMB:
-                                    sound.playBombSound();
-                                    bomb(ball);
-                                    break;
-                                case DUPLI:
-                                    sound.playBonusSound();
-                                    newBalls.add(new Ball(ball)); // Collect new ball
-                                    PowerUp.DUPLI.use();
-                                    break;
-                                default:
-                                    break;
-                            }
+                ball.onCollision();
+                for (final PowerUp pu : PowerUp.values()) {
+                    if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
+                        switch (pu) {
+                            case ENLARGE:
+                                sound.playBonusSound();
+                                handleEnlargePowerUp();
+                                break;
+                            case BOMB:
+                                sound.playBombSound();
+                                bomb(ball);
+                                break;
+                            case DUPLI:
+                                sound.playBonusSound();
+                                newBalls.add(new Ball(ball)); // Collect new ball
+                                PowerUp.DUPLI.use();
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }
@@ -138,7 +154,36 @@ public class CollisionManager {
         final long endTime = System.nanoTime();
         debugPrint("TOTAL", endTime - startTime);
     }
+    private void handleGreyCollision(final Ball ball, final GameEntity brick) {
+        final Rectangle ballRect = new Rectangle(ball.getPosition(), ball.getSize());
+        final Rectangle brickRect = new Rectangle(brick.getPosition(), brick.getSize());
 
+        // Calculate penetration depth in each direction
+        final int penetrationLeft = ballRect.x + ballRect.width - brickRect.x;
+        final int penetrationRight = brickRect.x + brickRect.width - ballRect.x;
+        final int penetrationTop = ballRect.y + ballRect.height - brickRect.y;
+        final int penetrationBottom = brickRect.y + brickRect.height - ballRect.y;
+
+        // Find the smallest penetration depth to determine the direction of the collision
+        final int minPenetration = Math.min(Math.min(penetrationLeft, penetrationRight),
+        Math.min(penetrationTop, penetrationBottom));
+
+        // Adjust ball position and direction based on the collision side
+        if (minPenetration == penetrationLeft) {
+            ball.setPosition(new Point(brickRect.x - ballRect.width, ball.getPosition().y));
+            //force reverse horizontal
+            ball.guidedCollision(-ball.getDirection().getHorizontalVelocity(), ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationRight) {
+            ball.setPosition(new Point(brickRect.x + brickRect.width + ballRect.width, ball.getPosition().y));
+            ball.guidedCollision(-ball.getDirection().getHorizontalVelocity(), ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationTop) {
+            ball.setPosition(new Point(ball.getPosition().x, brickRect.y - ballRect.height));
+            ball.guidedCollision(rnd.nextInt(3) - 1, -ball.getDirection().getVerticalVelocity());
+        } else if (minPenetration == penetrationBottom) {
+            ball.setPosition(new Point(ball.getPosition().x, brickRect.y + brickRect.height));
+            ball.guidedCollision(rnd.nextInt(3) - 1, -ball.getDirection().getVerticalVelocity());
+        }
+    }
     private void debugPrint(final String name, final long difference) {
         if (!GameInfo.DEBUG_MODE) {
             return;

@@ -70,7 +70,7 @@ class ScoreboardImplTest {
         // Initialize the scoreboard implementation
         scoreboard = new ScoreboardImpl();
 
-        final JSONArray jsonArray = new JSONArray(scoreboard.open());
+        final JSONArray jsonArray = new JSONArray(scoreboard.readScoreboardFile());
         assertNotNull(jsonArray);
         assertEquals(10, jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -114,7 +114,7 @@ class ScoreboardImplTest {
         scoreboard.add("NewPlayer", TEST_VALUE15);
 
         // Verify the new entry is added in the correct position
-        JSONArray jsonArray = new JSONArray(scoreboard.open());
+        JSONArray jsonArray = new JSONArray(scoreboard.readScoreboardFile());
         assertNotNull(jsonArray);
         assertEquals(TEST_VALUE11, jsonArray.length());
         final JSONObject newEntry = jsonArray.getJSONObject(0);
@@ -125,7 +125,7 @@ class ScoreboardImplTest {
         scoreboard.add("LowPlayer", 0);
 
         // Verify the new entry is added in the correct position
-        jsonArray = scoreboard.open();
+        jsonArray = scoreboard.readScoreboardFile();
         assertNotNull(jsonArray);
         assertEquals(TEST_VALUE12, jsonArray.length());
         final JSONObject lowEntry = jsonArray.getJSONObject(TEST_VALUE12 - 1);

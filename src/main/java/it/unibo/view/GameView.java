@@ -12,6 +12,7 @@ import it.unibo.controller.Match;
 import it.unibo.controller.GameLoop.PowerUp;
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
+import it.unibo.model.ScoreboardImpl;
 import it.unibo.model.Bar;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,6 +33,7 @@ import java.util.logging.Logger;
 public class GameView extends JPanel implements View {
     public static final long serialVersionUID = 4328743;
     private final transient GameLoopAccessor gl;
+    private final transient ScoreboardImpl sb = new ScoreboardImpl();
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
     private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
@@ -128,21 +130,39 @@ public class GameView extends JPanel implements View {
         this.repaint();
         this.score = score;
 
+        //if in the game area there are no more balls the player lost
         if (gl.getBalls().isEmpty()) {
             sound.playGameOverSound();
-            JOptionPane.showMessageDialog(this,
-                    "HAI PERSO\nma d'altronde uomini forti destini forti\nuomini deboli destini deboli",
-                    "Game Over",
-                    JOptionPane.INFORMATION_MESSAGE);
+
+            String input;
+            do {
+                // Prompt for a 3-character string input
+                input = JOptionPane.showInputDialog(null,
+                "YOU LOST! :(\ninsert your name (3 characters only uppercase [A-Z])",
+                "YOU LOST!",
+                JOptionPane.QUESTION_MESSAGE);
+            } while (input == null || !input.matches("^[A-Z]{3}$"));
+
+            //add to scoreboard
+            sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }
+
+        //if game area has no more bricks tha player completed the challenge -> won
         if (gl.getBricks().isEmpty()) {
             sound.playVictorySound();
-            JOptionPane.showMessageDialog(this,
-                    "HAI VINTO\n SEI UN FENOMENO!!",
-                    "YOU WIN",
-                    JOptionPane.INFORMATION_MESSAGE);
+            String input;
+            do {
+                // Prompt for a 3-character string input
+                input = JOptionPane.showInputDialog(null,
+            "Congratulation YOU WON!!\ninsert your name (3 characters only uppercase [A-Z])",
+                "YOU WON!",
+                JOptionPane.QUESTION_MESSAGE);
+            } while (input == null || !input.matches("^[A-Z]{3}$"));
+
+            //add to scoreboard
+            sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }

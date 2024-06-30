@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.Map;
+import java.util.function.Consumer;
 import it.unibo.api.GameEntityImpl;
 import it.unibo.api.GameInfo;
 import it.unibo.api.SoundManager;
@@ -95,6 +97,28 @@ public class Bar extends GameEntityImpl {
         setSize(new Dimension(newwidth, getSize().height));
     }
 
+    // Map to store key pressed actions, associating each key code with a lambda function
+    private static final Map<Integer, Consumer<Bar>> KEY_PRESSED_ACTIONS = Map.of(
+        KeyEvent.VK_LEFT, bar -> bar.setDirection(LEFT_VALUE),
+        KeyEvent.VK_RIGHT, bar -> bar.setDirection(RIGHT_VALUE)
+    );
+
+    // Map to store key released actions, associating each key code with a lambda function
+    private static final Map<Integer, Consumer<Bar>> KEY_RELEASED_ACTIONS = Map.of(
+        KeyEvent.VK_LEFT, bar -> {
+            // If left arrow key is released and the direction is currently left, stop the bar
+            if (bar.direction == LEFT_VALUE) {
+                bar.setDirection(STOP_VALUE);
+            }
+        },
+        KeyEvent.VK_RIGHT, bar -> {
+            // If right arrow key is released and the direction is currently right, stop the bar
+            if (bar.direction == RIGHT_VALUE) {
+                bar.setDirection(STOP_VALUE);
+            }
+        }
+    );
+
     /**
      * This method is used to detect a button pressed by the user.
      * if the button match the arrow left or arrow right,
@@ -103,21 +127,7 @@ public class Bar extends GameEntityImpl {
      * @param e button pressed
      */
     public final void buttonPressed(final KeyEvent e) {
-        switch (e.getKeyCode()) {
-
-            case KeyEvent.VK_LEFT:
-                // left arrow button pressed -> move left
-                direction = LEFT_VALUE;
-                break;
-
-            case KeyEvent.VK_RIGHT:
-                // right arrow button pressed -> move right
-                direction = RIGHT_VALUE;
-                break;
-
-            default:
-                // do nothing
-        }
+        KEY_PRESSED_ACTIONS.getOrDefault(e.getKeyCode(), bar -> { }).accept(this);
     }
 
     /**
@@ -128,10 +138,6 @@ public class Bar extends GameEntityImpl {
      * @param e button pressed
      */
     public final void buttonReleased(final KeyEvent e) {
-        // button released -> stop moving
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && this.direction == LEFT_VALUE
-                || e.getKeyCode() == KeyEvent.VK_RIGHT && this.direction == RIGHT_VALUE) {
-            direction = STOP_VALUE;
-        }
+        KEY_RELEASED_ACTIONS.getOrDefault(e.getKeyCode(), bar -> { }).accept(this);
     }
 }

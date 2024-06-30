@@ -98,7 +98,7 @@ class BallTest {
     @Test
     void testGuidedCollision() {
         // Test guided collision behavior
-        ball.guidedCollision(GUIDED_COLLISION_DIRECTION);
+        ball.guidedCollision(GUIDED_COLLISION_DIRECTION, 1);
         assertEquals(GUIDED_COLLISION_DIRECTION, ball.getDirection().getHorizontalVelocity(),
                 "Horizontal velocity should change to " + GUIDED_COLLISION_DIRECTION);
     }

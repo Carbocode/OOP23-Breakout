@@ -10,11 +10,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.nio.file.Path;
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * `ScoreboardImpl` is a Java class that implements the `Scoreboard` interface.
@@ -25,127 +28,117 @@ public class ScoreboardImpl implements Scoreboard {
     private static final String POINT_KEY = "points";
 
     /**
-     * This function opens and reads the JSON file and returns the JSON file
-     * converted into JSONArray.
+     * Reads the JSON file and returns its contents as a JSONArray.
      * 
-     * @return jsonArray
+     * @return JSONArray containing the scores
+     * @throws IOException if an I/O error occurs
      */
-    public JSONArray open() throws IOException {
+    public JSONArray readScoreboardFile() throws IOException {
         try {
-            // Get the URL of the JSON file
-            final URL indFile = getClass().getClassLoader().getResource(scoreboardFile);
-            if (indFile == null) {
+            final URL fileUrl = getClass().getClassLoader().getResource(scoreboardFile);
+            if (fileUrl == null) {
                 throw new IOException("File not found: " + scoreboardFile);
             }
 
-            // Read the content of the JSON file and convert it to a string
-            final byte[] jsonBytes = Files.readAllBytes(Paths.get(indFile.toURI()));
+            final byte[] jsonBytes = Files.readAllBytes(Paths.get(fileUrl.toURI()));
             final String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
 
-            // Convert the JSON string into a JSONArray
             return new JSONArray(jsonContent);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "IOException occurred", e);
         } catch (URISyntaxException e) {
-            throw new IOException("Invalid URI", e);
+            throw new IOException("Invalid URI for the file: " + scoreboardFile, e);
         }
-        return null;
     }
 
     /**
-     * @return JList<String> list of top 10 playes based on score.
-     */
-    @Override
-    public final JList<String> top10() {
-        try {
-            final JSONArray jsonArray = open();
-
-            // Create output list
-            final DefaultListModel<String> resultList = new DefaultListModel<>();
-
-            // Add first 10 elements in the JSON file to the output list
-            for (int i = 0; i < Math.min(10, jsonArray.length()); i++) {
-                final JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                final String name = jsonObject.getString("name");
-                final int pValue = jsonObject.getInt(POINT_KEY);
-
-                final String resultString = "Name: " + name + ", Points: " + pValue;
-                resultList.addElement((i + 1) + "° - " + resultString);
-            }
-
-            return new JList<>(resultList);
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "IOException occurred", e);
-        }
-        return null;
-    }
-
-    /**
-     * The `add` method in the `ScoreboardImpl` class is responsible for adding a
-     * new entry to the
-     * scoreboard with the given name and points.
+     * Writes the given JSONArray to the JSON file.
      * 
-     * @param name
-     * @param pval
+     * @param jsonArray the JSONArray to write to the file
+     * @throws IOException if an I/O error occurs
      */
-    @Override
-    public void add(final String name, final int pval) {
-        boolean put = true;
-        JSONArray inputArray = new JSONArray();
-
-        // Input JSONArray
+    private void writeScoreboardFile(final JSONArray jsonArray) throws IOException {
         try {
-            inputArray = open();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "IOException occurred", e);
-        }
-
-        // Create a new JSONArray for the results
-        final JSONArray outputArray = new JSONArray();
-
-        // Create a new JSONArray of output with all the elements in order
-        for (int i = 0; i < inputArray.length(); i++) {
-            final JSONObject jsonObject = inputArray.getJSONObject(i);
-
-            if (put && pval > jsonObject.getInt(POINT_KEY)) {
-                final JSONObject outputNewObject = new JSONObject();
-                outputNewObject.put("name", name);
-                outputNewObject.put(POINT_KEY, pval);
-                outputArray.put(outputNewObject);
-                put = false;
-            }
-
-            outputArray.put(jsonObject);
-        }
-
-        // If the new score hasn't been added, add it to the end
-        if (put) {
-            final JSONObject outputNewObject = new JSONObject();
-            outputNewObject.put("name", name);
-            outputNewObject.put(POINT_KEY, pval);
-            outputArray.put(outputNewObject);
-        }
-
-        // Save the output JSONArray to a JSON file
-        try {
-            final URL indFile = getClass().getClassLoader().getResource(scoreboardFile);
-            if (indFile == null) {
+            final URL fileUrl = getClass().getClassLoader().getResource(scoreboardFile);
+            if (fileUrl == null) {
                 throw new IOException("File not found: " + scoreboardFile);
             }
-            final Path filePath = Paths.get(indFile.toURI());
+            final Path filePath = Paths.get(fileUrl.toURI());
             try (BufferedWriter fileWriter = Files.newBufferedWriter(filePath)) {
-                fileWriter.write(outputArray.toString(2)); // Indent with 2 spaces for better readability
+                fileWriter.write(jsonArray.toString(2)); // Indent with 2 spaces for better readability
             }
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.log(Level.SEVERE, "Exception occurred", e);
+        } catch (URISyntaxException e) {
+            throw new IOException("Invalid URI for the file: " + scoreboardFile, e);
         }
     }
 
     /**
+     * @return JList<String> list of top 10 players based on score.
+     */
+    @Override
+    public JList<String> top10() {
+        try {
+            final JSONArray jsonArray = readScoreboardFile();
+
+            final DefaultListModel<String> topPlayersList = new DefaultListModel<>();
+
+            IntStream.range(0, Math.min(10, jsonArray.length()))
+                    // Create a stream of integers from 0 (inclusive) 
+                    //to the smaller value of 10 or the length of the jsonArray (exclusive)
+                    .mapToObj(i -> {
+                        final JSONObject player = jsonArray.getJSONObject(i);
+                        final String name = player.getString("name");
+                        final int points = player.getInt(POINT_KEY);
+
+                        // Format the extracted data into a string in the format "i° - Name: name, Points: points".
+                        return String.format("%d° - Name: %s, Points: %d", i + 1, name, points);
+                    })
+                    // Add each formatted string to the topPlayersList.
+                    .forEach(topPlayersList::addElement);
+
+            return new JList<>(topPlayersList);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error reading scoreboard file", e);
+            return null;
+        }
+    }
+
+    /**
+     * Adds a new entry to the scoreboard.
      * 
-     * @param filePath
+     * @param name the name of the player
+     * @param points the points scored by the player
+     */
+    @Override
+    public void add(final String name, final int points) {
+        try {
+            JSONArray scoreboard = readScoreboardFile();
+
+            List<JSONObject> sortedScoreboard = IntStream.range(0, scoreboard.length())
+                    .mapToObj(scoreboard::getJSONObject)
+                    .collect(Collectors.toList());
+
+            JSONObject newScore = new JSONObject();
+            newScore.put("name", name);
+            newScore.put(POINT_KEY, points);
+
+            sortedScoreboard.add(newScore);
+
+            // Convert the List back into a stream of JSONObjects.
+            sortedScoreboard = sortedScoreboard.stream()
+                    .sorted((a, b) -> Integer.compare(b.getInt(POINT_KEY), a.getInt(POINT_KEY)))
+                    .collect(Collectors.toList());
+
+            JSONArray updatedScoreboard = new JSONArray(sortedScoreboard);
+
+            writeScoreboardFile(updatedScoreboard);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error updating scoreboard file", e);
+        }
+    }
+
+    /**
+     * Sets the scoreboard file path for testing purposes.
+     * 
+     * @param filePath the path of the scoreboard file
      */
     public static void setScoreboardFileForTest(final String filePath) {
         scoreboardFile = filePath;
