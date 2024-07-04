@@ -27,7 +27,7 @@ Il giocatore avrà a disposizione 3 vite per superare tutti i livelli e a second
 
 Power up disponibili:
 * Sdoppiamento: ogni pallina presente in gioco si divide in 2 palline
-* Laser: dalla barra situata nella parte inferiore dello schermo vengono sparati 8 colpi laser che distruggono istantaneamente il primo cubetto che colpiscono
+* Bomba: Casualmente dei cubetti esplodono danneggiando/distruggendo i brick adiacenti
 * Barra più grande: per 30 secondi la barra controllata dall'utente diventa più grande per poi tornare normale scaduto il tempo
 
 Funzionalità minimali ritenute obbligatorie:
@@ -38,7 +38,7 @@ Funzionalità minimali ritenute obbligatorie:
 * Conteggio dei punti.
 * Distruzione e danneggiamento cubetti.
 * Fisica della palla.
-* Power up (sdoppiamento, laser, barra).
+* Power up (sdoppiamento, bomba, barra).
 * Fine gioco (per fine vite o fine livelli).
 * Effetti sonori (distruzione cubetti, rimbalzi).
 
@@ -61,7 +61,7 @@ Challenge principali:
   1. Scoreboard Offline (opz Online),
   2. Barra,
   3. Controlli utente,
-  4. Power up (Laser)
+  4. Power up (bomba)
 - Prisco:
   1. Cubetti,
   2. Spawn power up
