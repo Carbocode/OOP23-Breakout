@@ -1,7 +1,7 @@
 package it.unibo.api;
 
 import it.unibo.controller.GameLoop;
-import it.unibo.controller.GameLoop.PowerUp;
+import it.unibo.model.PowerUpBubble.PowerUp;
 import it.unibo.model.Ball;
 
 import org.junit.jupiter.api.Test;

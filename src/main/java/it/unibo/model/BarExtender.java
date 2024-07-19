@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.controller.GameLoop.PowerUp;
+import it.unibo.model.PowerUp;
 
 /**
  * This is one of the bonus of the game.

@@ -9,9 +9,11 @@ import it.unibo.api.GameLoopAccessor;
 import it.unibo.api.SoundManager;
 import it.unibo.api.View;
 import it.unibo.controller.Match;
-import it.unibo.controller.GameLoop.PowerUp;
+import it.unibo.model.PowerUp;
+
 import it.unibo.model.Ball;
 import it.unibo.model.Brick;
+import it.unibo.model.PowerUpBubble;
 import it.unibo.model.ScoreboardImpl;
 import it.unibo.model.Bar;
 import java.awt.Color;
@@ -23,6 +25,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -36,6 +40,7 @@ public class GameView extends JPanel implements View {
     private final transient ScoreboardImpl sb = new ScoreboardImpl();
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
+    private List<PowerUpBubble> powerUpBubbles = new ArrayList<>();
     private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
     private static final int SCORE_Y = GameInfo.GAME_HEIGHT - 25;
     private static final int BOMB_Y = SCORE_Y - 30;
@@ -109,6 +114,11 @@ public class GameView extends JPanel implements View {
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
+        for (PowerUpBubble bubble : gl.getPowerUpBubbles()) {
+            g.setColor(bubble.getColor());
+            g.fillOval((int) bubble.getPosition().x, (int) bubble.getPosition().y, (int) bubble.getSize().getWidth(), (int) bubble.getSize().getHeight());
+        }
+
         g.setColor(Color.YELLOW);
         g.setFont(new Font("Monospaced", Font.BOLD, FONT_SIZE_SCORE));
         g.drawString(score + "pts", INFO_X, SCORE_Y);
@@ -123,45 +133,47 @@ public class GameView extends JPanel implements View {
 
     /**
      * this method update the game state.
+     * 
      * @param score current score
      */
     @Override
     public void updateGameState(final int score) {
         this.repaint();
         this.score = score;
+        // if in the game area there are no more balls the player lost
+        if (gl.getBalls().isEmpty())
 
-        //if in the game area there are no more balls the player lost
-        if (gl.getBalls().isEmpty()) {
+        {
             sound.playGameOverSound();
 
             String input;
             do {
                 // Prompt for a 3-character string input
                 input = JOptionPane.showInputDialog(null,
-                "YOU LOST! :(\ninsert your name (3 characters only uppercase [A-Z])",
-                "YOU LOST!",
-                JOptionPane.QUESTION_MESSAGE);
+                        "YOU LOST! :(\ninsert your name (3 characters only uppercase [A-Z])",
+                        "YOU LOST!",
+                        JOptionPane.QUESTION_MESSAGE);
             } while (input == null || !input.matches("^[A-Z]{3}$"));
 
-            //add to scoreboard
+            // add to scoreboard
             sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);
         }
 
-        //if game area has no more bricks tha player completed the challenge -> won
+        // if game area has no more bricks tha player completed the challenge -> won
         if (!gl.getBricks().stream().anyMatch(b -> b.getHealth() != -1 && b.isAlive())) {
             sound.playVictorySound();
             String input;
             do {
                 // Prompt for a 3-character string input
                 input = JOptionPane.showInputDialog(null,
-            "Congratulation YOU WON!!\ninsert your name (3 characters only uppercase [A-Z])",
-                "YOU WON!",
-                JOptionPane.QUESTION_MESSAGE);
+                        "Congratulation YOU WON!!\ninsert your name (3 characters only uppercase [A-Z])",
+                        "YOU WON!",
+                        JOptionPane.QUESTION_MESSAGE);
             } while (input == null || !input.matches("^[A-Z]{3}$"));
 
-            //add to scoreboard
+            // add to scoreboard
             sb.add(input, score);
             // close the window
             Runtime.getRuntime().exit(0);

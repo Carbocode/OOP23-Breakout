@@ -7,6 +7,7 @@ import java.util.Set;
 import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.model.Brick;
+import it.unibo.model.PowerUpBubble;
 
 /**
  * 
@@ -68,5 +69,9 @@ public interface GameLoopAccessor {
      * 
      */
     void extendPaddle();
+
+    List<PowerUpBubble> getPowerUpBubbles();
+    
+    void addPowerUpBubble(PowerUpBubble bubble);
 
 }

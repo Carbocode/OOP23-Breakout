@@ -10,6 +10,7 @@ import it.unibo.model.Ball;
 import it.unibo.model.Bar;
 import it.unibo.model.BarExtender;
 import it.unibo.model.Brick;
+import it.unibo.model.PowerUpBubble;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,80 +29,6 @@ import java.util.List;
  * Class that handles the main GameLoop.
  */
 public class GameLoop implements ActionListener, GameLoopAccessor {
-    /**
-     * PowerUP description enum.
-     */
-    public enum PowerUp {
-        /**
-         * Bomb power up.
-         */
-        BOMB(15, 15_000),
-        /**
-         * Duplication power up.
-         */
-        DUPLI(50, 2_000),
-        /**
-         * Enlargement.
-         */
-        ENLARGE(10, 5_000);
-
-        private final double probability;
-        private final long cooldownMillis;
-        private long lastUsedTime;
-
-        /**
-         * 
-         * @param probability
-         * @param cooldownMillis
-         */
-        PowerUp(final double probability, final long cooldownMillis) {
-            this.probability = probability;
-            this.cooldownMillis = cooldownMillis;
-            this.lastUsedTime = 0; // Initialize lastUsedTime to 0 (not used yet)
-        }
-
-        /**
-         * 
-         * @return Probability
-         */
-        public double getProbability() {
-            return probability;
-        }
-
-        /**
-         * 
-         * @return Cooldown of the power up.
-         */
-        public long getCooldownMillis() {
-            return cooldownMillis;
-        }
-
-        /**
-         * 
-         * @return remaining CD
-         */
-        public int getCDInSecs() {
-            if (!isOnCooldown()) {
-                return 0;
-            }
-            return (int) (cooldownMillis - (System.currentTimeMillis() - lastUsedTime)) / 1000;
-        }
-
-        /**
-         * 
-         * @return is it on CD?
-         */
-        public boolean isOnCooldown() {
-            return System.currentTimeMillis() - lastUsedTime < cooldownMillis;
-        }
-
-        /**
-         * ALWAYS USE WHEN ACTIVATING POWER UP.
-         */
-        public void use() {
-            lastUsedTime = System.currentTimeMillis();
-        }
-    }
 
     private static final double BRICK_PERCENT = 0.45;
     private CollisionManager manager;
@@ -109,6 +36,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     private Set<Ball> balls;
     private Bar paddle;
     private ScoreManager score;
+    private final List<PowerUpBubble> powerUpBubbles;
 
     private long lastUpdateTime;
 
@@ -121,7 +49,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     public GameLoop() {
         final Timer timer;
         brickWall = new BrickWallImpl(GameInfo.GAME_WIDTH, (int) (GameInfo.GAME_HEIGHT * BRICK_PERCENT));
-
+        this.powerUpBubbles = new ArrayList<>();
         balls = new HashSet<>();
         balls.add(new Ball());
         brickWall.generateLayout();
@@ -159,7 +87,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
      * Updates the gamestate.
      */
     private void update() {
-
+        this.updatePowerUpBubbles();
         manager.checkAll();
         this.updateBalls();
         DeathCollector.checkEntities(balls);
@@ -175,6 +103,17 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         for (final View w : ourViews) {
             w.updateGameState(getScore());
         }
+    }
+
+    private void updatePowerUpBubbles() {
+        for (PowerUpBubble bubble : powerUpBubbles) {
+            bubble.update();
+        }
+        powerUpBubbles.removeIf(bubble -> bubble.getPosition().y > GameInfo.GAME_HEIGHT);
+    }
+
+    public void addPowerUpBubble(PowerUpBubble bubble) {
+        powerUpBubbles.add(bubble);
     }
 
     /**
@@ -277,6 +216,10 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         return new GameLoopAccessorImpl(this);
     }
 
+    public List<PowerUpBubble> getPowerUpBubbles() {
+        return Collections.unmodifiableList(this.powerUpBubbles);
+    }
+
     // Additional methods for game loop logic
 
     private class GameLoopAccessorImpl implements GameLoopAccessor {
@@ -337,5 +280,17 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         public final void extendPaddle() {
             gameLoop.extendPaddle();
         }
+
+        @Override
+        public List<PowerUpBubble> getPowerUpBubbles() {
+            return List.copyOf(powerUpBubbles);
+        }
+
+        @Override
+        public void addPowerUpBubble(PowerUpBubble bubble) {
+            gameLoop.addPowerUpBubble(bubble);
+        }
+
     }
+
 }
