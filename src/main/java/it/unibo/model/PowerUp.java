@@ -1,7 +1,5 @@
 package it.unibo.model;
 
-import java.awt.Color;
-
 /**
  * PowerUP description enum.
  */
@@ -32,14 +30,6 @@ public enum PowerUp {
         this.probability = probability;
         this.cooldownMillis = cooldownMillis;
         this.lastUsedTime = 0; // Initialize lastUsedTime to 0 (not used yet)
-    }
-
-    Color getColor() {
-        return switch (this) {
-            case BOMB -> Color.RED;
-            case DUPLI -> Color.BLUE;
-            case ENLARGE -> Color.GREEN;
-        };
     }
 
     /**

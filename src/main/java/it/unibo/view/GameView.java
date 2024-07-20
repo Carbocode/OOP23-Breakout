@@ -40,7 +40,6 @@ public class GameView extends JPanel implements View {
     private final transient ScoreboardImpl sb = new ScoreboardImpl();
     private final transient SoundManager sound = new SoundManagerImpl();
     private int score;
-    private List<PowerUpBubble> powerUpBubbles = new ArrayList<>();
     private static final int INFO_X = GameInfo.GAME_WIDTH - 100;
     private static final int SCORE_Y = GameInfo.GAME_HEIGHT - 25;
     private static final int BOMB_Y = SCORE_Y - 30;
@@ -115,8 +114,9 @@ public class GameView extends JPanel implements View {
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
         for (PowerUpBubble bubble : gl.getPowerUpBubbles()) {
-            g.setColor(bubble.getColor());
-            g.fillOval((int) bubble.getPosition().x, (int) bubble.getPosition().y, (int) bubble.getSize().getWidth(), (int) bubble.getSize().getHeight());
+            g.setColor(Color.ORANGE);
+            g.fillOval((int) bubble.getPosition().x, (int) bubble.getPosition().y, (int) bubble.getSize().getWidth(),
+                    (int) bubble.getSize().getHeight());
         }
 
         g.setColor(Color.YELLOW);

@@ -12,6 +12,7 @@ import it.unibo.controller.GameLoop;
 import it.unibo.model.PowerUp;
 import it.unibo.model.Bomb;
 import it.unibo.model.PowerUpBubble;
+import it.unibo.model.PowerUpBubbles;
 import it.unibo.view.SoundManagerImpl;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import javax.swing.text.Position;
 public class CollisionManager {
     private static final int BOMB_SIZE_RATIO = 5;
     private static int maxBalls = 10;
+    private static int secs = 5;
     /**
      * points increase for a brick hit.
      */
@@ -32,6 +34,8 @@ public class CollisionManager {
     private final SoundManager sound;
     private final Logger log;
     private final GameLoopAccessor master;
+    private final PowerUpBubbles powerUpBubbles;
+    private boolean bomb;
 
     /**
      * parameter for paddle / ball hit position.
@@ -50,6 +54,7 @@ public class CollisionManager {
         rnd = new Random();
         sound = new SoundManagerImpl();
         log = Logger.getLogger(CollisionManager.class.getName());
+        this.powerUpBubbles = new PowerUpBubbles();
     }
 
     /**
@@ -66,7 +71,7 @@ public class CollisionManager {
             boolean greyCollision = false;
             // Collision with bricks
             final long brickStartTime = System.nanoTime();
-            Point last_brick_pos=null;
+            Point last_brick_pos = null;
             for (final GameEntity brick : master.getBricks()) {
                 if (!brick.isAlive()) {
                     continue;
@@ -75,7 +80,7 @@ public class CollisionManager {
                     collision = true;
                     if (brick.getHealth() != -1) {
                         master.increaseScore(POINTS_INCREASE);
-                        last_brick_pos=brick.getPosition();
+                        last_brick_pos = brick.getPosition();
                     } else {
                         greyCollision = true;
                         handleGreyCollision(ball, brick);
@@ -95,7 +100,7 @@ public class CollisionManager {
                 final float paddleX = paddle.getPosition().x;
                 final float paddleWidth = paddle.getSize().width;
                 final float sectionWidth = paddleWidth / NUMBER_OF_SECTIONS;
-                int collisionFactor = 0; //value for center hit
+                int collisionFactor = 0; // value for center hit
 
                 if (ballX < paddleX + (sectionWidth * 2)) {
                     collisionFactor = -1; // Default collision factor for the left half
@@ -112,48 +117,58 @@ public class CollisionManager {
                         ball.guidedCollision(collisionFactor * -MEDIUM, SLOW);
                     }
                 } else {
-                    //center of the paddle
+                    // center of the paddle
                     ball.guidedCollision(collisionFactor, SLOW);
                 }
             }
             final long paddleEndTime = System.nanoTime();
             debugPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
             // Handle collisions
-            
 
-            if (collision && !greyCollision){
+            if (collision && !greyCollision) {
                 ball.onCollision();
+                if (rnd.nextInt(100) < 35) { // chance to create a powerup
                 master.addPowerUpBubble(new PowerUpBubble(last_brick_pos));
+                }
+                if(bomb){
+                    sound.playBombSound();
+                    bomb(ball);
+                    bomb = false;
+                }
             }
 
             for (final PowerUpBubble bubble : master.getPowerUpBubbles()) {
                 if (collides(paddle, bubble)) {
-                        final long powerUPStartTime = System.nanoTime();
-                        for (final PowerUp pu : PowerUp.values()) {
-                            if (rnd.nextInt(100) <= pu.getProbability() && !pu.isOnCooldown()) {
-                                switch (pu) {
-                                    case ENLARGE:
-                                        sound.playBonusSound();
-                                        handleEnlargePowerUp();
-                                        break;
-                                    case BOMB:
-                                        sound.playBombSound();
-                                        bomb(ball);
-                                        break;
-                                    case DUPLI:
-                                        sound.playBonusSound();
-                                        newBalls.add(new Ball(ball)); // Collect new ball
-                                        PowerUp.DUPLI.use();
-                                        break;
-                                    default:
-                                        break;
-                                }
+                    final long powerUPStartTime = System.nanoTime();
+
+                    for (final PowerUp pu : PowerUp.values()) {
+                        if (!pu.isOnCooldown() && rnd.nextInt(100) <= pu.getProbability()) {
+                            // Handle powerup creation
+                            switch (pu) {
+                                case ENLARGE:
+                                    sound.playBonusSound();
+                                    handleEnlargePowerUp();
+                                    break;
+                                case BOMB:
+                                    sound.playBombSound();
+                                    bomb=true;
+                                    break;
+                                case DUPLI:
+                                    sound.playBonusSound();
+                                    newBalls.add(new Ball(ball));
+                                    PowerUp.DUPLI.use();
+                                    break;
+                                default:
+                                    break;
                             }
                         }
-                        final long powerUpEndTime = System.nanoTime();
-                        debugPrint("Power Up Handling", powerUpEndTime - powerUPStartTime);
                     }
-                }        
+
+                    final long powerUpEndTime = System.nanoTime();
+                    debugPrint("Power Up Handling", powerUpEndTime - powerUPStartTime);
+                }
+            }
+
         }
 
         // Add new balls
