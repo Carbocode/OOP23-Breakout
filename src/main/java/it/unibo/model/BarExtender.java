@@ -5,14 +5,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.model.PowerUp;
-
 /**
  * This is one of the bonus of the game.
  * when the bricks that contains it get broken, the bar will extend.
  */
 public final class BarExtender {
     private static final int INCREASE_AMOUNT = 50;
+
     /**
      * Barextender constructor.
      */

@@ -25,8 +25,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -113,7 +111,7 @@ public class GameView extends JPanel implements View {
                 (int) (bar.getPosition().getY() - bar.getSize().getHeight() / 2),
                 (int) bar.getSize().getWidth(), (int) bar.getSize().getHeight());
 
-        for (PowerUpBubble bubble : gl.getPowerUpBubbles()) {
+        for (final PowerUpBubble bubble : gl.getPowerUpBubbles()) {
             g.setColor(Color.ORANGE);
             g.fillOval((int) bubble.getPosition().x, (int) bubble.getPosition().y, (int) bubble.getSize().getWidth(),
                     (int) bubble.getSize().getHeight());
@@ -141,9 +139,7 @@ public class GameView extends JPanel implements View {
         this.repaint();
         this.score = score;
         // if in the game area there are no more balls the player lost
-        if (gl.getBalls().isEmpty())
-
-        {
+        if (gl.getBalls().isEmpty()) {
             sound.playGameOverSound();
 
             String input;

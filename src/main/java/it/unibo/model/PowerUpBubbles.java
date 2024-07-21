@@ -1,27 +1,41 @@
 package it.unibo.model;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.api.GameInfo;
 
+/**
+ * Class that contains the power up bubbles.
+ */
 public class PowerUpBubbles {
-    private List<PowerUpBubble> bubbles;
+    private final List<PowerUpBubble> bubbles;
 
+    /**
+     * PowerUpBubbles constructor.
+     */
     public PowerUpBubbles() {
         this.bubbles = new ArrayList<>();
     }
 
-    public void addBubble(PowerUpBubble bubble) {
+    /**
+     * this method adds a new bubble to the bubbles list.
+     * 
+     * @param bubble
+     */
+    public void addBubble(final PowerUpBubble bubble) {
         bubbles.add(bubble);
     }
 
+    /**
+     * this method removes a bubble from the bubbles list.
+     */
     public void update() {
-        Iterator<PowerUpBubble> iterator = bubbles.iterator();
+        final Iterator<PowerUpBubble> iterator = bubbles.iterator();
         while (iterator.hasNext()) {
-            PowerUpBubble bubble = iterator.next();
+            final PowerUpBubble bubble = iterator.next();
             bubble.update();
             if (bubble.getPosition().y > GameInfo.GAME_HEIGHT) { // Fuori dallo schermo
                 iterator.remove();
@@ -29,7 +43,13 @@ public class PowerUpBubbles {
         }
     }
 
+    /**
+     * this method returns the bubbles list.
+     * 
+     * @return bubbles
+     */
+    @SuppressFBWarnings
     public List<PowerUpBubble> getBubbles() {
-        return bubbles;
+        return this.bubbles;
     }
 }

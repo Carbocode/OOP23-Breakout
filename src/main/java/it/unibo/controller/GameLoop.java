@@ -31,16 +31,16 @@ import java.util.List;
 public class GameLoop implements ActionListener, GameLoopAccessor {
 
     private static final double BRICK_PERCENT = 0.45;
-    private CollisionManager manager;
-    private BrickWall brickWall;
-    private Set<Ball> balls;
-    private Bar paddle;
-    private ScoreManager score;
+    private final CollisionManager manager;
+    private final BrickWall brickWall;
+    private final Set<Ball> balls;
+    private final Bar paddle;
+    private final ScoreManager score;
     private final List<PowerUpBubble> powerUpBubbles;
 
     private long lastUpdateTime;
 
-    private List<View> ourViews;
+    private final List<View> ourViews;
 
     /**
      * Initializer.
@@ -106,13 +106,19 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
     }
 
     private void updatePowerUpBubbles() {
-        for (PowerUpBubble bubble : powerUpBubbles) {
+        for (final PowerUpBubble bubble : powerUpBubbles) {
             bubble.update();
         }
         powerUpBubbles.removeIf(bubble -> bubble.getPosition().y > GameInfo.GAME_HEIGHT);
     }
 
-    public void addPowerUpBubble(PowerUpBubble bubble) {
+    /**
+     * this method returns the score of the game.
+     * 
+     * @param bubble
+     */
+    @Override
+    public void addPowerUpBubble(final PowerUpBubble bubble) {
         powerUpBubbles.add(bubble);
     }
 
@@ -216,6 +222,12 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         return new GameLoopAccessorImpl(this);
     }
 
+    /**
+     * this method returns the power up bubbles of the game.
+     * 
+     * @return unmodifiable list of power up bubbles
+     */
+    @Override
     public List<PowerUpBubble> getPowerUpBubbles() {
         return Collections.unmodifiableList(this.powerUpBubbles);
     }
@@ -287,7 +299,7 @@ public class GameLoop implements ActionListener, GameLoopAccessor {
         }
 
         @Override
-        public void addPowerUpBubble(PowerUpBubble bubble) {
+        public void addPowerUpBubble(final PowerUpBubble bubble) {
             gameLoop.addPowerUpBubble(bubble);
         }
 

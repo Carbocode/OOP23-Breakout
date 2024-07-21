@@ -70,8 +70,16 @@ public interface GameLoopAccessor {
      */
     void extendPaddle();
 
+    /**
+     * 
+     * @return powerupbubbles
+     */
     List<PowerUpBubble> getPowerUpBubbles();
-    
+
+    /**
+     * 
+     * @param bubble
+     */
     void addPowerUpBubble(PowerUpBubble bubble);
 
 }

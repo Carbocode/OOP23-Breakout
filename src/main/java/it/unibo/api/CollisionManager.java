@@ -12,12 +12,9 @@ import it.unibo.controller.GameLoop;
 import it.unibo.model.PowerUp;
 import it.unibo.model.Bomb;
 import it.unibo.model.PowerUpBubble;
-import it.unibo.model.PowerUpBubbles;
 import it.unibo.view.SoundManagerImpl;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-
-import javax.swing.text.Position;
 
 /**
  * Class that checks for collisions.
@@ -25,7 +22,6 @@ import javax.swing.text.Position;
 public class CollisionManager {
     private static final int BOMB_SIZE_RATIO = 5;
     private static int maxBalls = 10;
-    private static int secs = 5;
     /**
      * points increase for a brick hit.
      */
@@ -34,7 +30,6 @@ public class CollisionManager {
     private final SoundManager sound;
     private final Logger log;
     private final GameLoopAccessor master;
-    private final PowerUpBubbles powerUpBubbles;
     private boolean bomb;
 
     /**
@@ -54,7 +49,6 @@ public class CollisionManager {
         rnd = new Random();
         sound = new SoundManagerImpl();
         log = Logger.getLogger(CollisionManager.class.getName());
-        this.powerUpBubbles = new PowerUpBubbles();
     }
 
     /**
@@ -71,7 +65,7 @@ public class CollisionManager {
             boolean greyCollision = false;
             // Collision with bricks
             final long brickStartTime = System.nanoTime();
-            Point last_brick_pos = null;
+            Point lastbrickpos = null;
             for (final GameEntity brick : master.getBricks()) {
                 if (!brick.isAlive()) {
                     continue;
@@ -80,7 +74,7 @@ public class CollisionManager {
                     collision = true;
                     if (brick.getHealth() != -1) {
                         master.increaseScore(POINTS_INCREASE);
-                        last_brick_pos = brick.getPosition();
+                        lastbrickpos = brick.getPosition();
                     } else {
                         greyCollision = true;
                         handleGreyCollision(ball, brick);
@@ -124,13 +118,13 @@ public class CollisionManager {
             final long paddleEndTime = System.nanoTime();
             debugPrint("Paddle Collision check", paddleEndTime - paddleStartTime);
             // Handle collisions
-
+            final int prob = 35;
             if (collision && !greyCollision) {
                 ball.onCollision();
-                if (rnd.nextInt(100) < 35) { // chance to create a powerup
-                master.addPowerUpBubble(new PowerUpBubble(last_brick_pos));
+                if (rnd.nextInt(100) < prob) { // chance to create a powerup
+                    master.addPowerUpBubble(new PowerUpBubble(lastbrickpos));
                 }
-                if(bomb){
+                if (bomb) {
                     sound.playBombSound();
                     bomb(ball);
                     bomb = false;
@@ -150,8 +144,7 @@ public class CollisionManager {
                                     handleEnlargePowerUp();
                                     break;
                                 case BOMB:
-                                    sound.playBombSound();
-                                    bomb=true;
+                                    bomb = true;
                                     break;
                                 case DUPLI:
                                     sound.playBonusSound();
